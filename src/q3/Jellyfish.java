@@ -18,6 +18,10 @@ public class Jellyfish extends Swimmable {
         this.x_front = xFront;
     }
 
+    /**
+     * Gets the animals name
+     * @return Jellyfish name
+     */
     @Override
     public String getAnimalName() {
         return "Jellyfish";

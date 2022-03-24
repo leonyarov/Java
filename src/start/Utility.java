@@ -10,6 +10,10 @@ import java.util.Map;
 
 public class Utility {
 
+    /**
+     * @param dateArray
+     * @return
+     */
     public static MyDate threeDates(MyDate[] dateArray) {
         var arrayList = Arrays.asList(Arrays.stream(dateArray).map(MyDate::toString).toArray(String[]::new));
         for (MyDate thisDate : dateArray) {
