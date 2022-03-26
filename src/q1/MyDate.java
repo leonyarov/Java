@@ -103,7 +103,7 @@ public class MyDate {
     }
 
     public void printDate(){
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     public void printMonthName(){
@@ -128,7 +128,7 @@ public class MyDate {
     public void printFormatDate(String format){
         switch (format) {
             case "ddmmyyyy":
-                System.out.println(toString());
+                System.out.println(this);
                 break;
             case "ddmmyy":
                 System.out.printf("%02d/%02d/%02d%n", day, month, year % 100);
@@ -155,5 +155,7 @@ public class MyDate {
         else return 0;
     }
 
-
+    public boolean equals(MyDate date){
+        return this.day == date.getDay() && this.month == date.getMonth() && this.month == date.getMonthDay();
+    }
 }

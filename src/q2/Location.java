@@ -1,32 +1,44 @@
 package q2;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Location {
     private String name;
     private Temperature[] temp;
+
+    public Location(){
+        this.name = "Unknown";
+        this.temp = new Temperature[0];
+    }
 
     public Location(String name) {
         this.name = name;
         this.temp = new Temperature[0];
     }
 
+    public Location(Location location){
+        setName(location.getName());
+        setTemp(location.getTemp());
+    }
+
     //get set
     public String getName() {
         return name;
     }
+    public void setName(String name) { this.name = name; }
+    public void setTemp(Temperature[] tmp) {
+            temp = tmp;
+    }
+    public Temperature[] getTemp() { return temp;}
+
 
     public void printLocation(double range) {
         System.out.println("Location: " + name);
         Arrays.stream(temp).filter(t -> t.getScale() <= getAverage() + range && t.getScale() >= getAverage()- range).forEach(Temperature::printTempFull);
     }
     public void printLocation() {
-        System.out.println("Location: " + name);
-        if (temp.length == 0) {
-            System.out.println("No temperature data");
-            return;
-        }
-        Arrays.stream(temp).forEach(Temperature::printTempFull);
+        System.out.println(this);
     }
 
     public double getAverage(){
@@ -52,4 +64,20 @@ public class Location {
         return Arrays.stream(temp).reduce(Temperature::compareTemp).orElse(null);
     }
 
+    public String toString(){
+        var output = ("Location: " + name + '\n');
+        if (temp.length == 0) {
+            return output + "No temperature data";
+        }
+        for (var t: temp){
+            output += t.toString() + '\n';
+        }
+        return output;
+    }
+
+    public boolean equals(Location location){
+        return Objects.equals(this.name, location.getName()) && this.temp == location.getTemp();
+    }
 }
+
+

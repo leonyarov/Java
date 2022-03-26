@@ -6,6 +6,11 @@ public class Temperature {
     private double scale;
     private MyDate scale_date;
 
+    public Temperature(){
+        this.scale = 0;
+        this.scale_date = new MyDate();
+    }
+
     public Temperature(double scale) {
         this.scale = scale;
         this.scale_date = new MyDate();
@@ -15,7 +20,6 @@ public class Temperature {
         this.scale = scale;
         this.scale_date = new MyDate(day, month, year);
     }
-
 
 
     public Temperature(Temperature temp) {
@@ -44,7 +48,7 @@ public class Temperature {
      * @return a string with this format "+- (temperature) (date)"
      */
     public String toString(){
-        return String.format("%s%.2f°C %s",scale >= 0 ? "+" : "-", scale, scale_date.toString());
+        return String.format("%s%.2f°C %s",scale >= 0 ? "+" : "", scale, scale_date.toString());
     }
 
     public void printTemp(){
@@ -52,12 +56,15 @@ public class Temperature {
     }
 
     public void printTempFull(){
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     public Temperature compareTemp(Temperature temp){
         return this.scale > temp.scale ? this : temp;
     }
 
+    public boolean equals(Temperature temp){
+        return this.scale == temp.getScale() && this.scale_date == temp.getScale_date();
+    }
 
 }

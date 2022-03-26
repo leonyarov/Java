@@ -2,6 +2,7 @@ package start;
 
 import q1.MyDate;
 import q2.Location;
+import q2.Temperature;
 import q3.*;
 
 public class Program {
@@ -75,6 +76,13 @@ public class Program {
             Utility.printAquarium(arr3);
         }
 
+        public static void RunTest() {
+            Location location = new Location("Niglet");
+            Temperature[] temp = new Temperature[1];
+            temp[0] = new Temperature(-24);
+            location.setTemp(temp);
+            System.out.println(location);
+        }
 
 
 }

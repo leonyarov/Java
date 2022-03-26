@@ -15,6 +15,11 @@ public abstract class Swimmable implements Comparable<Swimmable> {
         this.verSpeed = vS;
     }
 
+    public Swimmable(Swimmable swimmable){
+        setHorSpeed(swimmable.getHorSpeed());
+        setVerSpeed(swimmable.getVerSpeed());
+    }
+
     public int getHorSpeed(){ return horSpeed; }
     public void setHorSpeed(int hS) {  horSpeed = hS; }
     public void setVerSpeed(int vS) { verSpeed = vS; }
@@ -25,8 +30,12 @@ public abstract class Swimmable implements Comparable<Swimmable> {
     public abstract String getColor();
     public abstract int eatInc();
 
-    @Override
     public String toString() {
         return String.format("%-13s\t%-13s\t%d\t%d",getAnimalName(),getColor(), getSize() ,getEatCount());
     }
+
+    public boolean equals(Swimmable swimmable){
+        return this.horSpeed == swimmable.getHorSpeed() && this.verSpeed == swimmable.getVerSpeed() ;
+    }
+
 }
