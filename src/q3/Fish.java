@@ -49,7 +49,7 @@ public class Fish extends Swimmable {
         this.y_front = fish.gety_front();
         this.x_dir = fish.getx_dir();
         this.y_dir = fish.gety_dir();
-        this.col = jellyfish.getCol();
+        this.col = fish.getCol();
     }
 
     public int getCol() {return col;}
