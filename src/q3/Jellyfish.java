@@ -131,8 +131,7 @@ public class Jellyfish extends Swimmable {
 
     @Override
     public int compareTo(Swimmable swimmable) {
-        int compare = Integer.compare(swimmable.getSize(), size);
-        return compare;
+        return Integer.compare(swimmable.getSize(), size);
     }
 
     public boolean equals(Jellyfish jellyfish){
