@@ -9,6 +9,9 @@ public class Fish extends Swimmable {
     private int col;
     private int x_front, y_front, x_dir, y_dir;
 
+    /**
+     * Default constructor for 'Fish' Class
+     */
     public Fish() {
         super();
         this.size = 0;
@@ -21,7 +24,7 @@ public class Fish extends Swimmable {
     }
 
     /**
-     * Fish constructor
+     * Fish constructor with parameters
      *
      * @param fishSize        size of the fish
      * @param xFront          x coordinate of the front of the fish
@@ -41,6 +44,10 @@ public class Fish extends Swimmable {
         this.x_front = xFront;
     }
 
+    /**
+     * Copy-constructor for class 'Fish'
+     * @param fish class 'Fish' object
+     */
     public Fish(Fish fish) {
         super(fish);
         this.size = fish.getSize();
@@ -52,36 +59,67 @@ public class Fish extends Swimmable {
         this.col = fish.getCol();
     }
 
+    /**
+     * Retrieve inner-field 'color of 'Fish'
+     */
     public int getCol() {return col;}
 
+    /**
+     * sets inner-field 'x_front' in 'Fish'
+     * @param fish class 'Fish' object
+     */
     public void setx_front(Fish fish) {
         this.x_front = fish.getx_front();
     }
 
+    /**
+     * Retrieve inner-field 'x_front' of 'Fish'
+     */
     public int getx_front() {
         return this.x_front;
     }
 
+    /**
+     * sets inner-field 'y_front' in 'Fish'
+     * @param fish class 'Fish' object
+     */
     public void sety_front(Fish fish) {
         this.y_front = fish.gety_front();
     }
 
+    /**
+     * Retrieve inner-field 'y_front of 'Fish'
+     */
     public int gety_front() {
         return this.y_front;
     }
 
+    /**
+     * sets inner-field 'x_dir' in 'Fish'
+     * @param fish class 'Fish' object
+     */
     public void setx_dir(Fish fish) {
         this.x_dir = fish.getx_dir();
     }
 
+    /**
+     * Retrieve inner-field 'x_dir of 'Fish'
+     */
     public int getx_dir() {
         return this.x_dir;
     }
 
+    /**
+     * sets inner-field 'y_dir' in 'Fish'
+     * @param fish class 'Fish' object
+     */
     public void sety_dir(Fish fish) {
         this.y_dir = fish.gety_dir();
     }
 
+    /**
+     * Retrieve inner-field 'y_dir of 'Fish'
+     */
     public int gety_dir() {
         return this.y_dir;
     }
@@ -133,10 +171,17 @@ public class Fish extends Swimmable {
         }
     }
 
-    public void changeFish(int sz) {
-        size = sz;
+    /**
+     * Changes the inner-field 'size' of object 'Fish'
+     * @param size integer value representing class 'Fish' 'size'
+     */
+    public void changeFish(int sze) {
+        size = sze;
     }
 
+    /**
+     * Changes the inner-field 'Color' of object 'Fish'
+     */
     public void changeColor() {
         this.col = ((this.col + 1) % 10) + 1;
     }
@@ -146,6 +191,11 @@ public class Fish extends Swimmable {
         return Integer.compare(swimmable.getSize(), size);
     }
 
+    /**
+     * Equality determination for 2 'Fish
+     * @param fish class 'Fish' object
+     * @return true or false if all object 'Fish' inner-fields equal and point to the same adress
+     */
     public boolean equals(Fish fish) {
         return super.equals(fish) && Objects.equals(this.getColor(), fish.getColor()) && this.size == fish.getSize() && this.eatCount == fish.getEatCount() && this.x_front == fish.getx_front() && this.x_dir == fish.getx_dir() && this.y_front == fish.gety_front() && this.y_dir == fish.gety_dir();
     }
