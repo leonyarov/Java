@@ -11,7 +11,10 @@ public class Program {
             RunQ3();
         }
 
-        public static void RunQ1(){
+    /**
+     * Homework 1<br>Question 1
+     */
+    public static void RunQ1(){
             MyDate date1=new MyDate(31,03,2022);
             MyDate date2=new MyDate(29,2,2022);
             System.out.println(date1);
@@ -36,6 +39,9 @@ public class Program {
             System.out.println(Utility.threeDates(arr));
         }
 
+    /**
+     * Homework 1<br>Question 2
+     */
         public static void RunQ2(){
             Location[] arr2 = { new Location("Tel-Aviv"), new Location("London"),
                     new Location("Paris"), new Location("Berlin") };
@@ -64,6 +70,9 @@ public class Program {
             arr2[1].printLocation(2);
         }
 
+    /**
+     * Homework 1<br>Question 3
+     */
         public static void RunQ3(){
             Swimmable[] arr3= {new Fish(20, 0, 0, 0, 0, 6),new Jellyfish(10, 0, 0, 0, 0, 8),
                     new UnusualFish(15, 0, 0, 0, 0, 9,2),new MultiColorFish(20, 0, 0, 0, 0, 2),
@@ -75,14 +84,5 @@ public class Program {
             Utility.sortAquaticAnimal(arr3);
             Utility.printAquarium(arr3);
         }
-
-        public static void RunTest() {
-            Location location = new Location("Niglet");
-            Temperature[] temp = new Temperature[1];
-            temp[0] = new Temperature(-24);
-            location.setTemp(temp);
-            System.out.println(location);
-        }
-
 
 }

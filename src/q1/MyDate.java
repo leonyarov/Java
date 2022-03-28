@@ -61,7 +61,7 @@ public class MyDate {
 
     /**
      * copyConstructor of 'MyDate' class
-     * @param date class date represented by 3 integers as day/month/yea
+     * @param date class date represented by 3 integers as day/month/year
      */
     public MyDate(MyDate date) {
         setDay(date.getDay());
