@@ -44,7 +44,7 @@ public class UnusualFish extends Fish {
      * Sets the inner-field value of 'factor' in class 'UnusualFish'
      * @param fact - primitive integer
      */
-    public void setFactor(int fact) { factor = fact; }
+    public boolean setFactor(int fact) { return (factor = fact) == fact; }
 
     @Override
     public int getSize() {

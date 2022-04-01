@@ -63,8 +63,8 @@ public class Jellyfish extends Swimmable {
      * sets inner-field 'x_front' in 'Jellyfish'
      * @param jellyfish class 'Jellyfish' object
      */
-    public void setx_front(Jellyfish jellyfish){
-        this.x_front = jellyfish.getx_front();
+    public boolean setx_front(Jellyfish jellyfish){
+        return (this.x_front = jellyfish.getx_front()) == jellyfish.getx_front();
     }
 
     /**
@@ -78,8 +78,8 @@ public class Jellyfish extends Swimmable {
      * sets inner-field 'y_front' in 'Jellyfish'
      * @param jellyfish class 'Jellyfish' object
      */
-    public void sety_front(Jellyfish jellyfish){
-        this.y_front = jellyfish.gety_front();
+    public boolean sety_front(Jellyfish jellyfish){
+        return (this.y_front = jellyfish.gety_front()) == jellyfish.gety_front();
     }
 
     /**
@@ -93,8 +93,8 @@ public class Jellyfish extends Swimmable {
      * sets inner-field 'x_dir' in 'Jellyfish'
      * @param jellyfish class 'Jellyfish' object
      */
-    public void setx_dir(Jellyfish jellyfish){
-        this.x_dir = jellyfish.getx_dir();
+    public boolean setx_dir(Jellyfish jellyfish){
+        return (this.x_dir = jellyfish.getx_dir()) == jellyfish.getx_dir();
     }
 
     /**
@@ -108,8 +108,8 @@ public class Jellyfish extends Swimmable {
      * sets inner-field 'y_dir' in 'Jellyfish'
      * @param jellyfish class 'Jellyfish' object
      */
-    public void sety_dir(Jellyfish jellyfish){
-        this.y_dir = jellyfish.gety_dir();
+    public boolean sety_dir(Jellyfish jellyfish){
+        return (this.y_dir = jellyfish.gety_dir()) == jellyfish.gety_dir();
     }
     /**
      * Retrieve inner-field 'y_dir of 'Jellyfish'
@@ -174,8 +174,8 @@ public class Jellyfish extends Swimmable {
      * Changes the inner-field 'size' of object 'Jellyfish'
      * @param size integer value representing 'size' for class 'Jellyfish'
      */
-    public void changeJellyFish(int sze) {
-        size = sze;
+    public void changeJellyFish(int size) {
+        this.size = size;
     }
 
     @Override

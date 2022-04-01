@@ -6,7 +6,7 @@ public abstract class Swimmable implements Comparable<Swimmable> {
 
 
     /**
-     * Default constructor for class 'Swimmable'
+     * Default constructor of class {@link Swimmable}
      */
     public Swimmable() {
         this.horSpeed = 0;
@@ -41,13 +41,13 @@ public abstract class Swimmable implements Comparable<Swimmable> {
      * set inner-field 'horSpeed' of class 'Swimmable'
      * @param hS Horizontal Speed for class 'Swimmable'
      */
-    public void setHorSpeed(int hS) {  horSpeed = hS; }
+    public boolean setHorSpeed(int hS) {  return  (horSpeed = hS) == hS; }
 
     /**
      * set inner-field 'verSpeed' of class 'Swimmable'
      * @param vS Vertical Speed for class 'Swimmable'
      */
-    public void setVerSpeed(int vS) { verSpeed = vS; }
+    public boolean setVerSpeed(int vS) { return (verSpeed = vS) == vS; }
     /**
      * Returns inner-field 'verSpeed' of class 'Location'
      */

@@ -8,6 +8,8 @@ import q3.*;
 public class Program {
 
         public static void main(String[] args) {
+            RunQ1();
+            RunQ2();
             RunQ3();
         }
 
@@ -15,7 +17,7 @@ public class Program {
      * Homework 1<br>Question 1
      */
     public static void RunQ1(){
-            MyDate date1=new MyDate(31,03,2022);
+            MyDate date1=new MyDate(31,3,2022);
             MyDate date2=new MyDate(29,2,2022);
             System.out.println(date1);
             date2.printDate();
@@ -40,7 +42,7 @@ public class Program {
         }
 
     /**
-     * Homework 1<br>Question 2
+     * <span style="font-size: 300px"><b>Homework 1</b></span> <br>Question 2
      */
         public static void RunQ2(){
             Location[] arr2 = { new Location("Tel-Aviv"), new Location("London"),

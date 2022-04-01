@@ -45,17 +45,16 @@ public class Location {
     /**
      * Sets inner-field of 'name' in class 'Location'
      */
-    public void setName(String name) { this.name = name; }
+    public boolean setName(String name) { return (this.name = name).equals(name); }
     /**
      * Sets inner-field of 'Temperature' in class 'Location'
      */
-    public void setTemp(Temperature[] tmp) {
-            temp = tmp;
+    public boolean setTemp(Temperature[] tmp) {
+            return Arrays.equals((temp = tmp), tmp);
     }
 
     /**
-     *
-     * Returns inner-field 'Temperature' in class 'Location'
+     * Returns inner-field {@link Temperature} in class '{@link Location}'
      */
     public Temperature[] getTemp() { return temp;}
 
@@ -76,7 +75,7 @@ public class Location {
     }
 
     /**
-     * Returns the average temperature of the class 'Location'
+     * Returns the average temperature of the class '{@link Location}'
      */
     public double getAverage(){
         return Arrays.stream(temp).mapToDouble(Temperature::getScale).average().orElse(0);

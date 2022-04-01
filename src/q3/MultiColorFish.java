@@ -24,7 +24,7 @@ public class MultiColorFish extends Fish {
     }
 
     /**
-     * Copyconstructor of class 'MultiColorFish'
+     * Copy constructor of class 'MultiColorFish'
      * @param multiFish - multiple color fish extended from base class 'Fish'
      */
     public MultiColorFish(MultiColorFish multiFish) {

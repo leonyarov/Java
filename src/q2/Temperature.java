@@ -37,7 +37,7 @@ public class Temperature {
 
 
     /**
-     * Copyconstructor for class 'Temperature'
+     * Copy constructor for class 'Temperature'
      * @param temp inner-field of class 'Location'
      */
     public Temperature(Temperature temp) {
@@ -62,15 +62,15 @@ public class Temperature {
     /**
      * Sets the inner-field 'scale' in class 'Temperature'
      */
-    public void setScale(double scale) {
-        this.scale = scale;
+    public boolean setScale(double scale) {
+        return (this.scale = scale) == scale;
     }
 
     /**
      * Sets the inner-field 'scale_date' in class 'Temperature'
      */
-    public void setScale_date(MyDate scale_date) {
-        this.scale_date = scale_date;
+    public boolean setScale_date(MyDate scale_date) {
+        return (this.scale_date = scale_date).equals(scale_date);
     }
 
     /**

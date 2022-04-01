@@ -1,7 +1,6 @@
 package q1;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 
 //TODO: Javadoc this functions
@@ -12,7 +11,7 @@ public class MyDate {
 
 
     /**
-     * Default Constructor of 'MyDate' Class
+     * Default Constructor of MyDate Class
      */
     public MyDate() {
         // Create a date object with the current date
@@ -97,8 +96,9 @@ public class MyDate {
     /**
      * Sets the inner field 'day' of 'date' class
      * @param day - Date class inner field.<br> integer parameter representing the current day number
+     * @return true if day is valid, false otherwise
      */
-    public void setDay(int day) {
+    public boolean setDay(int day) {
         //set february days
         if (month == 2) day = day % 29;
 
@@ -111,13 +111,15 @@ public class MyDate {
 
         //set day
         this.day = day;
+        return true;
     }
 
     /**
      * Sets the inner field 'month' of 'date' class
      * @param month - Date class inner field.<br> integer parameter representing the current month number
+     * @return true if month is valid, false otherwise
      */
-    public void setMonth(int month) {
+    public boolean setMonth(int month) {
         //month cannot be more than 12
         month = month % 13;
 
@@ -126,17 +128,16 @@ public class MyDate {
 
         //set month
         this.month = month;
+        return true;
     }
 
     /**
      * Sets the inner field 'year' of 'date' class
      * @param year - Date class inner field.<br> integer parameter representing the current year number
+     * @return true if year is valid, false otherwise
      */
-    public void setYear(int year) {
-        //set year
-
-        //TODO: year cannot be less than 0
-        this.year = year;
+    public boolean setYear(int year) {
+        return (this.year = year) == year;
     }
 
     /**

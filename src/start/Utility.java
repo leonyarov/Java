@@ -79,8 +79,7 @@ public class Utility {
      * @param swimmables object of class 'Swimmable' representation for aquatic animals
      */
     public static void sortAquaticAnimal(Swimmable[] swimmables) {
-        Arrays.sort(swimmables, Comparator.comparingInt(Swimmable::getSize));
-        Collections.reverse(Arrays.asList(swimmables));
+        Arrays.sort(swimmables, Comparator.comparing(Swimmable::getSize).reversed());
     }
 }
 

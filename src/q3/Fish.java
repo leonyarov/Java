@@ -68,8 +68,8 @@ public class Fish extends Swimmable {
      * sets inner-field 'x_front' in 'Fish'
      * @param fish class 'Fish' object
      */
-    public void setx_front(Fish fish) {
-        this.x_front = fish.getx_front();
+    public boolean setx_front(Fish fish) {
+        return (this.x_front = fish.getx_front()) == fish.getx_front();
     }
 
     /**
@@ -83,8 +83,8 @@ public class Fish extends Swimmable {
      * sets inner-field 'y_front' in 'Fish'
      * @param fish class 'Fish' object
      */
-    public void sety_front(Fish fish) {
-        this.y_front = fish.gety_front();
+    public boolean sety_front(Fish fish) {
+        return (this.y_front = fish.gety_front()) == fish.gety_front();
     }
 
     /**
@@ -98,8 +98,8 @@ public class Fish extends Swimmable {
      * sets inner-field 'x_dir' in 'Fish'
      * @param fish class 'Fish' object
      */
-    public void setx_dir(Fish fish) {
-        this.x_dir = fish.getx_dir();
+    public boolean setx_dir(Fish fish) {
+        return (this.x_dir = fish.getx_dir()) == fish.getx_dir();
     }
 
     /**
@@ -113,8 +113,8 @@ public class Fish extends Swimmable {
      * sets inner-field 'y_dir' in 'Fish'
      * @param fish class 'Fish' object
      */
-    public void sety_dir(Fish fish) {
-        this.y_dir = fish.gety_dir();
+    public boolean sety_dir(Fish fish) {
+        return (this.y_dir = fish.gety_dir()) == fish.gety_dir();
     }
 
     /**
@@ -175,8 +175,8 @@ public class Fish extends Swimmable {
      * Changes the inner-field 'size' of object 'Fish'
      * @param size integer value representing class 'Fish' 'size'
      */
-    public void changeFish(int sze) {
-        size = sze;
+    public void changeFish(int size) {
+        this.size = size;
     }
 
     /**
