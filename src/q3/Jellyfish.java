@@ -164,6 +164,7 @@ public class Jellyfish extends Swimmable {
      * Retrieve inner-field 'color of 'Jellyfish'
      */
     public int getCol() {return col;}
+
     @Override
     public int eatInc() {
         return 0;
