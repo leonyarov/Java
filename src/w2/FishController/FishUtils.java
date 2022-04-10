@@ -50,4 +50,18 @@ public class FishUtils {
 
         return fishImages;
     }
+
+    public static List<String> GetImagesFromPath(String path, String extension) {
+        try (Stream<Path> walk = Files.walk(Paths.get(path))) {
+            return  walk
+                    .filter(p -> !Files.isDirectory(p))   // not a directory
+                    .map(p -> p.toString().toLowerCase()) // convert path to string
+                    .filter(f -> f.endsWith(extension))       // check end with
+                    .collect(Collectors.toList());        // collect all matched to a List
+        }
+        catch (Exception e) {
+            System.out.println("Error reading file: " + e);
+            return null;
+        }
+    }
 }

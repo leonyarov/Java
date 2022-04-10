@@ -21,7 +21,8 @@ public class AquaMenu extends JMenuBar {
 
         //background menu items - Select from file, select from gallery, select color, select none
         JMenuItem selectFromFile =      new JMenuItem("Select from file");
-        JMenuItem selectColor =         new JMenuItem("Single Color");
+        JMenuItem selectColor =         new JMenuItem("Select Color");
+        JMenuItem selectBlue =          new JMenuItem("Blue");
         JMenuItem selectNone =          new JMenuItem("None");
 
         //Help menu items - About, Help
@@ -33,6 +34,7 @@ public class AquaMenu extends JMenuBar {
         selectFromFile.addActionListener(e -> selectFromFile());
         selectColor.addActionListener(e -> selectColor());
         selectNone.addActionListener(e -> removeBackround());
+        selectBlue.addActionListener(e -> setBackgroundColor(Color.BLUE));
         //TODO: Add action for about and help
         about.addActionListener(e -> System.out.println("About"));
         helpItem.addActionListener(e -> System.out.println("Help"));

@@ -15,9 +15,10 @@ public class AquaFrame extends JFrame {
         setTitle("Leon's and Alon's Aquarium Pro v13"); // set the title of the frame
         setResizable(false); // not resizable
         setSize(800, 600); //Set the size of the frame
-        setVisible(true); //Make the frame visi ble
+        setVisible(true); //Make the frame visible
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //On close exit the program
         setIconImage(new ImageIcon("src/w2/Assets/icon.ico").getImage()); //set the icon of the frame
+
         //endregion
 
         AquaBackground background = new AquaBackground(null); //create a new AquaBackground
@@ -28,5 +29,13 @@ public class AquaFrame extends JFrame {
         AquaMenu menu = new AquaMenu(background);
         menu.setVisible(true);
         setJMenuBar(menu);
+
+
+
+        AquaPanel panel = new AquaPanel();
+        add(panel, BorderLayout.SOUTH);
+
+
+
     }
 }
