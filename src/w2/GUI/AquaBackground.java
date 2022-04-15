@@ -1,11 +1,13 @@
 package w2.GUI;
 
+import w2.FishController.FishUtils;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 
-
-public class AquaBackground extends JComponent {
+public class AquaBackground extends JPanel {
     private Image image;
 
     /**
@@ -14,6 +16,11 @@ public class AquaBackground extends JComponent {
      */
     public AquaBackground(Image image) {
         this.image = image;
+    }
+
+    public AquaBackground() {
+        image = null;
+        setLayout(null);
     }
 
     /**
@@ -31,17 +38,14 @@ public class AquaBackground extends JComponent {
      */
     @Override
     protected void paintComponent(Graphics g) {
-        if (image == null)  return;
         super.paintComponent(g);
+        if (image == null)  return;
         Graphics2D g2d = (Graphics2D) g.create();
 
-        JFrame root = (JFrame) SwingUtilities.getWindowAncestor(this);
-        int rootWidth = root.getWidth();
-        int rootHeight = root.getHeight();
-
-        g2d.drawImage(image, 0, 0, rootWidth ,rootHeight, this);
+        g2d.drawImage(image, 0, 0, getWidth() ,getHeight(), this);
         g2d.dispose();
 
+        getParent().repaint();
     }
 
 }

@@ -3,6 +3,10 @@ package w2.FishController;
 import w2.fishes.Swimmable;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,5 +68,22 @@ public class FishUtils {
             System.out.println("Error reading file: " + e);
             return null;
         }
+    }
+
+    public static BufferedImage flipVertical(BufferedImage src){
+
+        AffineTransform tx=AffineTransform.getScaleInstance(-1.0,1.0);  //scaling
+        tx.translate(-src.getWidth(),0);  //translating
+        AffineTransformOp tr=new AffineTransformOp(tx,null);  //transforming
+        return tr.filter(src, null);  //filtering
+    }
+
+    public static BufferedImage imageIconToBufferedImage(ImageIcon icon) {
+        BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics graphics = bufferedImage.createGraphics();
+        icon.paintIcon(null, graphics, 0, 0);
+        graphics.dispose();//from   w  ww.j a  va  2  s.  co m
+        return bufferedImage;
     }
 }

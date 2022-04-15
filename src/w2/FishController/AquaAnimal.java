@@ -1,17 +1,22 @@
 package w2.FishController;
 
-import w2.GUI.AnimalPanel;
+import w2.GUI.AquaBackground;
+import w2.GUI.AquaLabel;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class AquaAnimal extends Thread {
+
+
     protected int horizontalSpeed;
     protected int verticalSpeed;
     protected int pixelSize;
     protected Color color;
-    protected AnimalPanel animalPanel;
+    protected AquaLabel aquaImage;
 
     public AquaAnimal() {
         horizontalSpeed = 0;
@@ -21,16 +26,16 @@ public abstract class AquaAnimal extends Thread {
         horizontalSpeed = hor;
         verticalSpeed = ver;
         color = Color.WHITE;
-        Object RandomGenerator;
         pixelSize = new Random().nextInt(300) + 20;
     }
 
-    public AquaAnimal(int h, int v, int size, Color c, AnimalPanel panel) {
+    public AquaAnimal(int h, int v, int size, Color c, AquaLabel aquaImage) {
         horizontalSpeed = h;
         verticalSpeed = v;
         pixelSize = size;
         color = c;
-        animalPanel = panel;
+        this.aquaImage = aquaImage;
+
     }
 
 
@@ -43,28 +48,25 @@ public abstract class AquaAnimal extends Thread {
         color = c;
     }
 
-    public void moveAnimal(){
-        int x = animalPanel.getX();
-        int y = animalPanel.getY();
-        int pw = animalPanel.getParentBoundaryWidth();
-        int ph = animalPanel.getParentBoundaryHeight();
-        int w = animalPanel.getWidth();
-        int h = animalPanel.getHeight();
-        if (x + w > pw || x <= 0) horizontalSpeed = -horizontalSpeed;
-        if (y + h > ph || y <= 0) verticalSpeed = -verticalSpeed;
-        animalPanel.setLocation(animalPanel.getX() + horizontalSpeed, animalPanel.getY() + verticalSpeed);
+    public void setAnimalImage(AquaLabel image) {
+        aquaImage = image;
     }
-    public void setAnimalPanel(AnimalPanel panel) {
-        animalPanel = panel;
-    }
+
     public void Update(){
-        moveAnimal();
-        animalPanel.repaint();
+        aquaImage.moveAnimal(horizontalSpeed, verticalSpeed);
+        if (aquaImage.isOnXBorder()) {
+            horizontalSpeed = -horizontalSpeed;
+            aquaImage.flipImage();
+        }
+
+        if (aquaImage.isOnYBorder()) verticalSpeed = -verticalSpeed;
+        aquaImage.repaint();
     }
     public int getHorSpeed() { return horizontalSpeed; }
     public int getVerSpeed() { return verticalSpeed; }
     public void setHorSpeed(int hor) { horizontalSpeed = hor; }
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
+    public AquaLabel getAnimalImage() { return aquaImage; }
     abstract public String getAnimalName();
     abstract public void setSuspend();
     abstract public void setResume();

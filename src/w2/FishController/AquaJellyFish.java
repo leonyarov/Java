@@ -1,6 +1,7 @@
 package w2.FishController;
 
-import w2.GUI.AnimalPanel;
+import w2.GUI.AquaBackground;
+import w2.GUI.AquaLabel;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
@@ -8,8 +9,8 @@ import java.util.concurrent.CyclicBarrier;
 public class AquaJellyFish extends AquaAnimal {
 
 
-    public AquaJellyFish(int h, int v, int size, Color color, AnimalPanel panel) {
-        super(h, v, size, color, panel);
+    public AquaJellyFish(int h, int v, int size, Color color, AquaLabel image) {
+        super(h, v, size, color, image);
         eatCount = 0;
     }
 

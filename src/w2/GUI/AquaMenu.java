@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.nio.file.Paths;
 
 /**
  * Top menu toolbar
@@ -46,6 +47,7 @@ public class AquaMenu extends JMenuBar {
 
         //add menu items to background menu
         background.add(selectFromFile);
+        background.add(selectBlue); //wtf man we can do better lmao
         background.add(selectColor);
         background.add(selectNone);
 
@@ -72,7 +74,7 @@ public class AquaMenu extends JMenuBar {
      */
     public void selectFromFile() {
         //Open dialog to select image from file
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(Paths.get("").toAbsolutePath().toString());
         var result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             //get file path
