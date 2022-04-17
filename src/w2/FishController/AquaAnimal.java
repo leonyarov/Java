@@ -1,11 +1,8 @@
 package w2.FishController;
 
-import w2.GUI.AquaBackground;
 import w2.GUI.AquaLabel;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
 
@@ -53,7 +50,7 @@ public abstract class AquaAnimal extends Thread {
     }
 
     public void Update(){
-        aquaImage.moveAnimal(horizontalSpeed, verticalSpeed);
+        aquaImage.moveLabel(horizontalSpeed, verticalSpeed);
         if (aquaImage.isOnXBorder()) {
             horizontalSpeed = -horizontalSpeed;
             aquaImage.flipImage();

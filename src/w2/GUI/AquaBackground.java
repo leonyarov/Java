@@ -1,10 +1,7 @@
 package w2.GUI;
 
-import w2.FishController.FishUtils;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 
 public class AquaBackground extends JPanel {
@@ -20,7 +17,7 @@ public class AquaBackground extends JPanel {
 
     public AquaBackground() {
         image = null;
-        setLayout(null);
+        setLayout(null); //make fish move freely
     }
 
     /**

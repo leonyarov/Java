@@ -4,7 +4,6 @@ import w2.FishController.FishUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 
@@ -29,13 +28,9 @@ public class AquaLabel extends JLabel {
         setLocation(x, y);
     }
 
-    public void moveAnimal(int hs, int vs){
+    public void moveLabel(int hs, int vs){
         int x = getX();
         int y = getY();
-//        int pw = getParent().getWidth();
-//        int ph = getParent().getHeight();
-//        int w = getWidth();
-//        int h = getHeight();
         setLocation(x + hs, y + vs);
     }
 
