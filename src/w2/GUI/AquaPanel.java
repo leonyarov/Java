@@ -24,7 +24,7 @@ public class AquaPanel extends JPanel {
 
         addAnimal.addActionListener(e -> addAnimal());
         exit.addActionListener(e -> System.exit(0));
-
+        feed.addActionListener(e -> FishTank.getInstance().feed());
         add(addAnimal);
         add(wakeUp);
         add(feed);

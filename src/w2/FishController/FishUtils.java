@@ -1,7 +1,5 @@
 package w2.FishController;
 
-import w2.fishes.Swimmable;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,12 +75,45 @@ public class FishUtils {
         return tr.filter(src, null);  //filtering
     }
 
-    public static BufferedImage imageIconToBufferedImage(ImageIcon icon) {
-        BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
+    public static BufferedImage imageToBufferedImage(Image image) {
+        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
                 BufferedImage.TYPE_INT_ARGB);
-        Graphics graphics = bufferedImage.createGraphics();
-        icon.paintIcon(null, graphics, 0, 0);
-        graphics.dispose();//from   w  ww.j a  va  2  s.  co m
+        Graphics bGr = bufferedImage.createGraphics();
+        bGr.drawImage(image, 0, 0, null);
+        bGr.dispose();
         return bufferedImage;
     }
+
+    public static Image getRandomImage(String path, Color color){
+        var imgs = FishUtils.GetImagesFromPath(path, "png");
+        var r = new Random().nextInt(imgs.size());
+        var img = new ImageIcon(imgs.get(r)).getImage();
+        img = applyColorFilter(img, color);
+        return img;
+    }
+
+
+    public static Image applyColorFilter(Image image,Color color)  {
+        if (image == null) return null;
+        BufferedImage buff = imageToBufferedImage(image);
+
+        for(int y = 0; y < buff.getHeight(); y++){
+            for(int x = 0; x < buff.getWidth(); x++){
+                int pixel = buff.getRGB(x,y);
+
+                int alpha = (pixel>>24)&0xff;
+                int red = (pixel>>16)&0xff;
+                int green = (pixel>>8)&0xff;
+                int blue = pixel&0xff;
+
+                pixel = (alpha<<24) | (color.getRed()*red/255<<16) | (color.getGreen()*green/255<<8) | (color.getBlue()*blue/255);
+
+                buff.setRGB(x, y, pixel);
+            }
+        }
+        return buff;
+    }
+
+    public static final String fishLibrary = "src/w2/Assets/Fish/";
+    public static final String jellyfishLibrary = "src/w2/Assets/JellyFish/";
 }

@@ -26,13 +26,13 @@ public class AquaFrame extends JFrame {
         add(background,BorderLayout.CENTER); //add the background to the frame
         FishTank tank = new FishTank(background); //create a new FishTank
 
-        //region MenuBar
         AquaMenu menu = new AquaMenu(background);
         menu.setVisible(true);
         setJMenuBar(menu);
 
 
 
+        //Add bottom panel buttons
         AquaPanel panel = new AquaPanel();
         add(panel, BorderLayout.SOUTH);
     }

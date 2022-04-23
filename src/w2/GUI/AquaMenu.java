@@ -94,8 +94,7 @@ public class AquaMenu extends JMenuBar {
     }
 
     private void setBackgroundColor(Color color) {
-        aquaBackground.setImage(null);
-        this.getRootPane().getContentPane().setBackground(color);
+        aquaBackground.setColor(color);
     }
 
     private void setBackgroundImage(File file) {

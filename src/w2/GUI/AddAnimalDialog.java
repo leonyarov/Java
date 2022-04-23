@@ -67,8 +67,7 @@ public class AddAnimalDialog extends JDialog {
         createNew.addActionListener(e -> {
             type = fish.isSelected() ? FishTank.AnimalType.FISH : FishTank.AnimalType.JELLYFISH;
             FishTank.getInstance().newFish(
-                    -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(),
-                    new AquaLabel(this.image,100,100,size.getValue()),  type);
+                    -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(), null, type);
         });
         cancel.addActionListener(e -> { this.dispose(); });
         //add objects to dialog

@@ -1,8 +1,8 @@
 package w2.FishController;
 
 import w2.GUI.AquaBackground;
-import w2.GUI.AquaLabel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
@@ -11,14 +11,24 @@ public class AquaFish extends AquaAnimal {
 
     private int eatCount;
 
-    public AquaFish(int h, int v, int size, Color c, AquaLabel aquaImage) {
+    public AquaFish(int h, int v, int size, Color c, Image aquaImage) {
         super(h, v, size, c, aquaImage);
+        eatCount = 0;
+    }
+
+    public AquaFish(int h, int v, int size, Color c) {
+        super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary,c));
         eatCount = 0;
     }
 
     @Override
     public String getAnimalName() {
         return "Fish";
+    }
+
+    @Override
+    void draw(Graphics g) {
+        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
     }
 
     @Override
@@ -44,6 +54,7 @@ public class AquaFish extends AquaAnimal {
     @Override
     public void eatInc() {
         eatCount++;
+        pixelSize += 10;
     }
 
     @Override

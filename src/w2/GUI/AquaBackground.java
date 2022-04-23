@@ -1,11 +1,15 @@
 package w2.GUI;
 
+import w2.FishController.FishTank;
+import w2.FishController.FishUtils;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 public class AquaBackground extends JPanel {
     private Image image;
+    Thread t;
 
     /**
      * Controls the background image (tank image background)
@@ -18,6 +22,22 @@ public class AquaBackground extends JPanel {
     public AquaBackground() {
         image = null;
         setLayout(null); //make fish move freely
+//        setDoubleBuffered(true); //double buffering to make the fish move smoothly
+
+         t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        repaint();
+                        Thread.sleep(16);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
     }
 
     /**
@@ -29,6 +49,11 @@ public class AquaBackground extends JPanel {
         this.image = image;
     }
 
+    public void setColor(Color color) {
+        setImage(null);
+        setBackground(color);
+    }
+
     /**
      * Called by .repaint()
      * @param g - graphics object
@@ -36,13 +61,9 @@ public class AquaBackground extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (image == null)  return;
-        Graphics2D g2d = (Graphics2D) g.create();
+        if (image != null) g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        FishTank.getInstance().Update(g);
 
-        g2d.drawImage(image, 0, 0, getWidth() ,getHeight(), this);
-        g2d.dispose();
-
-        getParent().repaint();
     }
 
 }

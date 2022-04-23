@@ -1,14 +1,53 @@
 package w2.FishController;
 
-import w2.GUI.AquaLabel;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.Vector;
 
-public class AquaFood extends AquaLabel {
+public class AquaFood extends Drawable {
 
+    private Image image;
     final static int FOOD_WIDTH = 20;
-    private static final Icon img = new ImageIcon("src/w2/Assets/food.png");
+    private int eatRadius = 30;
     public AquaFood(int x, int y){
-        super(img, x, y, FOOD_WIDTH);
+        image = FishUtils.getRandomImage("src/w2/Assets/Food/", Color.WHITE);
+        xFront = x;
+        yFront = y;
     }
+
+    @Override
+    void draw(Graphics g) {
+        g.drawImage(image, xFront, yFront, FOOD_WIDTH, FOOD_WIDTH, null);
+    }
+
+    void move(){
+        yFront += 1;
+    }
+
+    /*
+    * @returns true if the fish ate food
+     */
+    public boolean isEaten(){
+        var f = nearFish();
+        if (f != null){
+            f.eatInc();
+            return true;
+        }
+        return  false;
+    }
+
+
+    public AquaAnimal nearFish() {
+        for (var f : FishTank.fishes) {
+            var x1 = f.getXFront() + f.pixelSize / 2;
+            var y1 = f.getYFront() + f.pixelSize / 2;
+            var x2 = xFront + FOOD_WIDTH / 2;
+            var y2 = yFront + FOOD_WIDTH / 2;
+            var d = Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+            if (d < eatRadius) return f;
+        }
+        return null;
+    }
+
 }

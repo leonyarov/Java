@@ -1,9 +1,7 @@
 package w2.FishController;
 
 import w2.GUI.AquaBackground;
-import w2.GUI.AquaLabel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 
@@ -13,8 +11,9 @@ import java.util.HashSet;
  */
 public class FishTank {
     public static HashSet<AquaAnimal> fishes;
-    private AquaBackground aquarium;
+    public static HashSet<AquaFood> food;
     private static FishTank instance;
+    private AquaBackground background;
 
     public static FishTank getInstance() {
         if (instance == null) {
@@ -28,54 +27,59 @@ public class FishTank {
     }
 
 
-    public FishTank(AquaBackground background) {
-        if (background == null) throw new IllegalArgumentException("Background image cannot be null");
+    public FishTank(AquaBackground aquaBackground) {
+        this.background = aquaBackground;
         fishes = new HashSet<AquaAnimal>();
-        aquarium = background;
+        food = new HashSet<AquaFood>();
         instance = this;
-
-        //make new thread with update func
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    Update();
-                    try {
-                        Thread.sleep(16);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        t.start();
-
 
     }
 
-    public void Update(){
-        aquarium.repaint();
+    public void Update(Graphics g){
         for (AquaAnimal fish : fishes) {
-            fish.Update();
+            fish.draw(g);
+            if (fish.isOnXBorder(g)) {
+                fish.setHorSpeed(-fish.getHorSpeed());
+                fish.flipImage();
+            }
+            if (fish.isOnYBorder(g)) fish.setVerSpeed(-fish.getVerSpeed());
+            fish.moveAnimal();
+        }
+
+        for (AquaFood food : FishTank.food) {
+            if (food.isOnYBorder(g) || food.isEaten()){
+                FishTank.food.remove(food);
+                break;
+            }
+            food.draw(g);
+            food.move();
         }
     }
 
+    public void feed(){
+        //select random point in aquabackground
+        var rand = new java.util.Random();
+        int x = rand.nextInt(background.getWidth() - AquaFood.FOOD_WIDTH);
+        int y = rand.nextInt(background.getHeight() - AquaFood.FOOD_WIDTH);
+        food.add(new AquaFood(x,y));
+    }
 
-    public void newFish(int h, int v, int s, Color c, AquaLabel i, AnimalType t){
+
+    public void newFish(int h, int v, int s, Color c, Image i, AnimalType t){
         AquaAnimal fish;
         switch (t) {
             case FISH:
-                fish = new AquaFish(h,v,s,c,i);
+                fish = new AquaFish(h,v,s,c);
                 break;
             case JELLYFISH:
-                fish = new AquaJellyFish(h,v,s,c,i);
+                fish = new AquaJellyFish(h,v,s,c);
                 break;
             default:
-                fish = new AquaFish(h,v,s,c,i);
+                fish = new AquaFish(h,v,s,c);
         }
         fishes.add(fish);
-        aquarium.add(fish.getAnimalImage());
     }
+
 
 
 
