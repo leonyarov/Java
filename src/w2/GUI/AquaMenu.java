@@ -25,6 +25,7 @@ public class AquaMenu extends JMenuBar {
         JMenuItem selectColor =         new JMenuItem("Select Color");
         JMenuItem selectBlue =          new JMenuItem("Blue");
         JMenuItem selectNone =          new JMenuItem("None");
+        JMenuItem selectDefault =       new JMenuItem("DefaultBackground");
 
         //Help menu items - About, Help
         JMenuItem about =               new JMenuItem("About");
@@ -36,6 +37,7 @@ public class AquaMenu extends JMenuBar {
         selectColor.addActionListener(e -> selectColor());
         selectNone.addActionListener(e -> removeBackround());
         selectBlue.addActionListener(e -> setBackgroundColor(Color.BLUE));
+//        selectDefault.addActionListener(e -> setBackgroundImage());
         //TODO: Add action for about and help
         about.addActionListener(e -> System.out.println("About"));
         helpItem.addActionListener(e -> System.out.println("Help"));
@@ -50,6 +52,7 @@ public class AquaMenu extends JMenuBar {
         background.add(selectBlue); //wtf man we can do better lmao
         background.add(selectColor);
         background.add(selectNone);
+        background.add(selectDefault);
 
         //add menu items to help menu
         help.add(about);

@@ -38,7 +38,7 @@ public class AddAnimalDialog extends JDialog {
 
         //slider choose vertical speed of animal clamp - 1, 10
 
-        JLabel speedLabel = new JLabel("Vectical speed:");
+        JLabel speedLabel = new JLabel("Vertical speed:");
         JSlider vspeed = new JSlider(1, 10, 1);
 
         //slider choose horizontal speed of animal clamp - 1, 10
