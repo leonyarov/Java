@@ -9,12 +9,26 @@ public abstract class AquaAnimal extends Drawable {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
-
+    CyclicBarrier barrier;
 
     public AquaAnimal() {
         horizontalSpeed = 0;
         verticalSpeed = 0;
     }
+
+    @Override
+    public void run() {
+        super.run();
+        while (true) {
+            moveAnimal();
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                //interrupted
+            }
+        }
+    }
+
     public AquaAnimal(int hor, int ver) {
         horizontalSpeed = hor;
         verticalSpeed = ver;
@@ -23,12 +37,14 @@ public abstract class AquaAnimal extends Drawable {
     }
 
     public AquaAnimal(int h, int v, int size, Color c, Image animalImage) {
+        super();
         horizontalSpeed = h;
         verticalSpeed = v;
         pixelSize = size;
         color = c;
         this.image = animalImage;
         xFront = yFront = 100;
+        moveAnimal();
     }
 
     public void setPixelSize(int size) {
@@ -43,12 +59,14 @@ public abstract class AquaAnimal extends Drawable {
     public void setHorSpeed(int hor) { horizontalSpeed = hor; }
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
     public Image getAnimalImage() { return image; }
-    public void moveAnimal(){
-        xFront += horizontalSpeed;
-        yFront += verticalSpeed;
+    protected void moveAnimal(){
+            xFront += horizontalSpeed;
+            yFront += verticalSpeed;
     }
     public int getXFront() { return xFront; }
     public int getYFront() { return yFront; }
+
+
     abstract public String getAnimalName();
     abstract public void setSuspend();
     abstract public void setResume();

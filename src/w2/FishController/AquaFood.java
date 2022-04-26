@@ -17,7 +17,7 @@ public class AquaFood extends Drawable {
     }
 
     @Override
-    void draw(Graphics g) {
+    public void drawAnimal(Graphics g) {
         g.drawImage(image, xFront, yFront, FOOD_WIDTH, FOOD_WIDTH, null);
     }
 

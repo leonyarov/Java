@@ -16,6 +16,7 @@ public class AquaFish extends AquaAnimal {
         eatCount = 0;
     }
 
+
     public AquaFish(int h, int v, int size, Color c) {
         super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary,c));
         eatCount = 0;
@@ -27,18 +28,27 @@ public class AquaFish extends AquaAnimal {
     }
 
     @Override
-    void draw(Graphics g) {
+    public void drawAnimal(Graphics g) {
+        if (isOnXBorder(g)) {
+            setHorSpeed(-getHorSpeed());
+            flipImage();
+        }
+        if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
         g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
     }
 
     @Override
     public void setSuspend() {
-
+        try{
+            this.wait();
+        } catch (InterruptedException e) {
+           //Iterrupted
+        }
     }
 
     @Override
     public void setResume() {
-
+        this.notify();
     }
 
     @Override

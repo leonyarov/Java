@@ -26,6 +26,9 @@ public class AquaFrame extends JFrame {
         add(background,BorderLayout.CENTER); //add the background to the frame
         FishTank tank = new FishTank(background); //create a new FishTank
 
+        Thread backgroundThread = new Thread(background); //create a new Thread for the background
+        backgroundThread.start(); //start the background thread
+
         AquaMenu menu = new AquaMenu(background);
         menu.setVisible(true);
         setJMenuBar(menu);

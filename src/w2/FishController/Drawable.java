@@ -9,6 +9,11 @@ public abstract class Drawable extends Thread {
     protected int pixelSize;
     protected Color color;
 
+    public Drawable() {
+        super();
+        start();
+    }
+
 
     public boolean isOnXBorder(Graphics g) {
         return xFront + pixelSize >= g.getClipBounds().width || xFront <= 0;
@@ -33,6 +38,6 @@ public abstract class Drawable extends Thread {
         color = c;
     }
 
-    abstract void draw(Graphics g);
+    abstract public void drawAnimal(Graphics g);
 }
 

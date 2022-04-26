@@ -14,6 +14,7 @@ public class FishTank {
     public static HashSet<AquaFood> food;
     private static FishTank instance;
     private AquaBackground background;
+    public Graphics g;
 
     public static FishTank getInstance() {
         if (instance == null) {
@@ -32,27 +33,42 @@ public class FishTank {
         fishes = new HashSet<AquaAnimal>();
         food = new HashSet<AquaFood>();
         instance = this;
+        g = aquaBackground.getGraphics();
 
     }
 
     public void Update(Graphics g){
-        for (AquaAnimal fish : fishes) {
-            fish.draw(g);
-            if (fish.isOnXBorder(g)) {
-                fish.setHorSpeed(-fish.getHorSpeed());
-                fish.flipImage();
-            }
-            if (fish.isOnYBorder(g)) fish.setVerSpeed(-fish.getVerSpeed());
-            fish.moveAnimal();
-        }
+//        for (AquaAnimal fish : fishes) {
+//            fish.draw(g);
+//            if (fish.isOnXBorder(g)) {
+//                fish.setHorSpeed(-fish.getHorSpeed());
+//                fish.flipImage();
+//            }
+//            if (fish.isOnYBorder(g)) fish.setVerSpeed(-fish.getVerSpeed());
+//            fish.moveAnimal();
+//        }
 
         for (AquaFood food : FishTank.food) {
             if (food.isOnYBorder(g) || food.isEaten()){
                 FishTank.food.remove(food);
                 break;
             }
-            food.draw(g);
+//            food.draw(g);
             food.move();
+        }
+    }
+
+    //sleep all fishes
+    public void sleepAll(){
+        for (AquaAnimal fish : fishes) {
+            fish.setSuspend();
+        }
+    }
+
+    //wake up all fish
+    public void wakeAll(){
+        for (AquaAnimal fish : fishes) {
+            fish.setResume();
         }
     }
 
@@ -77,6 +93,7 @@ public class FishTank {
             default:
                 fish = new AquaFish(h,v,s,c);
         }
+//        fish.start();
         fishes.add(fish);
     }
 

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class AquaBackground extends JPanel {
+public class AquaBackground extends JPanel implements Runnable {
     private Image image;
     Thread t;
 
@@ -22,22 +22,6 @@ public class AquaBackground extends JPanel {
     public AquaBackground() {
         image = null;
         setLayout(null); //make fish move freely
-//        setDoubleBuffered(true); //double buffering to make the fish move smoothly
-
-         t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        repaint();
-                        Thread.sleep(16);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        t.start();
     }
 
     /**
@@ -62,8 +46,20 @@ public class AquaBackground extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (image != null) g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        FishTank.getInstance().Update(g);
+        for (var fish : FishTank.fishes)
+            fish.drawAnimal(g);
 
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                repaint();
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

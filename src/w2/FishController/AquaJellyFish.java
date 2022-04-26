@@ -18,16 +18,24 @@ public class AquaJellyFish extends AquaAnimal {
         eatCount = 0;
     }
 
+    @Override
+    public void drawAnimal(Graphics g) {
+        if (isOnXBorder(g)) {
+            setHorSpeed(-getHorSpeed());
+            flipImage();
+        }
+        if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
+        moveAnimal();
+        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
+
+    }
+
     private int eatCount;
     @Override
     public String getAnimalName() {
         return "JellyFish";
     }
 
-    @Override
-    void draw(Graphics g) {
-        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
-    }
 
 
     @Override

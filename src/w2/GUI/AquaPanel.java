@@ -4,6 +4,7 @@ import w2.FishController.FishTank;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 /**
@@ -40,8 +41,6 @@ public class AquaPanel extends JPanel {
 
         AddAnimalDialog dialog = new AddAnimalDialog();
         dialog.setVisible(true);
-
-
     }
 
 
