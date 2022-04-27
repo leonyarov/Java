@@ -52,7 +52,7 @@ public class AquaBackground extends JPanel implements Runnable {
     }
 
     @Override
-    public void run() {
+    synchronized public void run() {
         while (true) {
             try {
                 repaint();

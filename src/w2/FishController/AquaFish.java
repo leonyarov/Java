@@ -38,17 +38,16 @@ public class AquaFish extends AquaAnimal {
     }
 
     @Override
-    public void setSuspend() {
-        try{
-            this.wait();
+    synchronized public void setSuspend() {
+        try {
+            wait();
         } catch (InterruptedException e) {
-           //Iterrupted
         }
     }
 
     @Override
-    public void setResume() {
-        this.notify();
+     public void setResume() {
+            notify();
     }
 
     @Override

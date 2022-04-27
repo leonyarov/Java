@@ -50,4 +50,11 @@ public class AquaFood extends Drawable {
         return null;
     }
 
+    @Override
+    public void run() {
+        super.run();
+        while (true){
+            move();
+        }
+    }
 }

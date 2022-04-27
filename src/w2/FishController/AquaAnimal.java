@@ -17,16 +17,16 @@ public abstract class AquaAnimal extends Drawable {
     }
 
     @Override
-    public void run() {
+     public void run() {
         super.run();
-        while (true) {
-            moveAnimal();
-            try {
-                Thread.sleep(16);
-            } catch (InterruptedException e) {
-                //interrupted
+            while (true) {
+                moveAnimal();
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    //interrupted
+                }
             }
-        }
     }
 
     public AquaAnimal(int hor, int ver) {
@@ -59,7 +59,7 @@ public abstract class AquaAnimal extends Drawable {
     public void setHorSpeed(int hor) { horizontalSpeed = hor; }
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
     public Image getAnimalImage() { return image; }
-    protected void moveAnimal(){
+    protected synchronized void moveAnimal(){
             xFront += horizontalSpeed;
             yFront += verticalSpeed;
     }

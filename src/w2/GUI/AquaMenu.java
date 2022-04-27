@@ -10,7 +10,7 @@ import java.nio.file.Paths;
  * Top menu toolbar
  */
 public class AquaMenu extends JMenuBar {
-
+    JFrame f;
     AquaBackground aquaBackground;
     public AquaMenu(AquaBackground aquaBackground) {
         this.aquaBackground = aquaBackground;
@@ -21,26 +21,21 @@ public class AquaMenu extends JMenuBar {
         JMenuItem exit =                new JMenuItem("Exit");
 
         //background menu items - Select from file, select from gallery, select color, select none
-        JMenuItem selectFromFile =      new JMenuItem("Select from file");
-        JMenuItem selectColor =         new JMenuItem("Select Color");
+        JMenuItem selectFromFile =      new JMenuItem("Image");
         JMenuItem selectBlue =          new JMenuItem("Blue");
         JMenuItem selectNone =          new JMenuItem("None");
-        JMenuItem selectDefault =       new JMenuItem("DefaultBackground");
 
-        //Help menu items - About, Help
-        JMenuItem about =               new JMenuItem("About");
+        //Help Dialog
         JMenuItem helpItem =            new JMenuItem("Help");
 
         //Set menu button action
         exit.addActionListener(e -> closeWindow());
         selectFromFile.addActionListener(e -> selectFromFile());
-        selectColor.addActionListener(e -> selectColor());
         selectNone.addActionListener(e -> removeBackround());
         selectBlue.addActionListener(e -> setBackgroundColor(Color.BLUE));
 //        selectDefault.addActionListener(e -> setBackgroundImage());
-        //TODO: Add action for about and help
-        about.addActionListener(e -> System.out.println("About"));
-        helpItem.addActionListener(e -> System.out.println("Help"));
+        //TODO: Add action for help
+        helpItem.addActionListener(e -> helpBox());
 
 
 
@@ -50,12 +45,10 @@ public class AquaMenu extends JMenuBar {
         //add menu items to background menu
         background.add(selectFromFile);
         background.add(selectBlue); //wtf man we can do better lmao
-        background.add(selectColor);
         background.add(selectNone);
-        background.add(selectDefault);
+
 
         //add menu items to help menu
-        help.add(about);
         help.add(helpItem);
 
         //add menus to menu bar
@@ -86,15 +79,15 @@ public class AquaMenu extends JMenuBar {
         }
     }
 
-    /**
-     * Select color from color picker
-     */
-    public void selectColor() {
-        //Open color picker
-        Color color = JColorChooser.showDialog(null, "Choose Background Color", Color.BLACK);
-        //set color to main panel
-        setBackgroundColor(color);
-    }
+//    /**
+//     * Select color from color picker
+//     */
+//    public void selectColor() {
+//        //Open color picker
+//        Color color = JColorChooser.showDialog(null, "Choose Background Color", Color.BLACK);
+//        //set color to main panel
+//        setBackgroundColor(color);
+//    }
 
     private void setBackgroundColor(Color color) {
         aquaBackground.setColor(color);
@@ -117,5 +110,9 @@ public class AquaMenu extends JMenuBar {
      setBackgroundColor(Color.WHITE);
     }
 
+
+    public void helpBox(){
+        JOptionPane.showMessageDialog(f, "Home Work 3\nGUI @ Threads");
+    }
 
 }

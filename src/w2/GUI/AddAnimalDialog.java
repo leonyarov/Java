@@ -5,6 +5,7 @@ import w2.FishController.FishTank;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class AddAnimalDialog extends JDialog {
 
     //params taken from buttons and sliders
@@ -68,7 +69,9 @@ public class AddAnimalDialog extends JDialog {
             type = fish.isSelected() ? FishTank.AnimalType.FISH : FishTank.AnimalType.JELLYFISH;
             FishTank.getInstance().newFish(
                     -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(), null, type);
+
         });
+
         cancel.addActionListener(e -> { this.dispose(); });
         //add objects to dialog
         animalTypePanel.add(fish);

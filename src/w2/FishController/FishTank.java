@@ -15,6 +15,7 @@ public class FishTank {
     private static FishTank instance;
     private AquaBackground background;
     public Graphics g;
+    public boolean isPaused = false;
 
     public static FishTank getInstance() {
         if (instance == null) {
@@ -59,10 +60,10 @@ public class FishTank {
     }
 
     //sleep all fishes
-    public void sleepAll(){
-        for (AquaAnimal fish : fishes) {
-            fish.setSuspend();
-        }
+    public  void sleepAll(){
+            for (AquaAnimal fish : fishes) {
+                fish.setSuspend();
+            }
     }
 
     //wake up all fish
