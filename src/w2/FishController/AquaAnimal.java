@@ -10,7 +10,7 @@ public abstract class AquaAnimal extends Drawable {
     protected int horizontalSpeed;
     protected int verticalSpeed;
     CyclicBarrier barrier;
-
+    public boolean isSuspended = false;
     public AquaAnimal() {
         horizontalSpeed = 0;
         verticalSpeed = 0;
@@ -22,6 +22,11 @@ public abstract class AquaAnimal extends Drawable {
             while (true) {
                 moveAnimal();
                 try {
+                    if (isSuspended){
+                        synchronized (this) {
+                            wait();
+                        }
+                    }
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
                     //interrupted
