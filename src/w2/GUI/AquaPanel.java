@@ -29,7 +29,9 @@ import java.util.*;
 public class AquaPanel extends JPanel {
 
 
+    public static int totalEatCounter = 0;
     public AquaPanel() {
+
         //Add Buttons to panel
         JButton addAnimal = new JButton("Add Animal");
         JButton wakeUp = new JButton("Wake Up");
@@ -60,7 +62,9 @@ public class AquaPanel extends JPanel {
         setLayout(new GridLayout(1, 0));
     }
 
-
+    public static void eatInc(){
+        totalEatCounter++;
+    }
     private void addAnimal(){
 
         AddAnimalDialog dialog = new AddAnimalDialog();

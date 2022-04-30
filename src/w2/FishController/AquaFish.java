@@ -13,6 +13,7 @@ public class AquaFish extends AquaAnimal {
 
     public AquaFish(int h, int v, int size, Color c, Image aquaImage) {
         super(h, v, size, c, aquaImage);
+
         eatCount = 0;
     }
 
@@ -52,7 +53,7 @@ public class AquaFish extends AquaAnimal {
 
     @Override
     public void setBarrier(CyclicBarrier b) {
-
+        barrier = b;
     }
 
     @Override
@@ -72,7 +73,7 @@ public class AquaFish extends AquaAnimal {
     }
 
     @Override
-    public String getColor() {
-        return color.toString();
+    public Color getColor() {
+        return color;
     }
 }

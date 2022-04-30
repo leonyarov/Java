@@ -40,17 +40,20 @@ public class AquaJellyFish extends AquaAnimal {
 
     @Override
     public void setSuspend() {
-
+        isSuspended = true;
     }
 
     @Override
     public void setResume() {
-
+        synchronized (this){
+            isSuspended = false;
+            notify();
+        }
     }
 
     @Override
     public void setBarrier(CyclicBarrier b) {
-
+        barrier = b;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class AquaJellyFish extends AquaAnimal {
     }
 
     @Override
-    public String getColor() {
-        return color.toString();
+    public Color getColor() {
+        return color;
     }
 }

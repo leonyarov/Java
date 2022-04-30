@@ -28,26 +28,23 @@ public class AquaFood extends Drawable {
     /*
     * @returns true if the fish ate food
      */
-    public boolean isEaten(){
-        var f = nearFish();
-        if (f != null){
-            f.eatInc();
-            return true;
-        }
-        return  false;
-    }
+//    public boolean isEaten(){
+//        var f = nearFish();
+//        if (f != null){
+//            f.eatInc();
+//            return true;
+//        }
+//        return  false;
+//    }
 
 
-    public AquaAnimal nearFish() {
-        for (var f : FishTank.fishes) {
-            var x1 = f.getXFront() + f.pixelSize / 2;
-            var y1 = f.getYFront() + f.pixelSize / 2;
-            var x2 = xFront + FOOD_WIDTH / 2;
-            var y2 = yFront + FOOD_WIDTH / 2;
-            var d = Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-            if (d < eatRadius) return f;
-        }
-        return null;
+    public boolean isNear(AquaAnimal animal) {
+        var x1 = animal.getXFront() + animal.pixelSize / 2;
+        var y1 = animal.getYFront() + animal.pixelSize / 2;
+        var x2 = xFront + FOOD_WIDTH / 2;
+        var y2 = yFront + FOOD_WIDTH / 2;
+        var d = Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+        return d < eatRadius;
     }
 
     @Override

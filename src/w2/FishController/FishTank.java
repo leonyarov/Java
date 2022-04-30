@@ -4,6 +4,7 @@ import w2.GUI.AquaBackground;
 
 import java.awt.*;
 import java.util.HashSet;
+import java.util.concurrent.CyclicBarrier;
 
 /**
  * This class represents a fish tank.
@@ -11,8 +12,10 @@ import java.util.HashSet;
  */
 public class FishTank {
     public static HashSet<AquaAnimal> fishes;
-    public static HashSet<AquaFood> food;
+//    public static FishTable ft = new FishTable();
+    public static AquaFood food;
     private static FishTank instance;
+    public static CyclicBarrier foodBarrier;
     private AquaBackground background;
     public Graphics g;
     public boolean isPaused = false;
@@ -32,7 +35,7 @@ public class FishTank {
     public FishTank(AquaBackground aquaBackground) {
         this.background = aquaBackground;
         fishes = new HashSet<AquaAnimal>();
-        food = new HashSet<AquaFood>();
+//        food = new AquaFood();
         instance = this;
         g = aquaBackground.getGraphics();
 
@@ -49,14 +52,14 @@ public class FishTank {
 //            fish.moveAnimal();
 //        }
 
-        for (AquaFood food : FishTank.food) {
-            if (food.isOnYBorder(g) || food.isEaten()){
-                FishTank.food.remove(food);
-                break;
-            }
-//            food.draw(g);
-            food.move();
-        }
+//        for (AquaFood food : FishTank.food) {
+//            if (food.isOnYBorder(g) || food.isEaten()){
+//                FishTank.food.remove(food);
+//                break;
+//            }
+////            food.draw(g);
+//            food.move();
+//        }
     }
 
     //sleep all fishes
@@ -78,7 +81,8 @@ public class FishTank {
         var rand = new java.util.Random();
         int x = rand.nextInt(background.getWidth() - AquaFood.FOOD_WIDTH);
         int y = rand.nextInt(background.getHeight() - AquaFood.FOOD_WIDTH);
-        food.add(new AquaFood(x,y));
+        food =  new AquaFood(x,y);
+        foodBarrier = new CyclicBarrier(fishes.size());
     }
 
 

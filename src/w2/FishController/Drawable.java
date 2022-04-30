@@ -11,7 +11,7 @@ public abstract class Drawable extends Thread {
 
     public Drawable() {
         super();
-        start();
+        start(); //start the thread
     }
 
 

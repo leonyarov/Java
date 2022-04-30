@@ -65,6 +65,23 @@ public abstract class AquaAnimal extends Drawable {
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
     public Image getAnimalImage() { return image; }
     protected synchronized void moveAnimal(){
+        var f = FishTank.food;
+            if (f != null){
+
+                try { barrier.await();}
+                catch (Exception e){ return; }
+
+                if (xFront > f.xFront) xFront -= Math.abs(horizontalSpeed);
+                else xFront += Math.abs(horizontalSpeed);
+
+                if (yFront > f.yFront) yFront -= Math.abs(verticalSpeed);
+                else yFront += Math.abs(verticalSpeed);
+
+                if (f.isNear(this)) {
+                    eatInc();
+                    FishTank.food = null;
+                }
+            }
             xFront += horizontalSpeed;
             yFront += verticalSpeed;
     }
