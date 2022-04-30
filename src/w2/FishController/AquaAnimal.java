@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class AquaAnimal extends Drawable {
-
     protected int horizontalSpeed;
     protected int verticalSpeed;
     CyclicBarrier barrier;
@@ -48,7 +47,8 @@ public abstract class AquaAnimal extends Drawable {
         pixelSize = size;
         color = c;
         this.image = animalImage;
-        xFront = yFront = 100;
+        xFront = 100;
+        yFront = 100;
         moveAnimal();
     }
 
@@ -96,5 +96,6 @@ public abstract class AquaAnimal extends Drawable {
     abstract public int getSize();
     abstract public void eatInc();
     abstract public int getEatCount();
-    abstract public String getColor();
+    abstract public Color getColor();
+
 }

@@ -1,6 +1,8 @@
 package w2.FishController;
 
 import w2.GUI.AquaBackground;
+import w2.GUI.AquaPanel;
+import w2.GUI.FishTable;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -41,6 +43,7 @@ public class FishTank {
 
     }
 
+
     public void Update(Graphics g){
 //        for (AquaAnimal fish : fishes) {
 //            fish.draw(g);
@@ -61,7 +64,6 @@ public class FishTank {
 //            food.move();
 //        }
     }
-
     //sleep all fishes
     public  void sleepAll(){
             for (AquaAnimal fish : fishes) {
@@ -98,7 +100,8 @@ public class FishTank {
             default:
                 fish = new AquaFish(h,v,s,c);
         }
-//        fish.start();
+        fish.setBarrier(foodBarrier);
+//        ft.addFish(fish); //WTF? just get data from the hashset
         fishes.add(fish);
     }
 
