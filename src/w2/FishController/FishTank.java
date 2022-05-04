@@ -15,9 +15,9 @@ import java.util.concurrent.CyclicBarrier;
 public class FishTank {
     public static HashSet<AquaAnimal> fishes;
 //    public static FishTable ft = new FishTable();
-    public static AquaFood food;
+    public AquaFood food = new AquaFood();
     private static FishTank instance;
-    public static CyclicBarrier foodBarrier;
+    public CyclicBarrier foodBarrier ;
     private AquaBackground background;
     public Graphics g;
     public boolean isPaused = false;
@@ -37,33 +37,12 @@ public class FishTank {
     public FishTank(AquaBackground aquaBackground) {
         this.background = aquaBackground;
         fishes = new HashSet<AquaAnimal>();
-//        food = new AquaFood();
         instance = this;
         g = aquaBackground.getGraphics();
 
     }
 
 
-    public void Update(Graphics g){
-//        for (AquaAnimal fish : fishes) {
-//            fish.draw(g);
-//            if (fish.isOnXBorder(g)) {
-//                fish.setHorSpeed(-fish.getHorSpeed());
-//                fish.flipImage();
-//            }
-//            if (fish.isOnYBorder(g)) fish.setVerSpeed(-fish.getVerSpeed());
-//            fish.moveAnimal();
-//        }
-
-//        for (AquaFood food : FishTank.food) {
-//            if (food.isOnYBorder(g) || food.isEaten()){
-//                FishTank.food.remove(food);
-//                break;
-//            }
-////            food.draw(g);
-//            food.move();
-//        }
-    }
     //sleep all fishes
     public  void sleepAll(){
             for (AquaAnimal fish : fishes) {
@@ -78,13 +57,21 @@ public class FishTank {
         }
     }
 
+    public void reset(){
+        foodBarrier.reset();
+        fishes.clear();
+    }
+
     public void feed(){
-        //select random point in aquabackground
+
+//        if(fishes.size() == 0) return;
         var rand = new java.util.Random();
         int x = rand.nextInt(background.getWidth() - AquaFood.FOOD_WIDTH);
         int y = rand.nextInt(background.getHeight() - AquaFood.FOOD_WIDTH);
-        food =  new AquaFood(x,y);
+        food.placeFood(x,y);
+//        if (foodBarrier != null) foodBarrier.reset();
         foodBarrier = new CyclicBarrier(fishes.size());
+        System.out.println(foodBarrier.getParties() + " fishes subscribed, with " + foodBarrier.getNumberWaiting() + " waiting");
     }
 
 
@@ -100,8 +87,7 @@ public class FishTank {
             default:
                 fish = new AquaFish(h,v,s,c);
         }
-        fish.setBarrier(foodBarrier);
-//        ft.addFish(fish); //WTF? just get data from the hashset
+//        fish.setBarrier(foodBarrier);
         fishes.add(fish);
     }
 
