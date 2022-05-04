@@ -73,10 +73,12 @@ public class AddAnimalDialog extends JDialog {
         });
 
         cancel.addActionListener(e -> { this.dispose(); });
+
         //add objects to dialog
         animalTypePanel.add(fish);
         animalTypePanel.add(jellyfish);
 
+        //Add to properties panel
         propertiesPanel.add(animalTypeLabel);
         propertiesPanel.add(animalTypePanel);
         propertiesPanel.add(sizeLabel);

@@ -7,17 +7,25 @@ import java.util.concurrent.CyclicBarrier;
 
 public class AquaJellyFish extends AquaAnimal {
 
+    //JellyFish eat count
+    private int eatCount;
 
-    public AquaJellyFish(int h, int v, int size, Color color, Image image) {
-        super(h, v, size, color, image);
-        eatCount = 0;
-    }
-
+    /**
+     * JellyFish constructor
+     * @param h horizontal speed
+     * @param v vertical speed
+     * @param size pixel size
+     * @param color @{@link Color} object
+     */
     public AquaJellyFish(int h, int v, int size, Color color) {
         super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,color));
         eatCount = 0;
     }
 
+    /**
+     * Draw jellyfish on @{@link Graphics} object
+     * @param g @{@link Graphics} object
+     */
     @Override
     public void drawAnimal(Graphics g) {
         if (isOnXBorder(g)) {
@@ -25,12 +33,11 @@ public class AquaJellyFish extends AquaAnimal {
             flipImage();
         }
         if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
-        moveAnimal();
+
         g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
 
     }
 
-    private int eatCount;
     @Override
     public String getAnimalName() {
         return "JellyFish";
@@ -64,6 +71,7 @@ public class AquaJellyFish extends AquaAnimal {
     @Override
     public void eatInc() {
         eatCount++;
+        pixelSize += 10;
     }
 
     @Override
@@ -72,7 +80,8 @@ public class AquaJellyFish extends AquaAnimal {
     }
 
     @Override
-    public Color getColor() {
-        return color;
+    public String getColor() {
+        return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
+
     }
 }

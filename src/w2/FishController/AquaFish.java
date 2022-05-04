@@ -1,21 +1,20 @@
 package w2.FishController;
-
-import w2.GUI.AquaPanel;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
 public class AquaFish extends AquaAnimal {
 
 
+    //Fish eat count
     private int eatCount;
 
-    public AquaFish(int h, int v, int size, Color c, Image aquaImage) {
-        super(h, v, size, c, aquaImage);
-
-        eatCount = 0;
-    }
-
-
+    /**
+     * Fish constructor
+     * @param h horizontal speed
+     * @param v vertical speed
+     * @param size pixel size
+     * @param c @{@link Color} object
+     */
     public AquaFish(int h, int v, int size, Color c) {
         super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary,c));
         eatCount = 0;
@@ -27,21 +26,31 @@ public class AquaFish extends AquaAnimal {
         return "Fish";
     }
 
+    /**
+     * Draw fish on @{@link Graphics} object
+     * @param g @{@link Graphics} object
+     */
     @Override
     public void drawAnimal(Graphics g) {
-        if (isOnXBorder(g)) {
-            setHorSpeed(-getHorSpeed());
-            flipImage();
+        if (isOnXBorder(g)) {                       //if fish is on the border
+            setHorSpeed(-getHorSpeed());            //change X direction
+            flipImage();                            //flip image
         }
-        if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
-        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
+        if (isOnYBorder(g)) setVerSpeed(-getVerSpeed()); //change Y direction
+        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null); //draw fish
     }
 
+    /**
+     * Stop fish
+     */
     @Override
     public void setSuspend()  {
         isSuspended = true;
     }
 
+    /**
+     * Resume fish
+     */
     @Override
      public void setResume() {
             synchronized (this){
@@ -72,7 +81,7 @@ public class AquaFish extends AquaAnimal {
     }
 
     @Override
-    public Color getColor() {
-        return color;
+    public String getColor() {
+        return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
     }
 }

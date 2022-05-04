@@ -67,7 +67,7 @@ public class FishUtils {
         }
     }
 
-    public static BufferedImage flipVertical(BufferedImage src){
+    public static BufferedImage flipHorizontal(BufferedImage src){
 
         AffineTransform tx=AffineTransform.getScaleInstance(-1.0,1.0);  //scaling
         tx.translate(-src.getWidth(),0);  //translating

@@ -1,7 +1,6 @@
 package w2.GUI;
 
 import w2.FishController.FishTank;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,7 +31,6 @@ public class AquaFrame extends JFrame {
         AquaMenu menu = new AquaMenu(background);
         menu.setVisible(true);
         setJMenuBar(menu);
-
 
 
         //Add bottom panel buttons

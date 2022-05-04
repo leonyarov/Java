@@ -7,30 +7,41 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class FishTable extends JDialog {
+    JScrollPane scrollPane = new JScrollPane();
     JTable table = new JTable();
     DefaultTableModel tableModel = new DefaultTableModel();
+
 
     public FishTable() {
         tableModel.addColumn("Animal");
         tableModel.addColumn("Color");
+        tableModel.addColumn("Size");
         tableModel.addColumn("Hor.Speed");
         tableModel.addColumn("Ver.Speed");
         tableModel.addColumn("Eat counter");
         setSize(550, 350);
 //        add(new JScrollPane(this));
         table.setModel(tableModel);
-        add(table);
+        scrollPane.setViewportView(table);
+        add(scrollPane);
         addFish();
+        pack();
+        table.setVisible(true);
+
     }
 
     public void addFish(){
         for (var fish : FishTank.fishes) {
-            tableModel.addRow(new Object[]{
+            var a = new Object[] {
                     fish.getAnimalName(),
+                    fish.getSize(),
                     fish.getColor(),
-                    fish.getHorSpeed(),
-                    fish.getVerSpeed(),
-                    fish.getEatCount()});
+                    Math.abs(fish.getHorSpeed()),
+                    Math.abs(fish.getVerSpeed()),
+                    fish.getEatCount() };
+
+            tableModel.addRow(a);
+
         }
     }
 

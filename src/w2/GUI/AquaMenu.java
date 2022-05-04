@@ -23,6 +23,7 @@ public class AquaMenu extends JMenuBar {
         //background menu items - Select from file, select from gallery, select color, select none
         JMenuItem selectFromFile =      new JMenuItem("Image");
         JMenuItem selectBlue =          new JMenuItem("Blue");
+        JMenuItem selectAnyColor =         new JMenuItem("Pick Color");
         JMenuItem selectNone =          new JMenuItem("None");
 
         //Help Dialog
@@ -33,8 +34,7 @@ public class AquaMenu extends JMenuBar {
         selectFromFile.addActionListener(e -> selectFromFile());
         selectNone.addActionListener(e -> removeBackround());
         selectBlue.addActionListener(e -> setBackgroundColor(Color.BLUE));
-//        selectDefault.addActionListener(e -> setBackgroundImage());
-        //TODO: Add action for help
+        selectAnyColor.addActionListener(e -> setAnyColor());
         helpItem.addActionListener(e -> helpBox());
 
 
@@ -45,7 +45,9 @@ public class AquaMenu extends JMenuBar {
         //add menu items to background menu
         background.add(selectFromFile);
         background.add(selectBlue); //wtf man we can do better lmao
+        background.add(selectAnyColor);
         background.add(selectNone);
+
 
 
         //add menu items to help menu
@@ -79,15 +81,13 @@ public class AquaMenu extends JMenuBar {
         }
     }
 
-//    /**
-//     * Select color from color picker
-//     */
-//    public void selectColor() {
-//        //Open color picker
-//        Color color = JColorChooser.showDialog(null, "Choose Background Color", Color.BLACK);
-//        //set color to main panel
-//        setBackgroundColor(color);
-//    }
+
+    private void setAnyColor() {
+        //pick color from color picker
+        Color color = JColorChooser.showDialog(null, "Pick a color", Color.BLACK);
+        aquaBackground.setBackground(color);
+    }
+
 
     private void setBackgroundColor(Color color) {
         aquaBackground.setColor(color);
@@ -112,7 +112,7 @@ public class AquaMenu extends JMenuBar {
 
 
     public void helpBox(){
-        JOptionPane.showMessageDialog(f, "Home Work 3\nGUI @ Threads");
+        InfoBox.show("Work 3 \nAuthors: \n  Leon Yarovinski\n  Alon Levi", "About Aquarium");
     }
 
 }

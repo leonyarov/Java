@@ -8,14 +8,13 @@ import w2.FishController.FishTank;
 
 public class InfoBox extends JPanel {
 
-    String[] columnName = { "Animal",
-            "Color",
-            "Size",
-            "Hor.Speed",
-            "Ver.Speed",
-            "Eat counter"};
 
-    private static void infoBox(String infoMessage, String titleBar)
+    /**
+     * Show message box with given strings
+     * @param infoMessage It's not about the money, it's about sending a message
+     * @param titleBar The title of the message box
+     */
+    public static void show(String infoMessage, String titleBar)
     {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }

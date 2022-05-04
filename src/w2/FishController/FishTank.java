@@ -14,13 +14,9 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class FishTank {
     public static HashSet<AquaAnimal> fishes;
-//    public static FishTable ft = new FishTable();
     public AquaFood food = new AquaFood();
     private static FishTank instance;
     public CyclicBarrier foodBarrier ;
-//    private AquaBackground background;
-//    public Graphics g;
-    public boolean isPaused = false;
 
     public static FishTank getInstance() {
         if (instance == null) {
@@ -34,45 +30,45 @@ public class FishTank {
     }
 
 
-    public FishTank(/*AquaBackground aquaBackground*/) {
-//        this.background = aquaBackground;
-        fishes = new HashSet<AquaAnimal>();
+    public FishTank() {
+        fishes = new HashSet<>();
         instance = this;
-//        g = aquaBackground.getGraphics();
-
     }
 
 
     //sleep all fishes
-    public  void sleepAll(){
-            for (AquaAnimal fish : fishes) {
-                fish.setSuspend();
-            }
+    public  void sleepAll() {
+        for (AquaAnimal fish : fishes) fish.setSuspend();
     }
 
     //wake up all fish
-    public void wakeAll(){
-        for (AquaAnimal fish : fishes) {
-            fish.setResume();
-        }
+    public void wakeAll() {
+        for (AquaAnimal fish : fishes) fish.setResume();
     }
 
     public void reset(){
-        foodBarrier.reset();
-        fishes.clear();
+        foodBarrier.reset();    //reset barrier
+        fishes.clear();         //clear fishes
     }
 
     public void feed(){
 
-        if(fishes.size() == 0) return;
-        food.placeFood(300,300);
-        foodBarrier = new CyclicBarrier(fishes.size());
-        for(var fish : fishes)
-            fish.setBarrier(foodBarrier);
-        System.out.println(foodBarrier.getParties() + " fishes subscribed, with " + foodBarrier.getNumberWaiting() + " waiting");
+        if(fishes.size() == 0) return;        //If no fishes present dont place food
+        food.placeFood(400,300);         //Place in the center of the aquarium
+        foodBarrier = new CyclicBarrier(fishes.size()); //init new barrier
+        for(var fish : fishes) fish.setBarrier(foodBarrier); //set the barrier to the fishes
     }
 
 
+    /**
+     * Create new animal in the tank
+     * @param h horizontal speed
+     * @param v vertical speed
+     * @param s size
+     * @param c color
+     * @param i {@link Image}
+     * @param t type enum
+     */
     public void newFish(int h, int v, int s, Color c, Image i, AnimalType t){
         AquaAnimal fish;
         switch (t) {

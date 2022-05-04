@@ -1,8 +1,6 @@
 package w2.GUI;
 
 import w2.FishController.FishTank;
-import w2.FishController.FishUtils;
-
 import javax.swing.*;
 import java.awt.*;
 

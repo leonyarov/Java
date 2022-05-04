@@ -2,8 +2,9 @@ package w2.FishController;
 
 
 
+import w2.GUI.AquaPanel;
+
 import java.awt.*;
-import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class AquaAnimal extends Thread {
@@ -18,21 +19,16 @@ public abstract class AquaAnimal extends Thread {
     protected int pixelSize;
     protected Color color;
 
-    public AquaAnimal() {
-        horizontalSpeed = 0;
-        verticalSpeed = 0;
-    }
-
     @Override
      public void run() {
         super.run();
             while (true) {
                 moveAnimal();
                 try {
-//                    if (isSuspended)
-//                        synchronized (this) {
-//                            wait();
-//                        }
+                    if (isSuspended)
+                        synchronized (this) {
+                            wait();
+                        }
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
                     //interrupted
@@ -40,13 +36,14 @@ public abstract class AquaAnimal extends Thread {
             }
     }
 
-    public AquaAnimal(int hor, int ver) {
-        horizontalSpeed = hor;
-        verticalSpeed = ver;
-        color = Color.WHITE;
-        pixelSize = new Random().nextInt(300) + 20;
-    }
-
+    /**
+     * Animal Super constructor
+     * @param h horizontal speed
+     * @param v vertical speed
+     * @param size pixel size
+     * @param c @{@link Color} object
+     * @param animalImage @{@link Image} object
+     */
     public AquaAnimal(int h, int v, int size, Color c, Image animalImage) {
         super();
         horizontalSpeed = h;
@@ -59,12 +56,6 @@ public abstract class AquaAnimal extends Thread {
         start();
     }
 
-    public void setPixelSize(int size) {
-        int min = 20, max = 320;
-        pixelSize = Math.min(max, Math.max(min, size));
-    }
-
-
 
     public int getHorSpeed() { return horizontalSpeed; }
     public int getVerSpeed() { return verticalSpeed; }
@@ -72,73 +63,132 @@ public abstract class AquaAnimal extends Thread {
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
     public Image getAnimalImage() { return image; }
 
-    protected synchronized void moveAnimal(){
+
+    /**
+     * Move animal position function
+     */
+    protected synchronized void moveAnimal() {
+
+        //Copy food reference
         var f = FishTank.getInstance().food;
-            if (!f.isEaten){
 
-                try { barrier.await();}
-                catch (Exception e){ return; }
+        //Temporary
+        var xSpeed = horizontalSpeed;
+        var ySpeed = verticalSpeed;
 
-                if (getCenterPointX() > f.xFront && horizontalSpeed > 0){
-                    flipImage();
-                    horizontalSpeed = -horizontalSpeed;
-                }
-                if (getCenterPointX() < f.xFront && horizontalSpeed < 0){
-                    flipImage();
-                    horizontalSpeed = -horizontalSpeed;
-                }
+        //If food is not eaten chase it
+        if (!f.isEaten) {
 
-                if (getCenterPointY() > f.yFront && verticalSpeed > 0) verticalSpeed = -verticalSpeed;
-                if (getCenterPointY() < f.yFront && verticalSpeed < 0) verticalSpeed = -verticalSpeed;
 
-//                if (Math.abs(getCenterPointX() - f.xFront) < 5) xSpeed = 0;
-//                if (Math.abs(getCenterPointY() - f.yFront) < 5) ySpeed = 0;
-
-                if (f.isNear(this)) {
-                    eatInc();
-                    FishTank.getInstance().food.isEaten = true;
-                }
+            //Cyclic barrier implementation
+            try {
+                barrier.await();
+            } catch (Exception e) {
+                return;
             }
-            xFront += horizontalSpeed;
-            yFront += verticalSpeed;
-            //clear system console
-            System.out.print("\033[H\033[2J");
-            //print speed
-            System.out.println("H: " + horizontalSpeed + " V: " + verticalSpeed);
+
+            //Flip horizontally to chase food
+            if (getCenterPointX() > f.xFront && horizontalSpeed > 0) {
+                flipImage();
+                horizontalSpeed = -horizontalSpeed;
+            }
+            if (getCenterPointX() < f.xFront && horizontalSpeed < 0) {
+                flipImage();
+                horizontalSpeed = -horizontalSpeed;
+            }
+
+            //Flip vertical axis to chase food
+            if (getCenterPointY() > f.yFront && verticalSpeed > 0) verticalSpeed = -verticalSpeed;
+            if (getCenterPointY() < f.yFront && verticalSpeed < 0) verticalSpeed = -verticalSpeed;
+
+            //Copy speed reference for straight movement
+            xSpeed = horizontalSpeed;
+            ySpeed = verticalSpeed;
+
+            //Move fish in straight line
+            if (Math.abs(getCenterPointX() - f.xFront) < 5) horizontalSpeed = 0;
+            if (Math.abs(getCenterPointY() - f.yFront) < 5) verticalSpeed = 0;
+
+            //Check if animal is near food and eat it
+            if (FishTank.getInstance().food.isNear(this) && !FishTank.getInstance().food.isEaten) {
+                FishTank.getInstance().food.isEaten = true;
+                eatInc();
+                AquaPanel.eatInc(); //callback
+            }
+        }
+
+        //Move fish with given speed
+        xFront += horizontalSpeed;
+        yFront += verticalSpeed;
+
+        //Temporary revert
+        horizontalSpeed = xSpeed;
+        verticalSpeed = ySpeed;
 
 
     }
+
+    //Get XFront pixel coordingate
     public int getXFront() { return xFront; }
+    //Get YFront pixel coordinate
     public int getYFront() { return yFront; }
 
 
-
+    /**
+     * Check if fish is on the edge of the aquarium
+     * @param g @{@link Graphics} object
+     * @return True if fish is on the edge of the aquarium
+     */
     public boolean isOnXBorder(Graphics g) {
         return xFront + pixelSize >= g.getClipBounds().width || xFront <= 0;
     }
 
+    /**
+     * Check if fish is on the edge of the aquarium
+     * @param g @{@link Graphics} object
+     * @return True if fish is on the edge of the aquarium
+     */
     public boolean isOnYBorder(Graphics g) {
         return yFront + pixelSize >= g.getClipBounds().height || yFront <= 0;
     }
 
+    /**
+     * Get the middle X point of the fish
+     * @return middle X point of the fish
+     */
     public int getCenterPointX(){
         return xFront + pixelSize/2;
     }
+    /**
+     * Get the middle Y point of the fish
+     * @return middle Y point of the fish
+     */
     public int getCenterPointY(){
         return yFront + pixelSize/2;
     }
 
 
+    /**
+     * Flip fish image horizontally
+     */
     public void flipImage() {
         var i = FishUtils.imageToBufferedImage(image);
-        var b = FishUtils.flipVertical(i);
+        var b = FishUtils.flipHorizontal(i);
         setImage(b);
     }
 
+    /**
+     * Set fish image to new image
+     * @param image @{@link Image} object
+     */
     public void setImage(Image image) {
         this.image = image;
     }
 
+    /**
+     * Set fish color to new color
+     * @param c @{@link Color} object
+     */
     public void setColor(Color c) {
         color = c;
     }
@@ -152,6 +202,6 @@ public abstract class AquaAnimal extends Thread {
     abstract public int getSize();
     abstract public void eatInc();
     abstract public int getEatCount();
-    abstract public Color getColor();
+    abstract public String getColor();
 
 }

@@ -11,6 +11,7 @@ public class AquaPanel extends JPanel {
 
 
     public static int totalEatCounter = 0;
+    FishTable table;
     public AquaPanel() {
 
         //Add Buttons to panel
@@ -58,6 +59,5 @@ public class AquaPanel extends JPanel {
     public void infoTable(){
         FishTable table = new FishTable();
         table.setVisible(true);
-
     }
 }
