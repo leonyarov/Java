@@ -1,6 +1,7 @@
 package w2.FishController;
 
 
+
 import java.awt.*;
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
@@ -28,11 +29,10 @@ public abstract class AquaAnimal extends Thread {
             while (true) {
                 moveAnimal();
                 try {
-                    if (isSuspended){
-                        synchronized (this) {
-                            wait();
-                        }
-                    }
+//                    if (isSuspended)
+//                        synchronized (this) {
+//                            wait();
+//                        }
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
                     //interrupted
@@ -56,6 +56,7 @@ public abstract class AquaAnimal extends Thread {
         this.image = animalImage;
         xFront = 100;
         yFront = 100;
+        start();
     }
 
     public void setPixelSize(int size) {
@@ -75,23 +76,37 @@ public abstract class AquaAnimal extends Thread {
         var f = FishTank.getInstance().food;
             if (!f.isEaten){
 
-//                try { barrier.await();}
-//                catch (Exception e){ return; }
+                try { barrier.await();}
+                catch (Exception e){ return; }
 
-                if (xFront > f.xFront) xFront -= Math.abs(horizontalSpeed);
-                else xFront += Math.abs(horizontalSpeed);
+                if (getCenterPointX() > f.xFront && horizontalSpeed > 0){
+                    flipImage();
+                    horizontalSpeed = -horizontalSpeed;
+                }
+                if (getCenterPointX() < f.xFront && horizontalSpeed < 0){
+                    flipImage();
+                    horizontalSpeed = -horizontalSpeed;
+                }
 
-                if (yFront > f.yFront) yFront -= Math.abs(verticalSpeed);
-                else yFront += Math.abs(verticalSpeed);
+                if (getCenterPointY() > f.yFront && verticalSpeed > 0) verticalSpeed = -verticalSpeed;
+                if (getCenterPointY() < f.yFront && verticalSpeed < 0) verticalSpeed = -verticalSpeed;
+
+//                if (Math.abs(getCenterPointX() - f.xFront) < 5) xSpeed = 0;
+//                if (Math.abs(getCenterPointY() - f.yFront) < 5) ySpeed = 0;
 
                 if (f.isNear(this)) {
                     eatInc();
                     FishTank.getInstance().food.isEaten = true;
                 }
-                return;
             }
             xFront += horizontalSpeed;
             yFront += verticalSpeed;
+            //clear system console
+            System.out.print("\033[H\033[2J");
+            //print speed
+            System.out.println("H: " + horizontalSpeed + " V: " + verticalSpeed);
+
+
     }
     public int getXFront() { return xFront; }
     public int getYFront() { return yFront; }
@@ -104,6 +119,13 @@ public abstract class AquaAnimal extends Thread {
 
     public boolean isOnYBorder(Graphics g) {
         return yFront + pixelSize >= g.getClipBounds().height || yFront <= 0;
+    }
+
+    public int getCenterPointX(){
+        return xFront + pixelSize/2;
+    }
+    public int getCenterPointY(){
+        return yFront + pixelSize/2;
     }
 
 
