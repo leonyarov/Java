@@ -5,6 +5,9 @@ import w2.FishController.FishTank;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Adding an AquaticAnimal instance to the FishTank through a Dialog Box
+ */
 
 public class AddAnimalDialog extends JDialog {
 
@@ -66,11 +69,13 @@ public class AddAnimalDialog extends JDialog {
         });
 
         createNew.addActionListener(e -> {
-            type = fish.isSelected() ? FishTank.AnimalType.FISH : FishTank.AnimalType.JELLYFISH;
-            FishTank.getInstance().newFish(
-                    -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(), null, type);
-
+            if (FishTank.fishes.size() < 5) {
+                type = fish.isSelected() ? FishTank.AnimalType.FISH : FishTank.AnimalType.JELLYFISH;
+                FishTank.getInstance().newFish(
+                        -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(), null, type);
+            }
         });
+
 
         cancel.addActionListener(e -> { this.dispose(); });
 

@@ -68,7 +68,7 @@ public class AquaMenu extends JMenuBar {
     }
 
     /**
-     * Select image on pc
+     * Select image from pc HardDrive
      */
     public void selectFromFile() {
         //Open dialog to select image from file
@@ -81,7 +81,9 @@ public class AquaMenu extends JMenuBar {
         }
     }
 
-
+    /**
+     * Apply any color scheme from beehive color
+     */
     private void setAnyColor() {
         //pick color from color picker
         Color color = JColorChooser.showDialog(null, "Pick a color", Color.BLACK);
@@ -93,6 +95,10 @@ public class AquaMenu extends JMenuBar {
         aquaBackground.setColor(color);
     }
 
+    /**
+     * Set and apply an image file as FishTank Background
+     * @param file image to be set as background
+     */
     private void setBackgroundImage(File file) {
         //create image from path
         try {
@@ -106,13 +112,19 @@ public class AquaMenu extends JMenuBar {
         }
     }
 
+    /**
+     * Remove Background by defaulting to white color
+     */
     private void removeBackround() {
      setBackgroundColor(Color.WHITE);
     }
 
 
+    /**
+     * Tab with refrence to authors
+     */
     public void helpBox(){
-        InfoBox.show("Work 3 \nAuthors: \n  Leon Yarovinski\n  Alon Levi", "About Aquarium");
+        InfoBox.show("Work 3 \nGUI @ Thread\nAuthors: \nLeon Yarovinski\nAlon Yehuda Levi", "About Aquarium");
     }
 
 }

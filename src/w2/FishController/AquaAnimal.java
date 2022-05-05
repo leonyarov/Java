@@ -128,7 +128,7 @@ public abstract class AquaAnimal extends Thread {
 
     }
 
-    //Get XFront pixel coordingate
+    //Get XFront pixel coordinate
     public int getXFront() { return xFront; }
     //Get YFront pixel coordinate
     public int getYFront() { return yFront; }
@@ -193,15 +193,55 @@ public abstract class AquaAnimal extends Thread {
         color = c;
     }
 
+    /**
+     * Draw AquaticAnimal on @{@link Graphics} object
+     * @param g @{@link Graphics} object
+     */
     abstract public void drawAnimal(Graphics g);
 
+    /**
+     * String representation of AquaticAnimal
+     * @return name
+     */
     abstract public String getAnimalName();
+
+    /**
+     * Stopping all instances of AquaticAnimal Movement
+     */
     abstract public void setSuspend();
+
+    /**
+     * Resuming all instances of AquaticAnimal Movement
+     */
     abstract public void setResume();
+
+    /**
+     * Set a CyclicBarrier for AquaticAnimal instances
+     * @param b uses an all-or-none breakage model for failed synchronization attempts:
+     */
     abstract public void setBarrier(CyclicBarrier b);
+
+    /**
+     * Size representation of AquaticAnimal
+     * @return size
+     */
     abstract public int getSize();
+
+    /**
+     * increment private field 'eatCounter' of AquaticAnimal(Fish/JellyFish)
+     */
     abstract public void eatInc();
+
+    /**
+     * Receive eatCounter returned as integer
+     * @return eatCount
+     */
     abstract public int getEatCount();
+
+    /**
+     * Color representation by string for current instance of AquaticAnimal
+     * @return color
+     */
     abstract public String getColor();
 
 }

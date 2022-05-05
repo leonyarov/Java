@@ -31,6 +31,10 @@ public class AquaBackground extends JPanel implements Runnable {
         this.image = image;
     }
 
+    /**
+     * Set new image color
+     * @param color - color to apply
+     */
     public void setColor(Color color) {
         setImage(null);
         setBackground(color);

@@ -22,10 +22,7 @@ public class AquaJellyFish extends AquaAnimal {
         eatCount = 0;
     }
 
-    /**
-     * Draw jellyfish on @{@link Graphics} object
-     * @param g @{@link Graphics} object
-     */
+
     @Override
     public void drawAnimal(Graphics g) {
         if (isOnXBorder(g)) {
@@ -42,8 +39,6 @@ public class AquaJellyFish extends AquaAnimal {
     public String getAnimalName() {
         return "JellyFish";
     }
-
-
 
     @Override
     public void setSuspend() {

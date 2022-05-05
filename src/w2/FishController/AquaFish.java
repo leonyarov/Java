@@ -26,10 +26,6 @@ public class AquaFish extends AquaAnimal {
         return "Fish";
     }
 
-    /**
-     * Draw fish on @{@link Graphics} object
-     * @param g @{@link Graphics} object
-     */
     @Override
     public void drawAnimal(Graphics g) {
         if (isOnXBorder(g)) {                       //if fish is on the border
@@ -40,17 +36,11 @@ public class AquaFish extends AquaAnimal {
         g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null); //draw fish
     }
 
-    /**
-     * Stop fish
-     */
     @Override
     public void setSuspend()  {
         isSuspended = true;
     }
 
-    /**
-     * Resume fish
-     */
     @Override
      public void setResume() {
             synchronized (this){

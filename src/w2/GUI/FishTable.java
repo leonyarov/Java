@@ -4,8 +4,11 @@ import w2.FishController.FishTank;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import w2.FishController.AquaAnimal;
 
-
+/**
+ * AquaticAnimal Information Table
+ */
 public class FishTable extends JDialog {
     JScrollPane scrollPane = new JScrollPane();
     JTable table = new JTable();
@@ -20,31 +23,29 @@ public class FishTable extends JDialog {
         tableModel.addColumn("Ver.Speed");
         tableModel.addColumn("Eat counter");
         setSize(550, 350);
-//        add(new JScrollPane(this));
         table.setModel(tableModel);
         scrollPane.setViewportView(table);
         add(scrollPane);
         addFish();
+        tableModel.addRow(new Object[] {"Total","","","","",AquaPanel.totalEatCounter});
         pack();
         table.setVisible(true);
-
     }
 
+    /**
+     * Input values of all instances of AquaticAnimals in FishTank
+     */
     public void addFish(){
         for (var fish : FishTank.fishes) {
             var a = new Object[] {
                     fish.getAnimalName(),
-                    fish.getSize(),
                     fish.getColor(),
+                    fish.getSize(),
                     Math.abs(fish.getHorSpeed()),
                     Math.abs(fish.getVerSpeed()),
                     fish.getEatCount() };
-
             tableModel.addRow(a);
-
         }
     }
-
-
 }
 

@@ -16,8 +16,13 @@ public class FishTank {
     public static HashSet<AquaAnimal> fishes;
     public AquaFood food = new AquaFood();
     private static FishTank instance;
-    public CyclicBarrier foodBarrier ;
+    public CyclicBarrier foodBarrier;
+    public int totalEatCount = 0;
 
+    /**
+     * FishTank Instance
+     * @return current instance / Null
+     */
     public static FishTank getInstance() {
         if (instance == null) {
             throw new IllegalStateException("FishTank is not initialized");
@@ -29,31 +34,41 @@ public class FishTank {
         FISH, JELLYFISH
     }
 
-
+    /**
+     * FishTank Constructor
+     */
     public FishTank() {
         fishes = new HashSet<>();
         instance = this;
     }
 
-
-    //sleep all fishes
+    /**
+     * Suspend all instances of AquaticAnimal threads
+     */
     public  void sleepAll() {
         for (AquaAnimal fish : fishes) fish.setSuspend();
     }
 
-    //wake up all fish
+    /**
+     * Wake all instances of AquaticAnimal threads
+     */
     public void wakeAll() {
         for (AquaAnimal fish : fishes) fish.setResume();
     }
 
+    /**
+     * Clear all instances from FishTank
+     */
     public void reset(){
-        foodBarrier.reset();    //reset barrier
+        try{foodBarrier.reset();}catch (NullPointerException e){;}    //reset barrier
         fishes.clear();         //clear fishes
     }
 
+    /**
+     * Feed AquaticAnimal within proximity of food
+     */
     public void feed(){
-
-        if(fishes.size() == 0) return;        //If no fishes present dont place food
+        if(fishes.size() == 0) return;        //If no fishes present don't place food
         food.placeFood(400,300);         //Place in the center of the aquarium
         foodBarrier = new CyclicBarrier(fishes.size()); //init new barrier
         for(var fish : fishes) fish.setBarrier(foodBarrier); //set the barrier to the fishes
@@ -83,11 +98,5 @@ public class FishTank {
         }
         fishes.add(fish);
     }
-
-
-
-
-
-
 
 }

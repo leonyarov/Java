@@ -40,6 +40,11 @@ public class FishUtils {
         }
     }
 
+    /**
+     * Flips fish thread on GUI Horizontally
+     * @param src source of image
+     * @return filtered source image
+     */
     public static BufferedImage flipHorizontal(BufferedImage src){
 
         AffineTransform tx=AffineTransform.getScaleInstance(-1.0,1.0);  //scaling
@@ -48,6 +53,11 @@ public class FishUtils {
         return tr.filter(src, null);  //filtering
     }
 
+    /**
+     * Converting image to BufferedImage
+     * @param image Image of file
+     * @return bufferedImage from Image file
+     */
     public static BufferedImage imageToBufferedImage(Image image) {
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
                 BufferedImage.TYPE_INT_ARGB);
@@ -57,6 +67,12 @@ public class FishUtils {
         return bufferedImage;
     }
 
+    /**
+     * Random Aquatic Image
+     * @param path path to folder
+     * @param color The Color class is used to encapsulate colors in the default sRGB
+     * @return Random Aquatic Image from path
+     */
     public static Image getRandomImage(String path, Color color){
         var imgs = FishUtils.GetImagesFromPath(path, "png");
         var r = new Random().nextInt(imgs.size());
@@ -65,7 +81,12 @@ public class FishUtils {
         return img;
     }
 
-
+    /**
+     * applying color filtration to
+     * @param image Image of file
+     * @param color The Color class is used to encapsulate colors in the default sRGB
+     * @return BufferedImage with color filtration
+     */
     public static Image applyColorFilter(Image image,Color color)  {
         if (image == null) return null;
         BufferedImage buff = imageToBufferedImage(image);
