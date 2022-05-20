@@ -6,18 +6,29 @@ import java.awt.*;
  * This class represents Food for AquaticAnimals
  */
 
-public class AquaFood  {
-
+public class AquaFood{
     private Image image;
     final static int FOOD_WIDTH = 20;
     private int eatRadius = 30;
     public boolean isEaten = true;
     public int xFront, yFront;
+    private static AquaFood aquaFood = null;
 
-    public AquaFood(){
-        image = FishUtils.getRandomImage("src/w2/Assets/Food/", Color.WHITE);
+
+    private AquaFood(){
+        image = FishUtils.getRandomImage("src/w3/Assets/Food/", Color.WHITE);
     }
 
+    public static AquaFood getInstance(){
+        if (aquaFood == null){
+            aquaFood = new AquaFood();
+        }
+        return aquaFood;
+    }
+
+    public void setInstance(AquaFood instance){
+        this.aquaFood = instance;
+    }
     /**
      * Food addressable point on a FishTank display screen
      * @param x horizontal addressing pixel location
@@ -52,3 +63,4 @@ public class AquaFood  {
     }
 
 }
+
