@@ -104,8 +104,8 @@ public class FishUtils {
         return buff;
     }
 
-    public static final String fishLibrary = "src/w2/Assets/Fish/";
-    public static final String jellyfishLibrary = "src/w2/Assets/JellyFish/";
     public static final String laminariaLibrary = "src/w3/Assets/Laminaria/";
     public static final String zosteraLibrary = "src/w3/Assets/Zostera/";
+    public static final String fishLibrary = "src/w3/Assets/Fish/";
+    public static final String jellyfishLibrary = "src/w3/Assets/JellyFish/";
 }

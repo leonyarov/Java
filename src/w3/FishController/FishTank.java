@@ -10,7 +10,7 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class FishTank {
     public static HashSet<AquaAnimal> fishes;
-    public AquaFood food = new AquaFood();
+    public AquaFood food = AquaFood.getInstance();
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
     public int totalEatCount = 0;
