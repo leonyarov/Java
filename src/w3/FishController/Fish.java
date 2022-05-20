@@ -29,7 +29,7 @@ public class Fish extends Swimmable {
     }
 
     @Override
-    public void drawAnimal(Graphics g) {
+    public void drawCreature(Graphics g) {
         if (isOnXBorder(g)) {                       //if fish is on the border
             setHorSpeed(-getHorSpeed());            //change X direction
             flipImage();                            //flip image

@@ -4,7 +4,7 @@ import w3.Utils.FishUtils;
 
 import java.awt.*;
 
-public class Immobile {
+public class Immobile implements SeaCreature {
     int x,y, size;
     Image image;
     Color color;
@@ -14,7 +14,7 @@ public class Immobile {
         this.image = FishUtils.getRandomImage(imageLocation, color);
         this.color = color;
     }
-    public void draw(Graphics g){
+    public void drawCreature(Graphics g){
         if (image == null) return;
         g.drawImage(this.image, x, y, size, size, null); //draw fish
     }

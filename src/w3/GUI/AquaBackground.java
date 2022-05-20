@@ -49,7 +49,7 @@ public class AquaBackground extends JPanel implements Runnable {
         super.paintComponent(g);
         if (image != null) g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
         for (var fish : FishTank.fishes)
-            fish.drawAnimal(g);
+            fish.drawCreature(g);
         if (!FishTank.getInstance().food.isEaten)
             FishTank.getInstance().food.draw(g);
 

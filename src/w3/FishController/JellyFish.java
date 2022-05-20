@@ -24,7 +24,7 @@ public class JellyFish extends Swimmable {
 
 
     @Override
-    public void drawAnimal(Graphics g) {
+    public void drawCreature(Graphics g) {
         if (isOnXBorder(g)) {
             setHorSpeed(-getHorSpeed());
             flipImage();

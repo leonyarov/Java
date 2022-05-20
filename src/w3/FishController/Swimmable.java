@@ -8,7 +8,7 @@ import w3.Utils.FishUtils;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread {
+public abstract class Swimmable extends Thread implements SeaCreature {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
@@ -198,7 +198,7 @@ public abstract class Swimmable extends Thread {
      * Draw AquaticAnimal on @{@link Graphics} object
      * @param g @{@link Graphics} object
      */
-    abstract public void drawAnimal(Graphics g);
+    abstract public void drawCreature(Graphics g);
 
     /**
      * String representation of AquaticAnimal
