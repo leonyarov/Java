@@ -1,12 +1,14 @@
 package w3.FishController;
 
+import w3.Utils.FishUtils;
+
 import java.awt.*;
 
-public class AquaPlant {
+public class Immobile {
     int x,y, size;
     Image image;
     Color color;
-    public AquaPlant(int x, int y, int size, String imageLocation, Color color){
+    public Immobile(int x, int y, int size, String imageLocation, Color color){
         this.x = x;
         this.y = y;
         this.image = FishUtils.getRandomImage(imageLocation, color);

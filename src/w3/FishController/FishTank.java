@@ -9,8 +9,8 @@ import java.util.concurrent.CyclicBarrier;
  * It contains a set of swimmable objects.
  */
 public class FishTank {
-    public static HashSet<AquaAnimal> fishes;
-    public AquaFood food = AquaFood.getInstance();
+    public static HashSet<Swimmable> fishes;
+    public Food food = Food.getInstance();
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
     public int totalEatCount = 0;
@@ -42,14 +42,14 @@ public class FishTank {
      * Suspend all instances of AquaticAnimal threads
      */
     public  void sleepAll() {
-        for (AquaAnimal fish : fishes) fish.setSuspend();
+        for (Swimmable fish : fishes) fish.setSuspend();
     }
 
     /**
      * Wake all instances of AquaticAnimal threads
      */
     public void wakeAll() {
-        for (AquaAnimal fish : fishes) fish.setResume();
+        for (Swimmable fish : fishes) fish.setResume();
     }
 
     /**
@@ -81,16 +81,16 @@ public class FishTank {
      * @param t type enum
      */
     public void newFish(int h, int v, int s, Color c, Image i, AnimalType t){
-        AquaAnimal fish;
+        Swimmable fish;
         switch (t) {
             case FISH:
-                fish = new AquaFish(h,v,s,c);
+                fish = new Fish(h,v,s,c);
                 break;
             case JELLYFISH:
-                fish = new AquaJellyFish(h,v,s,c);
+                fish = new JellyFish(h,v,s,c);
                 break;
             default:
-                fish = new AquaFish(h,v,s,c);
+                fish = new Fish(h,v,s,c);
         }
         fishes.add(fish);
     }

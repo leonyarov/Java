@@ -1,4 +1,6 @@
 package w3.FishController;
+import w3.Utils.FishUtils;
+
 import java.awt.*;
 
 
@@ -6,28 +8,28 @@ import java.awt.*;
  * This class represents Food for AquaticAnimals
  */
 
-public class AquaFood{
+public class Food {
     private Image image;
     final static int FOOD_WIDTH = 20;
     private int eatRadius = 30;
     public boolean isEaten = true;
     public int xFront, yFront;
-    private static AquaFood aquaFood = null;
+    private static Food food = null;
 
 
-    private AquaFood(){
+    private Food(){
         image = FishUtils.getRandomImage("src/w3/Assets/Food/", Color.WHITE);
     }
 
-    public static AquaFood getInstance(){
-        if (aquaFood == null){
-            aquaFood = new AquaFood();
+    public static Food getInstance(){
+        if (food == null){
+            food = new Food();
         }
-        return aquaFood;
+        return food;
     }
 
-    public void setInstance(AquaFood instance){
-        this.aquaFood = instance;
+    public void setInstance(Food instance){
+        this.food = instance;
     }
     /**
      * Food addressable point on a FishTank display screen
@@ -53,7 +55,7 @@ public class AquaFood{
      * @param animal AquaticAnimal Instance in FishTank
      * @return True if AquaticAnimal within acceptable proximity to consume food
      */
-    public boolean isNear(AquaAnimal animal) {
+    public boolean isNear(Swimmable animal) {
         var x1 = animal.getCenterPointX();
         var y1 = animal.getCenterPointY();
         var x2 = xFront + FOOD_WIDTH / 2;

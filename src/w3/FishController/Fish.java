@@ -1,8 +1,10 @@
 package w3.FishController;
+import w3.Utils.FishUtils;
+
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public class AquaFish extends AquaAnimal {
+public class Fish extends Swimmable {
 
 
     //Fish eat count
@@ -15,7 +17,7 @@ public class AquaFish extends AquaAnimal {
      * @param size pixel size
      * @param c @{@link Color} object
      */
-    public AquaFish(int h, int v, int size, Color c) {
+    public Fish(int h, int v, int size, Color c) {
         super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary,c));
         eatCount = 0;
     }

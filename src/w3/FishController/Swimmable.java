@@ -3,11 +3,12 @@ package w3.FishController;
 
 
 import w3.GUI.AquaPanel;
+import w3.Utils.FishUtils;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class AquaAnimal extends Thread {
+public abstract class Swimmable extends Thread {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
@@ -44,7 +45,7 @@ public abstract class AquaAnimal extends Thread {
      * @param c @{@link Color} object
      * @param animalImage @{@link Image} object
      */
-    public AquaAnimal(int h, int v, int size, Color c, Image animalImage) {
+    public Swimmable(int h, int v, int size, Color c, Image animalImage) {
         super();
         horizontalSpeed = h;
         verticalSpeed = v;
