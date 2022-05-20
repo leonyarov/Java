@@ -1,9 +1,6 @@
-package w2.GUI;
+package w3.GUI;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import w2.FishController.FishTank;
 
 
 public class InfoBox extends JPanel {

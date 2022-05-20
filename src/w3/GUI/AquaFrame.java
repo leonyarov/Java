@@ -1,6 +1,6 @@
-package w2.GUI;
+package w3.GUI;
 
-import w2.FishController.FishTank;
+import w3.FishController.FishTank;
 import javax.swing.*;
 import java.awt.*;
 

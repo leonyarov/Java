@@ -1,8 +1,8 @@
-package w2.FishController;
+package w3.FishController;
 
 
 
-import w2.GUI.AquaPanel;
+import w3.GUI.AquaPanel;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;

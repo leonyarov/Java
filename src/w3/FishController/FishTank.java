@@ -1,8 +1,4 @@
-package w2.FishController;
-
-import w2.GUI.AquaBackground;
-import w2.GUI.AquaPanel;
-import w2.GUI.FishTable;
+package w3.FishController;
 
 import java.awt.*;
 import java.util.HashSet;

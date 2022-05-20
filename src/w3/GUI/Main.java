@@ -1,4 +1,4 @@
-package w2.GUI;
+package w3.GUI;
 
 public class Main {
     public static void main(String[] args) {

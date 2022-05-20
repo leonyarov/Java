@@ -1,6 +1,4 @@
-package w2.FishController;
-
-import w2.GUI.AquaBackground;
+package w3.FishController;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;

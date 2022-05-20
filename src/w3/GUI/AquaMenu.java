@@ -1,4 +1,4 @@
-package w2.GUI;
+package w3.GUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
