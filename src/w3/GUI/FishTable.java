@@ -28,7 +28,18 @@ public class FishTable extends JDialog {
         addFish();
         tableModel.addRow(new Object[] {"Total","","","","",AquaPanel.totalEatCounter});
         pack();
-        table.setVisible(true);
+    }
+    public FishTable(String str) {
+        if (str == "Duplicate") {
+            tableModel.addColumn("Animal");
+            tableModel.addColumn("ID");
+            setSize(550, 350);
+            table.setModel(tableModel);
+            scrollPane.setViewportView(table);
+            add(scrollPane);
+            AddDupFish();
+            pack();
+        }
     }
 
     /**
@@ -43,6 +54,17 @@ public class FishTable extends JDialog {
                     Math.abs(fish.getHorSpeed()),
                     Math.abs(fish.getVerSpeed()),
                     fish.getEatCount() };
+            tableModel.addRow(a);
+        }
+    }
+
+    public void AddDupFish(){
+        int i = 0;
+        for (var fish : FishTank.fishes) {
+            i++;
+            var a = new Object[] {
+                    fish.getAnimalName(),
+                    i };
             tableModel.addRow(a);
         }
     }
