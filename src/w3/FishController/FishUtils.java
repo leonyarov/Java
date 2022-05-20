@@ -106,4 +106,6 @@ public class FishUtils {
 
     public static final String fishLibrary = "src/w2/Assets/Fish/";
     public static final String jellyfishLibrary = "src/w2/Assets/JellyFish/";
+    public static final String laminariaLibrary = "src/w3/Assets/Laminaria/";
+    public static final String zosteraLibrary = "src/w3/Assets/Zostera/";
 }
