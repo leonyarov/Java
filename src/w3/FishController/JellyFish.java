@@ -22,6 +22,11 @@ public class JellyFish extends Swimmable {
         eatCount = 0;
     }
 
+    public JellyFish(){
+        super(1, 1, 30, Color.WHITE, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,Color.WHITE));
+        eatCount = 0;
+    }
+
 
     @Override
     public void drawCreature(Graphics g) {

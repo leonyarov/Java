@@ -8,5 +8,9 @@ public class Laminaria extends Immobile {
     public Laminaria(int x, int y, int size, Color color) {
         super(x, y, size, FishUtils.laminariaLibrary, color);
     }
+
+    public Laminaria(){
+        this(0, 0, 30, Color.WHITE);
+    }
 }
 

@@ -10,6 +10,7 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class FishTank {
     public static HashSet<Swimmable> fishes;
+    public static HashSet<Immobile> plants;
     public Food food = Food.getInstance();
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
@@ -35,6 +36,7 @@ public class FishTank {
      */
     public FishTank() {
         fishes = new HashSet<>();
+        plants = new HashSet<>();
         instance = this;
     }
 

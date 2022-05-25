@@ -179,6 +179,20 @@ public abstract class Swimmable extends Thread implements SeaCreature {
     }
 
     /**
+     * Change all parameters of the swimming creature
+     * @param h Horizontal Speed
+     * @param v Vertical Speed
+     * @param size Size in pixels
+     * @param c Color
+     */
+    public void ChangeAll(int h, int v, int size, Color c){
+        this.setHorSpeed(h);
+        this.setVerSpeed(v);
+        this.pixelSize = size;
+        this.setColor(c);
+    }
+
+    /**
      * Set fish image to new image
      * @param image @{@link Image} object
      */

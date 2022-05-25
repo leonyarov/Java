@@ -22,6 +22,13 @@ public class Fish extends Swimmable {
         eatCount = 0;
     }
 
+    public Fish(){
+        super(1, 1, 30, Color.WHITE, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,Color.WHITE));
+        eatCount = 0;
+    }
+
+
+
 
     @Override
     public String getAnimalName() {
