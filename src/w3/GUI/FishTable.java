@@ -14,6 +14,7 @@ public class FishTable extends JDialog {
     DefaultTableModel tableModel = new DefaultTableModel();
 
 
+
     public FishTable() {
         tableModel.addColumn("Animal");
         tableModel.addColumn("Color");
@@ -29,7 +30,7 @@ public class FishTable extends JDialog {
         tableModel.addRow(new Object[] {"Total","","","","",AquaPanel.totalEatCounter});
         pack();
     }
-    public FishTable(String str) {
+    /*public FishTable(String str) {
         if (str == "Duplicate") {
             tableModel.addColumn("Animal");
             tableModel.addColumn("ID");
@@ -40,7 +41,7 @@ public class FishTable extends JDialog {
             AddDupFish();
             pack();
         }
-    }
+    }*/
 
     /**
      * Input values of all instances of AquaticAnimals in FishTank
@@ -58,7 +59,7 @@ public class FishTable extends JDialog {
         }
     }
 
-    public void AddDupFish(){
+    /*public void AddDupFish(){
         int i = 0;
         for (var fish : FishTank.fishes) {
             i++;
@@ -67,6 +68,6 @@ public class FishTable extends JDialog {
                     i };
             tableModel.addRow(a);
         }
-    }
+    }*/
 }
 

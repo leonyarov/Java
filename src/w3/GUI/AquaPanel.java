@@ -1,25 +1,35 @@
 package w3.GUI;
 
 import w3.FishController.FishTank;
+import w3.FishController.Immobile;
+import w3.FishController.Swimmable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Observable;
+import w3.GUI.Observer;
+
 
 /**
  * Button Storage
  */
-public class AquaPanel extends JPanel implements ActionListener {
+public class AquaPanel extends JPanel implements ActionListener, Observer {
 
     public static int totalEatCounter = 0;
     FishTable table;
-    DuplicateAnimal duplicateAnimal = new DuplicateAnimal();
-    FishTable dupTable;
+    DuplicateAnimal duplicateAnimal;
+    /*FishTable dupTable;*/
     private JButton info;
     private JButton dupAnimal;
     private int infoClicks = 0;
-    private int dupClicks = 0;
-
+   /* private int dupClicks = 0;*/
+    public static HashMap<Swimmable,Integer> swimmable = new HashMap<>();
+    public static HashSet<Immobile> immobile = new HashSet<>();
+    public static int ID = 0;
     public AquaPanel() {
 
         //Add Buttons to panel
@@ -39,7 +49,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         reset.addActionListener(e -> FishTank.getInstance().reset());
         sleep.addActionListener(e -> FishTank.getInstance().sleepAll());
         wakeUp.addActionListener(e -> FishTank.getInstance().wakeAll());
-        dupAnimal.addActionListener(this);
+        /*dupAnimal.addActionListener(this);*/
         info.addActionListener(this);
         // button placement order
         add(addAnimal);
@@ -59,17 +69,17 @@ public class AquaPanel extends JPanel implements ActionListener {
      * @param e Event performed on Info Button
      */
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == dupAnimal) {
+        /*if (e.getSource() == dupAnimal) {
             dupClicks++;
             if (dupClicks % 2 == 0) {
-                dupTable.setVisible(false);
-                dupTable = null;
+                duplicateAnimal.setVisibility(2);
+                duplicateAnimal = null;
                 return;
             } else {
-                dupTable = new FishTable("Duplicate");
-                dupTable.setVisible(true);
+                duplicateAnimal = new DuplicateAnimal();
+                duplicateAnimal.setVisibility(1);
             }
-        }
+        }*/
         if (e.getSource() == info) {
             infoClicks++;
             if (infoClicks % 2 == 0) {
@@ -98,6 +108,11 @@ public class AquaPanel extends JPanel implements ActionListener {
             AddAnimalDialog dialog = new AddAnimalDialog();
             dialog.setVisible(true);
         }
+    }
+    @Override
+    public void update() {
+        JOptionPane.showMessageDialog(null, "Feed us ohh great one!",
+                "Sustenance now!", JOptionPane.PLAIN_MESSAGE);
     }
 }
 

@@ -18,4 +18,49 @@ public class Immobile implements SeaCreature {
         if (image == null) return;
         g.drawImage(this.image, x, y, size, size, null); //draw fish
     }
+
+    @Override
+    public void setSize(int size) {
+
+    }
+
+    @Override
+    public void set_Xfront(int xfront) {
+
+    }
+
+    @Override
+    public void set_Yfront(int yfront) {
+
+    }
+
+    @Override
+    public void setHorSpeed(int horSpeed) {
+
+    }
+
+    @Override
+    public void setVerSpeed(int verSpeed) {
+
+    }
+
+    @Override
+    public void setColor(Color color) {
+
+    }
+
+    @Override
+    public int getEatCount() {
+        return 0;
+    }
+
+    @Override
+    public String getAnimalName() {
+        return null;
+    }
+
+    @Override
+    public void setFeed(int feed_i) {
+
+    }
 }

@@ -3,12 +3,15 @@ package w3.FishController;
 
 
 import w3.GUI.AquaPanel;
+import w3.GUI.Subject;
 import w3.Utils.FishUtils;
-
 import java.awt.*;
+import w3.GUI.Observer;
 import java.util.concurrent.CyclicBarrier;
+import java.util.List;
+import java.util.ArrayList;
 
-public abstract class Swimmable extends Thread implements SeaCreature {
+public abstract class Swimmable extends Thread implements SeaCreature, Subject {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
@@ -19,30 +22,34 @@ public abstract class Swimmable extends Thread implements SeaCreature {
     protected int yFront;
     protected int pixelSize;
     protected Color color;
+    protected Boolean starving;
+    protected int Motion = 0;
+    protected int MotionCap = 60;
 
     @Override
-     public void run() {
+    public void run() {
         super.run();
-            while (true) {
-                moveAnimal();
-                try {
-                    if (isSuspended)
-                        synchronized (this) {
-                            wait();
-                        }
-                    Thread.sleep(16);
-                } catch (InterruptedException e) {
-                    //interrupted
-                }
+        while (true) {
+            moveAnimal();
+            try {
+                if (isSuspended)
+                    synchronized (this) {
+                        wait();
+                    }
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                //interrupted
             }
+        }
     }
 
     /**
      * Animal Super constructor
-     * @param h horizontal speed
-     * @param v vertical speed
-     * @param size pixel size
-     * @param c @{@link Color} object
+     *
+     * @param h           horizontal speed
+     * @param v           vertical speed
+     * @param size        pixel size
+     * @param c           @{@link Color} object
      * @param animalImage @{@link Image} object
      */
     public Swimmable(int h, int v, int size, Color c, Image animalImage) {
@@ -54,15 +61,41 @@ public abstract class Swimmable extends Thread implements SeaCreature {
         this.image = animalImage;
         xFront = 100;
         yFront = 100;
+        starving = false;
         start();
     }
 
+    public Swimmable(Swimmable other) {
+        super(other);
+        this.horizontalSpeed = other.horizontalSpeed;
+        this.verticalSpeed = other.verticalSpeed;
+        this.pixelSize = other.pixelSize;
+        this.color = other.color;
+        this.image = other.image;
+        this.xFront = other.xFront;
+        this.yFront = other.yFront;
+        this.starving = other.starving;
+    }
 
-    public int getHorSpeed() { return horizontalSpeed; }
-    public int getVerSpeed() { return verticalSpeed; }
-    public void setHorSpeed(int hor) { horizontalSpeed = hor; }
-    public void setVerSpeed(int ver) { verticalSpeed = ver; }
-    public Image getAnimalImage() { return image; }
+    public int getHorSpeed() {
+        return horizontalSpeed;
+    }
+
+    public int getVerSpeed() {
+        return verticalSpeed;
+    }
+
+    public void setHorSpeed(int hor) {
+        horizontalSpeed = hor;
+    }
+
+    public void setVerSpeed(int ver) {
+        verticalSpeed = ver;
+    }
+
+    public Image getAnimalImage() {
+        return image;
+    }
 
 
     /**
@@ -130,13 +163,19 @@ public abstract class Swimmable extends Thread implements SeaCreature {
     }
 
     //Get XFront pixel coordinate
-    public int getXFront() { return xFront; }
+    public int getXFront() {
+        return xFront;
+    }
+
     //Get YFront pixel coordinate
-    public int getYFront() { return yFront; }
+    public int getYFront() {
+        return yFront;
+    }
 
 
     /**
      * Check if fish is on the edge of the aquarium
+     *
      * @param g @{@link Graphics} object
      * @return True if fish is on the edge of the aquarium
      */
@@ -146,6 +185,7 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Check if fish is on the edge of the aquarium
+     *
      * @param g @{@link Graphics} object
      * @return True if fish is on the edge of the aquarium
      */
@@ -155,17 +195,20 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Get the middle X point of the fish
+     *
      * @return middle X point of the fish
      */
-    public int getCenterPointX(){
-        return xFront + pixelSize/2;
+    public int getCenterPointX() {
+        return xFront + pixelSize / 2;
     }
+
     /**
      * Get the middle Y point of the fish
+     *
      * @return middle Y point of the fish
      */
-    public int getCenterPointY(){
-        return yFront + pixelSize/2;
+    public int getCenterPointY() {
+        return yFront + pixelSize / 2;
     }
 
 
@@ -180,12 +223,13 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Change all parameters of the swimming creature
-     * @param h Horizontal Speed
-     * @param v Vertical Speed
+     *
+     * @param h    Horizontal Speed
+     * @param v    Vertical Speed
      * @param size Size in pixels
-     * @param c Color
+     * @param c    Color
      */
-    public void ChangeAll(int h, int v, int size, Color c){
+    public void ChangeAll(int h, int v, int size, Color c) {
         this.setHorSpeed(h);
         this.setVerSpeed(v);
         this.pixelSize = size;
@@ -194,6 +238,7 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Set fish image to new image
+     *
      * @param image @{@link Image} object
      */
     public void setImage(Image image) {
@@ -202,6 +247,7 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Set fish color to new color
+     *
      * @param c @{@link Color} object
      */
     public void setColor(Color c) {
@@ -210,12 +256,14 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Draw AquaticAnimal on @{@link Graphics} object
+     *
      * @param g @{@link Graphics} object
      */
     abstract public void drawCreature(Graphics g);
 
     /**
      * String representation of AquaticAnimal
+     *
      * @return name
      */
     abstract public String getAnimalName();
@@ -232,12 +280,14 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Set a CyclicBarrier for AquaticAnimal instances
+     *
      * @param b uses an all-or-none breakage model for failed synchronization attempts:
      */
     abstract public void setBarrier(CyclicBarrier b);
 
     /**
      * Size representation of AquaticAnimal
+     *
      * @return size
      */
     abstract public int getSize();
@@ -249,14 +299,59 @@ public abstract class Swimmable extends Thread implements SeaCreature {
 
     /**
      * Receive eatCounter returned as integer
+     *
      * @return eatCount
      */
     abstract public int getEatCount();
 
     /**
      * Color representation by string for current instance of AquaticAnimal
+     *
      * @return color
      */
     abstract public String getColor();
 
+    public Object Clone() {
+        return null;
+    }
+
+    @Override
+    public void setState(boolean state) {
+        if (state == true) {
+            this.starving = state;
+            notifyAllObservers();
+        }
+        this.starving = state;
+    }
+
+    @Override
+    public boolean getStatus() {
+        return this.starving;
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+
+    public void starvationTimer() {
+        if (this.Motion >= this.MotionCap && !this.starving) {
+            setState(true);
+            this.Motion = 0;
+        }
+        setState(false);
+    }
+
+    public int getMotionCap(){
+        return this.MotionCap;
+    }
+
+    public abstract Color getColorObj();
 }
