@@ -24,6 +24,7 @@ public class AquaPanel extends JPanel implements ActionListener {
 
         //Add Buttons to panel
         JButton addAnimal = new JButton("Add Animal");
+        JButton addPlant = new JButton("Add Plant");
         JButton wakeUp = new JButton("Wake Up");
         JButton food = new JButton("Food");
         JButton sleep = new JButton("Sleep");
@@ -39,10 +40,13 @@ public class AquaPanel extends JPanel implements ActionListener {
         reset.addActionListener(e -> FishTank.getInstance().reset());
         sleep.addActionListener(e -> FishTank.getInstance().sleepAll());
         wakeUp.addActionListener(e -> FishTank.getInstance().wakeAll());
+        addPlant.addActionListener(e -> addPlant());
         dupAnimal.addActionListener(this);
         info.addActionListener(this);
         // button placement order
+
         add(addAnimal);
+        add(addPlant);
         add(sleep);
         add(wakeUp);
         add(reset);
@@ -52,6 +56,11 @@ public class AquaPanel extends JPanel implements ActionListener {
         add(exit);
 
         setLayout(new GridLayout(1, 0));
+    }
+
+    private void addPlant() {
+            var dialog = new AddPlantDialog();
+            dialog.setVisible(true);
     }
 
     /**
@@ -94,10 +103,8 @@ public class AquaPanel extends JPanel implements ActionListener {
      * AquaticAnimal addition to FishTank visual
      */
     private void addAnimal() {
-        if (FishTank.fishes.size() < 5) {
-            AddAnimalDialog dialog = new AddAnimalDialog();
-            dialog.setVisible(true);
-        }
+        AddAnimalDialog dialog = new AddAnimalDialog();
+        dialog.setVisible(true);
     }
 }
 

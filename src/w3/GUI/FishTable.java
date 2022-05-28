@@ -1,6 +1,8 @@
 package w3.GUI;
 
+import w3.FishController.Fish;
 import w3.FishController.FishTank;
+import w3.FishController.Swimmable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +48,8 @@ public class FishTable extends JDialog {
      * Input values of all instances of AquaticAnimals in FishTank
      */
     public void addFish(){
-        for (var fish : FishTank.fishes) {
+        for (var creature : FishTank.getInstance().seaCreatures) {
+            var fish = ((Swimmable)creature);
             var a = new Object[] {
                     fish.getAnimalName(),
                     fish.getColor(),
@@ -60,7 +63,9 @@ public class FishTable extends JDialog {
 
     public void AddDupFish(){
         int i = 0;
-        for (var fish : FishTank.fishes) {
+        for (var creature : FishTank.getInstance().seaCreatures) {
+            var fish = ((Swimmable)creature);
+
             i++;
             var a = new Object[] {
                     fish.getAnimalName(),

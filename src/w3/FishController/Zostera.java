@@ -8,8 +8,4 @@ public class Zostera extends Immobile {
     public Zostera(int x, int y, int size, Color color) {
         super(x, y, size, FishUtils.zosteraLibrary, color);
     }
-
-    public Zostera(){
-        this(0, 0, 30, Color.WHITE);
-    }
 }

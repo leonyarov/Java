@@ -1,6 +1,5 @@
 package w3.FishController;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
 
@@ -9,8 +8,7 @@ import java.util.concurrent.CyclicBarrier;
  * It contains a set of swimmable objects.
  */
 public class FishTank {
-    public static HashSet<Swimmable> fishes;
-    public static HashSet<Immobile> plants;
+    public HashSet<SeaCreature> seaCreatures;
     public Food food = Food.getInstance();
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
@@ -27,16 +25,11 @@ public class FishTank {
         return instance;
     }
 
-    public enum AnimalType {
-        FISH, JELLYFISH
-    }
-
     /**
      * FishTank Constructor
      */
     public FishTank() {
-        fishes = new HashSet<>();
-        plants = new HashSet<>();
+        seaCreatures = new HashSet<>();
         instance = this;
     }
 
@@ -44,57 +37,39 @@ public class FishTank {
      * Suspend all instances of AquaticAnimal threads
      */
     public  void sleepAll() {
-        for (Swimmable fish : fishes) fish.setSuspend();
+        for (var fish : seaCreatures) ((Swimmable)fish).setSuspend();
     }
 
     /**
      * Wake all instances of AquaticAnimal threads
      */
     public void wakeAll() {
-        for (Swimmable fish : fishes) fish.setResume();
+        for (var fish : seaCreatures) ((Swimmable)fish).setResume();
     }
 
     /**
      * Clear all instances from FishTank
      */
     public void reset(){
-        try{foodBarrier.reset();}catch (NullPointerException e){;}    //reset barrier
-        fishes.clear();         //clear fishes
+        try{foodBarrier.reset();} catch (NullPointerException e){;}    //reset barrier
+        seaCreatures.clear();         //clear fishes
     }
 
     /**
      * Feed AquaticAnimal within proximity of food
      */
     public void feed(){
-        if(fishes.size() == 0) return;        //If no fishes present don't place food
+        if(seaCreatures.size() == 0) return;        //If no fishes present don't place food
         food.placeFood(400,300);         //Place in the center of the aquarium
-        foodBarrier = new CyclicBarrier(fishes.size()); //init new barrier
-        for(var fish : fishes) fish.setBarrier(foodBarrier); //set the barrier to the fishes
+        foodBarrier = new CyclicBarrier(seaCreatures.size()); //init new barrier
+        for(var fish : seaCreatures) ((Swimmable)fish).setBarrier(foodBarrier); //set the barrier to the fishes
     }
 
-
-    /**
-     * Create new animal in the tank
-     * @param h horizontal speed
-     * @param v vertical speed
-     * @param s size
-     * @param c color
-     * @param i {@link Image}
-     * @param t type enum
-     */
-    public void newFish(int h, int v, int s, Color c, Image i, AnimalType t){
-        Swimmable fish;
-        switch (t) {
-            case FISH:
-                fish = new Fish(h,v,s,c);
-                break;
-            case JELLYFISH:
-                fish = new JellyFish(h,v,s,c);
-                break;
-            default:
-                fish = new Fish(h,v,s,c);
-        }
-        fishes.add(fish);
+    public void addCreature(SeaCreature creature){
+        if (creature instanceof Swimmable && seaCreatures.stream().filter(x -> x instanceof Swimmable).count() >= 5) return;
+        if (creature instanceof Immobile && seaCreatures.stream().filter(x -> x instanceof Immobile).count() >= 5) return;
+        seaCreatures.add(creature);
     }
+
 
 }
