@@ -1,4 +1,6 @@
-package w3.FishController;
+package w3.Creatures;
+
+import w3.Memento.CareTaker;
 
 import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
@@ -13,6 +15,7 @@ public class FishTank {
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
     public int totalEatCount = 0;
+    public CareTaker careTaker;
 
     /**
      * FishTank Instance
@@ -31,6 +34,7 @@ public class FishTank {
     public FishTank() {
         seaCreatures = new HashSet<>();
         instance = this;
+        careTaker = new CareTaker();
     }
 
     /**

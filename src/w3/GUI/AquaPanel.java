@@ -1,6 +1,10 @@
 package w3.GUI;
 
-import w3.FishController.FishTank;
+import w3.Decorator.JDialogDecorator;
+import w3.Creatures.FishTank;
+import w3.Memento.JDialogMemento;
+import w3.Prototype.DuplicateAnimal;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -29,6 +33,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         JButton wakeUp = new JButton("Wake Up");
         JButton food = new JButton("Food");
         JButton sleep = new JButton("Sleep");
+        JButton memento = new JButton("Memento");
         info = new JButton("Info");
         dupAnimal = new JButton(("Duplicate Animal"));
         JButton exit = new JButton("Exit");
@@ -43,6 +48,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         wakeUp.addActionListener(e -> FishTank.getInstance().wakeAll());
         addPlant.addActionListener(e -> addPlant());
         decorator.addActionListener(e -> showDecorator());
+        memento.addActionListener(e -> showMemento());
         dupAnimal.addActionListener(this);
         info.addActionListener(this);
         // button placement order
@@ -52,6 +58,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         add(sleep);
         add(wakeUp);
         add(reset);
+        add(memento);
         add(food);
         add(info);
         add(dupAnimal);
@@ -59,6 +66,11 @@ public class AquaPanel extends JPanel implements ActionListener {
         add(exit);
 
         setLayout(new GridLayout(2, 0));
+    }
+
+    private void showMemento() {
+        var dialog = new JDialogMemento(FishTank.getInstance().seaCreatures, FishTank.getInstance().careTaker);
+        dialog.setVisible(true);
     }
 
     private void showDecorator() {

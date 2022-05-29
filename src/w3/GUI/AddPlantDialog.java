@@ -1,7 +1,7 @@
 package w3.GUI;
 
-import w3.FishController.Factory.PlantFactory;
-import w3.FishController.FishTank;
+import w3.Factory.PlantFactory;
+import w3.Creatures.FishTank;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +49,7 @@ public class AddPlantDialog extends JDialog {
         propertiesPanel.add(xPos);
 
         //set grid layout
-        propertiesPanel.setLayout(new GridLayout(0, 2));
+        propertiesPanel.setLayout(new GridLayout(0, 2, 10 ,10));
         propertiesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         buttonPanel.add(createNew);

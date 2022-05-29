@@ -1,5 +1,7 @@
-package w3.FishController;
+package w3.Creatures;
 
+import w3.Decorator.MarineAnimal;
+import w3.Decorator.MarineAnimalDecorator;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class JellyFish extends Swimmable implements MarineAnimal {
      * @param color @{@link Color} object
      */
     public JellyFish(int h, int v, int size, Color color) {
-        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,color));
+        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary));
         eatCount = 0;
     }
 

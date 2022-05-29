@@ -1,8 +1,7 @@
 package w3.GUI;
 
-import w3.FishController.Fish;
-import w3.FishController.FishTank;
-import w3.FishController.Swimmable;
+import w3.Creatures.FishTank;
+import w3.Creatures.Swimmable;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

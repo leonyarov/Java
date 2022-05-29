@@ -1,4 +1,4 @@
-package w3.FishController;
+package w3.Creatures;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
@@ -18,7 +18,7 @@ public class Food {
 
 
     private Food(){
-        image = FishUtils.getRandomImage("src/w3/Assets/Food/", Color.WHITE);
+        image = FishUtils.getRandomImage("src/w3/Assets/Food/");
     }
 
     public static Food getInstance(){

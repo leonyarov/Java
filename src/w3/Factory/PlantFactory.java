@@ -1,7 +1,6 @@
-package w3.FishController.Factory;
+package w3.Factory;
 
-import w3.FishController.*;
-import w3.GUI.AddAnimalDialog;
+import w3.Creatures.*;
 import w3.GUI.AddPlantDialog;
 
 import java.awt.*;

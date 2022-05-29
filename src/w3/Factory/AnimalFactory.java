@@ -1,11 +1,9 @@
-package w3.FishController.Factory;
+package w3.Factory;
 
-import w3.FishController.Fish;
-import w3.FishController.JellyFish;
-import w3.FishController.SeaCreature;
+import w3.Creatures.Fish;
+import w3.Creatures.JellyFish;
+import w3.Creatures.SeaCreature;
 import w3.GUI.AddAnimalDialog;
-
-import java.awt.*;
 
 public class AnimalFactory extends AbstractSeaFactory {
 

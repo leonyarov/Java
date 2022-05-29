@@ -1,4 +1,4 @@
-package w3.FishController;
+package w3.Decorator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

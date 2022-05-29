@@ -1,6 +1,6 @@
 package w3.GUI;
 
-import w3.FishController.FishTank;
+import w3.Creatures.FishTank;
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,14 +1,16 @@
-package w3.FishController;
+package w3.Creatures;
 
 
 
+import w3.Memento.Memento;
+import w3.Memento.Originator;
 import w3.GUI.AquaPanel;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread implements SeaCreature {
+public abstract class Swimmable extends Thread implements SeaCreature, Originator {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
@@ -259,4 +261,19 @@ public abstract class Swimmable extends Thread implements SeaCreature {
      */
     abstract public String getColor();
 
+    public Memento saveState() {
+        return new Memento(xFront,yFront,pixelSize,color);
+    }
+
+    public void loadState(Memento state) {
+        xFront = state.x;
+        yFront = state.y;
+        pixelSize = state.size;
+        color = state.color;
+    }
+
+    @Override
+    public String toString() {
+        return "Swimmable Creature: " + getAnimalName() + " Color: " + getColor() + " Size: " + getSize();
+    }
 }
