@@ -1,7 +1,7 @@
 package w3.Creatures;
 
-
-
+import w3.ListenerObserver.Hunger;
+import w3.ListenerObserver.HungrySubject;
 import w3.Memento.Memento;
 import w3.Memento.Originator;
 import w3.GUI.AquaPanel;
@@ -10,7 +10,7 @@ import w3.Utils.FishUtils;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread implements SeaCreature, Originator {
+public abstract class Swimmable extends Thread implements SeaCreature, Originator, HungrySubject {
 
     protected int horizontalSpeed;
     protected int verticalSpeed;
@@ -21,12 +21,14 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     protected int yFront;
     protected int pixelSize;
     protected Color color;
+    public Hunger hunger;
 
     @Override
      public void run() {
         super.run();
             while (true) {
                 moveAnimal();
+                getHungerStatus();
                 try {
                     if (isSuspended)
                         synchronized (this) {
@@ -46,9 +48,11 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
      * @param size pixel size
      * @param c @{@link Color} object
      * @param animalImage @{@link Image} object
+     * @param hungerTime
      */
-    public Swimmable(int h, int v, int size, Color c, Image animalImage) {
+    public Swimmable(int h, int v, int size, Color c, Image animalImage, int hungerTime) {
         super();
+        hunger = new Hunger(hungerTime);
         horizontalSpeed = h;
         verticalSpeed = v;
         pixelSize = size;
@@ -117,6 +121,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
                 FishTank.getInstance().food.isEaten = true;
                 eatInc();
                 AquaPanel.eatInc(); //callback
+                setFed();
             }
         }
 

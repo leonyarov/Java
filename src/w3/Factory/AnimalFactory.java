@@ -13,9 +13,9 @@ public class AnimalFactory extends AbstractSeaFactory {
     @Override
     public SeaCreature produceSeaCreature(String type) {
         if (type.equals("Fish"))
-            return new Fish(-gui.hspeed.getValue(), gui.vspeed.getValue(), gui.size.getValue(), gui.color);
+            return new Fish(-gui.hspeed.getValue(), gui.vspeed.getValue(), gui.size.getValue(), gui.color, gui.hunger.getValue());
         else if (type.equals("JellyFish"))
-            return new JellyFish(-gui.hspeed.getValue(), gui.vspeed.getValue(), gui.size.getValue(), gui.color);
+            return new JellyFish(-gui.hspeed.getValue(), gui.vspeed.getValue(), gui.size.getValue(), gui.color, gui.hunger.getValue());
         return null;
     }
 }

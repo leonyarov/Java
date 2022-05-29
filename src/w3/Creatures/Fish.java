@@ -1,14 +1,17 @@
 package w3.Creatures;
 import w3.Decorator.MarineAnimal;
 import w3.Decorator.MarineAnimalDecorator;
+import w3.ListenerObserver.HungerObserver;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
 public class Fish extends Swimmable implements MarineAnimal {
 
-
+    List<HungerObserver> observers;
     //Fish eat count
     private int eatCount;
 
@@ -19,8 +22,9 @@ public class Fish extends Swimmable implements MarineAnimal {
      * @param size pixel size
      * @param c @{@link Color} object
      */
-    public Fish(int h, int v, int size, Color c) {
-        super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary));
+    public Fish(int h, int v, int size, Color c, int hungerTime) {
+        super(h, v, size, c, FishUtils.getRandomImage(FishUtils.fishLibrary), hungerTime);
+        observers = new ArrayList<HungerObserver>();
         eatCount = 0;
     }
 
@@ -81,5 +85,39 @@ public class Fish extends Swimmable implements MarineAnimal {
     @Override
     public Image PaintAnimal(Image image, Color color) {
         return new MarineAnimalDecorator().PaintAnimal(image, color);
+    }
+
+
+    @Override
+    public boolean getHungerStatus() {
+        var status = hunger.isHungry();
+        if (status && !hunger.isNotified) {
+            hunger.isNotified = true;
+            notifyAllObservers();
+        }
+        return status;
+
+    }
+
+    @Override
+    public boolean isHungry() {
+        return hunger.isHungry();
+    }
+
+    @Override
+    public void setFed() {
+        hunger.feed();
+        notifyAllObservers();
+    }
+
+    @Override
+    public void attach(HungerObserver observer) {
+        if (!observers.contains(observer)) observers.add(observer);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        System.out.println("Fish is hungry");
+        observers.forEach(o -> o.update(this));
     }
 }

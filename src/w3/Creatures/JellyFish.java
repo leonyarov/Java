@@ -2,12 +2,17 @@ package w3.Creatures;
 
 import w3.Decorator.MarineAnimal;
 import w3.Decorator.MarineAnimalDecorator;
+import w3.ListenerObserver.HungerObserver;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
 public class JellyFish extends Swimmable implements MarineAnimal {
+
+    List<HungerObserver> observers;
 
     //JellyFish eat count
     private int eatCount;
@@ -19,8 +24,9 @@ public class JellyFish extends Swimmable implements MarineAnimal {
      * @param size pixel size
      * @param color @{@link Color} object
      */
-    public JellyFish(int h, int v, int size, Color color) {
-        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary));
+    public JellyFish(int h, int v, int size, Color color, int hungerTime) {
+        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary), hungerTime);
+        observers = new ArrayList<HungerObserver>();
         eatCount = 0;
     }
 
@@ -84,5 +90,36 @@ public class JellyFish extends Swimmable implements MarineAnimal {
     @Override
     public Image PaintAnimal(Image image, Color color) {
         return new MarineAnimalDecorator().PaintAnimal(image, color);
+    }
+
+    @Override
+    public boolean getHungerStatus() {
+        var status = hunger.isHungry();
+        if (status && !hunger.isNotified) {
+            notifyAllObservers();
+            hunger.isNotified = true;
+        }
+        return status;
+
+    }
+
+    @Override
+    public void setFed() {
+        hunger.feed();
+        notifyAllObservers();
+    }
+
+    @Override
+    public void attach(HungerObserver observer) {
+        if (!observers.contains(observer)) observers.add(observer);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        observers.forEach(o -> o.update(this));
+    }
+    @Override
+    public boolean isHungry() {
+        return hunger.isHungry();
     }
 }

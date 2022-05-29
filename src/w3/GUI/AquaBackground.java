@@ -6,7 +6,9 @@ import java.awt.*;
 
 
 public class AquaBackground extends JPanel implements Runnable {
+    public static boolean shouldNotifyHunger = false;
     private Image image;
+
     Thread t;
 
     /**
@@ -48,6 +50,12 @@ public class AquaBackground extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (image != null) g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        if (shouldNotifyHunger) {
+            g.setFont(g.getFont().deriveFont(Font.BOLD, 20));
+            g.setColor(Color.RED);
+            g.drawString("A Fish Is Hungry!", getWidth() / 2 - 100, getHeight() / 2);
+        }
+
         for (var fish : FishTank.getInstance().seaCreatures)
             fish.drawCreature(g);
         if (!FishTank.getInstance().food.isEaten)

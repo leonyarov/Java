@@ -1,5 +1,8 @@
 package w3.Creatures;
 
+import w3.GUI.AquaBackground;
+import w3.ListenerObserver.HungerObserver;
+import w3.ListenerObserver.HungrySubject;
 import w3.Memento.CareTaker;
 
 import java.util.HashSet;
@@ -9,7 +12,8 @@ import java.util.concurrent.CyclicBarrier;
  * This class represents a fish tank.
  * It contains a set of swimmable objects.
  */
-public class FishTank {
+public class FishTank implements HungerObserver {
+
     public HashSet<SeaCreature> seaCreatures;
     public Food food = Food.getInstance();
     private static FishTank instance;
@@ -38,17 +42,17 @@ public class FishTank {
     }
 
     /**
-     * Suspend all instances of AquaticAnimal threads
+     * Suspend all instances of Swimmable threads
      */
     public  void sleepAll() {
-        for (var fish : seaCreatures) ((Swimmable)fish).setSuspend();
+        seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setSuspend());
     }
 
     /**
-     * Wake all instances of AquaticAnimal threads
+     * Wake all instances of Swimmable threads
      */
     public void wakeAll() {
-        for (var fish : seaCreatures) ((Swimmable)fish).setResume();
+        seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setSuspend());
     }
 
     /**
@@ -72,8 +76,13 @@ public class FishTank {
     public void addCreature(SeaCreature creature){
         if (creature instanceof Swimmable && seaCreatures.stream().filter(x -> x instanceof Swimmable).count() >= 5) return;
         if (creature instanceof Immobile && seaCreatures.stream().filter(x -> x instanceof Immobile).count() >= 5) return;
+        if (creature instanceof  Swimmable) ((Swimmable)creature).attach(this);
         seaCreatures.add(creature);
     }
 
 
+    @Override
+    public void update(HungrySubject subject) {
+        AquaBackground.shouldNotifyHunger = subject.isHungry();
+    }
 }
