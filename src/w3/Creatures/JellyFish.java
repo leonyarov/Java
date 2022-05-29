@@ -1,11 +1,13 @@
-package w3.FishController;
+package w3.Creatures;
 
+import w3.Decorator.MarineAnimal;
+import w3.Decorator.MarineAnimalDecorator;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public class JellyFish extends Swimmable {
+public class JellyFish extends Swimmable implements MarineAnimal {
 
     //JellyFish eat count
     private int eatCount;
@@ -18,15 +20,9 @@ public class JellyFish extends Swimmable {
      * @param color @{@link Color} object
      */
     public JellyFish(int h, int v, int size, Color color) {
-        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,color));
+        super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary));
         eatCount = 0;
     }
-
-    public JellyFish(){
-        super(1, 1, 30, Color.WHITE, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,Color.WHITE));
-        eatCount = 0;
-    }
-
 
     @Override
     public void drawCreature(Graphics g) {
@@ -36,7 +32,7 @@ public class JellyFish extends Swimmable {
         }
         if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
 
-        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null);
+        g.drawImage(PaintAnimal(image,color), xFront, yFront, pixelSize, pixelSize, null);
 
     }
 
@@ -83,5 +79,10 @@ public class JellyFish extends Swimmable {
     public String getColor() {
         return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
 
+    }
+
+    @Override
+    public Image PaintAnimal(Image image, Color color) {
+        return new MarineAnimalDecorator().PaintAnimal(image, color);
     }
 }

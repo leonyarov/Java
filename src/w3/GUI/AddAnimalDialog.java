@@ -1,6 +1,7 @@
 package w3.GUI;
 
-import w3.FishController.FishTank;
+import w3.Factory.AnimalFactory;
+import w3.Creatures.FishTank;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +13,13 @@ import java.awt.*;
 public class AddAnimalDialog extends JDialog {
 
     //params taken from buttons and sliders
-    Color color = Color.BLACK;
-    FishTank.AnimalType type;
+    String type;
     Icon image = null;
 
-
+    public Color color = Color.WHITE;
+    public JSlider vspeed;
+    public JSlider hspeed;
+    public JSlider size;
 
     public AddAnimalDialog(){
         setTitle("Add Animal");
@@ -37,17 +40,17 @@ public class AddAnimalDialog extends JDialog {
 
         //slider choose size of animal clamp - 20, 320
         JLabel sizeLabel = new JLabel("Size:");
-        JSlider size = new JSlider(20, 320, 50);
+        size = new JSlider(20, 320, 50);
         size.setMajorTickSpacing(1);
 
         //slider choose vertical speed of animal clamp - 1, 10
 
         JLabel speedLabel = new JLabel("Vertical speed:");
-        JSlider vspeed = new JSlider(1, 10, 2);
+        vspeed = new JSlider(1, 10, 2);
 
         //slider choose horizontal speed of animal clamp - 1, 10
         JLabel hspeedLabel = new JLabel("Horizontal speed:");
-        JSlider hspeed = new JSlider(1, 10, 2);
+        hspeed = new JSlider(1, 10, 2);
 
         //Color picker
         JLabel colorLabel = new JLabel("Color:");
@@ -69,11 +72,10 @@ public class AddAnimalDialog extends JDialog {
         });
 
         createNew.addActionListener(e -> {
-            if (FishTank.fishes.size() < 5) {
-                type = fish.isSelected() ? FishTank.AnimalType.FISH : FishTank.AnimalType.JELLYFISH;
-                FishTank.getInstance().newFish(
-                        -hspeed.getValue(), vspeed.getValue(), size.getValue(), color.getBackground(), null, type);
-            }
+                type = fish.isSelected() ? "Fish" : "JellyFish";
+                var factory = new AnimalFactory(this);
+                var creature = factory.produceSeaCreature(type);
+                FishTank.getInstance().addCreature(creature);
         });
 
 

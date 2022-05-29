@@ -1,4 +1,4 @@
-package w3.FishController;
+package w3.Creatures;
 
 import java.awt.*;
 

@@ -66,43 +66,15 @@ public class FishUtils {
     /**
      * Random Aquatic Image
      * @param path path to folder
-     * @param color The Color class is used to encapsulate colors in the default sRGB
      * @return Random Aquatic Image from path
      */
-    public static Image getRandomImage(String path, Color color){
+    public static Image getRandomImage(String path){
         var imgs = FishUtils.GetImagesFromPath(path, "png");
         var r = new Random().nextInt(imgs.size());
         var img = new ImageIcon(imgs.get(r)).getImage();
-        img = applyColorFilter(img, color);
         return img;
     }
 
-    /**
-     * applying color filtration to
-     * @param image Image of file
-     * @param color The Color class is used to encapsulate colors in the default sRGB
-     * @return BufferedImage with color filtration
-     */
-    public static Image applyColorFilter(Image image,Color color)  {
-        if (image == null) return null;
-        BufferedImage buff = imageToBufferedImage(image);
-
-        for(int y = 0; y < buff.getHeight(); y++){
-            for(int x = 0; x < buff.getWidth(); x++){
-                int pixel = buff.getRGB(x,y);
-
-                int alpha = (pixel>>24)&0xff;
-                int red = (pixel>>16)&0xff;
-                int green = (pixel>>8)&0xff;
-                int blue = pixel&0xff;
-
-                pixel = (alpha<<24) | (color.getRed()*red/255<<16) | (color.getGreen()*green/255<<8) | (color.getBlue()*blue/255);
-
-                buff.setRGB(x, y, pixel);
-            }
-        }
-        return buff;
-    }
 
     public static final String laminariaLibrary = "src/w3/Assets/Laminaria/";
     public static final String zosteraLibrary = "src/w3/Assets/Zostera/";
