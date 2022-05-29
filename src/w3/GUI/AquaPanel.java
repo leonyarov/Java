@@ -25,6 +25,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         //Add Buttons to panel
         JButton addAnimal = new JButton("Add Animal");
         JButton addPlant = new JButton("Add Plant");
+        JButton decorator = new JButton("Decorator");
         JButton wakeUp = new JButton("Wake Up");
         JButton food = new JButton("Food");
         JButton sleep = new JButton("Sleep");
@@ -41,6 +42,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         sleep.addActionListener(e -> FishTank.getInstance().sleepAll());
         wakeUp.addActionListener(e -> FishTank.getInstance().wakeAll());
         addPlant.addActionListener(e -> addPlant());
+        decorator.addActionListener(e -> showDecorator());
         dupAnimal.addActionListener(this);
         info.addActionListener(this);
         // button placement order
@@ -53,9 +55,14 @@ public class AquaPanel extends JPanel implements ActionListener {
         add(food);
         add(info);
         add(dupAnimal);
+        add(decorator);
         add(exit);
 
-        setLayout(new GridLayout(1, 0));
+        setLayout(new GridLayout(2, 0));
+    }
+
+    private void showDecorator() {
+        var decorator = new JDialogDecorator(FishTank.getInstance().seaCreatures);
     }
 
     private void addPlant() {

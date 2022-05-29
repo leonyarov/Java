@@ -4,7 +4,7 @@ import w3.Utils.FishUtils;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public class Fish extends Swimmable {
+public class Fish extends Swimmable implements MarineAnimal {
 
 
     //Fish eat count
@@ -22,14 +22,6 @@ public class Fish extends Swimmable {
         eatCount = 0;
     }
 
-    public Fish(){
-        super(1, 1, 30, Color.WHITE, FishUtils.getRandomImage(FishUtils.jellyfishLibrary,Color.WHITE));
-        eatCount = 0;
-    }
-
-
-
-
     @Override
     public String getAnimalName() {
         return "Fish";
@@ -42,7 +34,7 @@ public class Fish extends Swimmable {
             flipImage();                            //flip image
         }
         if (isOnYBorder(g)) setVerSpeed(-getVerSpeed()); //change Y direction
-        g.drawImage(this.image, xFront, yFront, pixelSize, pixelSize, null); //draw fish
+        g.drawImage(PaintAnimal(image,color), xFront, yFront, pixelSize, pixelSize, null); //draw fish
     }
 
     @Override
@@ -82,5 +74,10 @@ public class Fish extends Swimmable {
     @Override
     public String getColor() {
         return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
+    }
+
+    @Override
+    public Image PaintAnimal(Image image, Color color) {
+        return new MarineAnimalDecorator().PaintAnimal(image, color);
     }
 }
