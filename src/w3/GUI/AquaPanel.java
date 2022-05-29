@@ -17,13 +17,8 @@ public class AquaPanel extends JPanel implements ActionListener {
 
     public static int totalEatCounter = 0;
     FishTable table;
-    DuplicateAnimal duplicateAnimal = new DuplicateAnimal();
-    FishTable dupTable;
     private JButton info;
-    private JButton dupAnimal;
     private int infoClicks = 0;
-    private int dupClicks = 0;
-
     public AquaPanel() {
 
         //Add Buttons to panel
@@ -35,7 +30,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         JButton sleep = new JButton("Sleep");
         JButton memento = new JButton("Memento");
         info = new JButton("Info");
-        dupAnimal = new JButton(("Duplicate Animal"));
+        JButton dupAnimal = new JButton(("Duplicate"));
         JButton exit = new JButton("Exit");
         JButton reset = new JButton("Reset");
 
@@ -49,7 +44,7 @@ public class AquaPanel extends JPanel implements ActionListener {
         addPlant.addActionListener(e -> addPlant());
         decorator.addActionListener(e -> showDecorator());
         memento.addActionListener(e -> showMemento());
-        dupAnimal.addActionListener(this);
+        dupAnimal.addActionListener(e -> showDuplicator());
         info.addActionListener(this);
         // button placement order
 
@@ -66,6 +61,10 @@ public class AquaPanel extends JPanel implements ActionListener {
         add(exit);
 
         setLayout(new GridLayout(2, 0));
+    }
+
+    private void showDuplicator(){
+        var duplicator = new DuplicateAnimal(FishTank.getInstance().seaCreatures);
     }
 
     private void showMemento() {
@@ -87,17 +86,6 @@ public class AquaPanel extends JPanel implements ActionListener {
      * @param e Event performed on Info Button
      */
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == dupAnimal) {
-            dupClicks++;
-            if (dupClicks % 2 == 0) {
-                dupTable.setVisible(false);
-                dupTable = null;
-                return;
-            } else {
-                dupTable = new FishTable("Duplicate");
-                dupTable.setVisible(true);
-            }
-        }
         if (e.getSource() == info) {
             infoClicks++;
             if (infoClicks % 2 == 0) {
