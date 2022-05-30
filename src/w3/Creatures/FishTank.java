@@ -1,6 +1,7 @@
 package w3.Creatures;
 
 import w3.GUI.AquaBackground;
+import w3.GUI.AquaFrame;
 import w3.ListenerObserver.HungerObserver;
 import w3.ListenerObserver.HungrySubject;
 import w3.Memento.CareTaker;
@@ -52,7 +53,7 @@ public class FishTank implements HungerObserver {
      * Wake all instances of Swimmable threads
      */
     public void wakeAll() {
-        seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setSuspend());
+        seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setResume());
     }
 
     /**
@@ -68,7 +69,7 @@ public class FishTank implements HungerObserver {
      */
     public void feed(){
         if(seaCreatures.size() == 0) return;        //If no fishes present don't place food
-        food.placeFood(400,300);         //Place in the center of the aquarium
+        food.placeFood(400, 300);         //Place in the center of the aquarium
         foodBarrier = new CyclicBarrier(seaCreatures.size()); //init new barrier
         for(var fish : seaCreatures) ((Swimmable)fish).setBarrier(foodBarrier); //set the barrier to the fishes
     }
@@ -83,6 +84,6 @@ public class FishTank implements HungerObserver {
 
     @Override
     public void update(HungrySubject subject) {
-        AquaBackground.shouldNotifyHunger = subject.isHungry();
+        AquaBackground.setShouldNotifyHunger(subject.isHungry());
     }
 }

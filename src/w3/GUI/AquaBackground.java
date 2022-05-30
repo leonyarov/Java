@@ -6,8 +6,11 @@ import java.awt.*;
 
 
 public class AquaBackground extends JPanel implements Runnable {
-    public static boolean shouldNotifyHunger = false;
+    private static boolean shouldNotifyHunger = false;
     private Image image;
+    private FishTank fishTank;
+
+
 
     Thread t;
 
@@ -22,6 +25,15 @@ public class AquaBackground extends JPanel implements Runnable {
     public AquaBackground() {
         image = null;
         setLayout(null); //make fish move freely
+        fishTank = new FishTank();
+    }
+
+    public static boolean isShouldNotifyHunger() {
+        return shouldNotifyHunger;
+    }
+
+    public static void setShouldNotifyHunger(boolean shouldNotifyHunger) {
+        AquaBackground.shouldNotifyHunger = shouldNotifyHunger;
     }
 
     /**
@@ -49,13 +61,18 @@ public class AquaBackground extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //Draw aquarium background
         if (image != null) g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        if (shouldNotifyHunger) {
+
+        //Draw alert if fish is hungry
+        if (isShouldNotifyHunger()) {
             g.setFont(g.getFont().deriveFont(Font.BOLD, 20));
             g.setColor(Color.RED);
             g.drawString("A Fish Is Hungry!", getWidth() / 2 - 100, getHeight() / 2);
         }
 
+        //Draw sea cratures
         for (var fish : FishTank.getInstance().seaCreatures)
             fish.drawCreature(g);
         if (!FishTank.getInstance().food.isEaten)

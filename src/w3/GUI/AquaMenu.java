@@ -14,20 +14,21 @@ public class AquaMenu extends JMenuBar {
     AquaBackground aquaBackground;
     public AquaMenu(AquaBackground aquaBackground) {
         this.aquaBackground = aquaBackground;
+
         JMenu file = new JMenu("File");
         JMenu background = new JMenu("Background");
         JMenu help = new JMenu("Help");
 
-        JMenuItem exit =                new JMenuItem("Exit");
+        JMenuItem exit = new JMenuItem("Exit");
 
         //background menu items - Select from file, select from gallery, select color, select none
-        JMenuItem selectFromFile =      new JMenuItem("Image");
-        JMenuItem selectBlue =          new JMenuItem("Blue");
-        JMenuItem selectAnyColor =         new JMenuItem("Pick Color");
-        JMenuItem selectNone =          new JMenuItem("None");
+        JMenuItem selectFromFile = new JMenuItem("Image");
+        JMenuItem selectBlue = new JMenuItem("Blue");
+        JMenuItem selectAnyColor = new JMenuItem("Pick Color");
+        JMenuItem selectNone = new JMenuItem("None");
 
         //Help Dialog
-        JMenuItem helpItem =            new JMenuItem("Help");
+        JMenuItem helpItem = new JMenuItem("Help");
 
         //Set menu button action
         exit.addActionListener(e -> closeWindow());
@@ -36,7 +37,6 @@ public class AquaMenu extends JMenuBar {
         selectBlue.addActionListener(e -> setBackgroundColor(Color.BLUE));
         selectAnyColor.addActionListener(e -> setAnyColor());
         helpItem.addActionListener(e -> helpBox());
-
 
 
         //add menu items to file menu
@@ -49,7 +49,6 @@ public class AquaMenu extends JMenuBar {
         background.add(selectNone);
 
 
-
         //add menu items to help menu
         help.add(helpItem);
 
@@ -58,6 +57,7 @@ public class AquaMenu extends JMenuBar {
         this.add(background);
         this.add(help);
 
+        setVisible(true);
     }
 
     /**
