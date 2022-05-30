@@ -13,7 +13,7 @@ public class JDialogDecorator extends JDialog {
 
     public JDialogDecorator(HashSet<SeaCreature> seaCreatures) {
         var creaturePanel = new JPanel();
-        var creatureList = new JList(seaCreatures.toArray());
+        var creatureList = new  JList(seaCreatures.toArray());
         color = new JColorChooser();
         creaturePanel.add(creatureList);
         creaturePanel.add(color);
