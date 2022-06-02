@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 
 import static w3.Utils.FishUtils.imageToBufferedImage;
 
+/**
+ * Decorator DP for "wrapping" selected Aquarium Animal properties.
+ * */
 public class MarineAnimalDecorator implements MarineAnimal {
     @Override
     public Image PaintAnimal(Image image, Color color) {

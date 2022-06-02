@@ -6,6 +6,9 @@ import w3.Utils.FishUtils;
 
 import java.awt.*;
 
+/**
+ * Allowing certain objects to be drawn and distinguished as non Threads.
+ */
 public abstract class Immobile implements SeaCreature, Originator {
     int x,y, size;
     Image image;

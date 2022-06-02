@@ -1,6 +1,9 @@
 package w3.ListenerObserver;
 
 
+/**
+ * Implementation of Hunger methods to all SeaCreatures listeners.
+ */
 public interface HungrySubject {
 
     public boolean getHungerStatus();

@@ -7,6 +7,9 @@ import w3.GUI.AquaFrame;
 
 import java.awt.*;
 
+/**
+ * Plant objects simulated using Inheritance from AbstractFactory DP
+ */
 public class PlantFactory extends AbstractSeaFactory{
 
     AddPlantDialog gui;

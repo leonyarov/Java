@@ -2,6 +2,10 @@ package w3.ListenerObserver;
 
 import java.time.LocalTime;
 
+
+/**
+ * Hunger state class representation for SeaCreatures.
+ */
 public class Hunger  {
     public LocalTime birth;
     public int hungerTime;

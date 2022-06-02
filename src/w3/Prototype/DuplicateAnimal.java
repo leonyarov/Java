@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.*;
 
-public class DuplicateAnimal extends JDialog{
+/**
+ * Duplicate Animal instance implemented using JDialog interface.
+ */
+public class DuplicateAnimal extends JDialog {
     JColorChooser color;
     JSlider CreatureSize;
     JSlider CreatureHorSpeed;
     JSlider CreatureVerSpeed;
-    public DuplicateAnimal(HashSet<SeaCreature> seaCreature){
+
+    public DuplicateAnimal(HashSet<SeaCreature> seaCreature) {
         var CreaturePanel = new JPanel();
         var CreatureList = new JList(seaCreature.toArray());
         CreaturePanel.add(CreatureList);
@@ -31,7 +35,6 @@ public class DuplicateAnimal extends JDialog{
         CreatureHorSpeed.setMajorTickSpacing(1);
         JLabel colorLabel = new JLabel("Color:");
         JButton changeColorBtn = new JButton("Choose Color");
-        changeColorBtn.addActionListener(e -> applyColor((SeaCreature) CreatureList.getSelectedValue(),color.getColor()));
         CreaturePanel.add(sizeLabel);
         CreaturePanel.add(CreatureSize);
         CreaturePanel.add(ver_speedLabel);
@@ -40,18 +43,12 @@ public class DuplicateAnimal extends JDialog{
         CreaturePanel.add(CreatureHorSpeed);
 
 
-
-        CreaturePanel.setLayout(new GridLayout(0,1, 10 ,10));
+        CreaturePanel.setLayout(new GridLayout(0, 1, 10, 10));
         add(CreaturePanel);
-        add(changeColorBtn,BorderLayout.EAST);
+        add(changeColorBtn, BorderLayout.EAST);
         add(DupAnimalBtn, BorderLayout.SOUTH);
         setVisible(true);
         pack();
 
-    }
-
-    private void applyColor (SeaCreature creature, Color c){
-        if (creature instanceof Immobile) return;
-        ((Swimmable)creature).setColor(c);
     }
 }

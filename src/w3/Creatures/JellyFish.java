@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
-public class JellyFish extends Swimmable implements MarineAnimal {
+public class JellyFish extends Swimmable implements MarineAnimal, Cloneable {
 
     List<HungerObserver> observers;
 
@@ -121,5 +121,16 @@ public class JellyFish extends Swimmable implements MarineAnimal {
     @Override
     public boolean isHungry() {
         return hunger.isHungry();
+    }
+
+    public Object clone() {
+        Object clone = null;
+
+        try{
+            clone = super.clone();
+        }catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return clone;
     }
 }

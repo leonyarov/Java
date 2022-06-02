@@ -7,6 +7,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.HashSet;
 
+/**
+ * Memento Dialog box for saved sessions,
+   of SeaCreature instances within the aquarium.
+ */
+
 public class JDialogMemento  extends JDialog {
 
     HashSet<SeaCreature> seaCreatures;
@@ -53,6 +58,9 @@ public class JDialogMemento  extends JDialog {
         pack();
     }
 
+    /**
+     * Retrieve last Saved Instance
+     */
     private void getLastSavedDate() {
         var selected = creatureList.getSelectedIndex();
         if (selected == -1) return;
@@ -65,6 +73,9 @@ public class JDialogMemento  extends JDialog {
         dateLabel.setText(text.toString());
     }
 
+    /**
+     * Implement last Saved Instance
+     */
     private void restoreObjectState() {
         var selected = (Originator)creatureList.getSelectedValue();
         if (selected == null) return;
@@ -74,6 +85,9 @@ public class JDialogMemento  extends JDialog {
         selected.loadState(memento);
     }
 
+    /**
+     * Preview of last saved instance
+     */
     private void saveObjectState() {
         var selected = (Originator)creatureList.getSelectedValue();
         if (selected == null) return;

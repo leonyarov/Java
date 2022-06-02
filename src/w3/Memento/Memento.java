@@ -3,6 +3,10 @@ package w3.Memento;
 import java.awt.*;
 import java.time.LocalTime;
 
+
+/**
+ * Memento DP implementation to secure saved state of existing SeaCreature.
+ */
 public class Memento {
 
     public int x,y,size;

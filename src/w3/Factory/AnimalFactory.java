@@ -5,6 +5,9 @@ import w3.Creatures.JellyFish;
 import w3.Creatures.SeaCreature;
 import w3.GUI.AddAnimalDialog;
 
+/**
+ Animal objects simulated using Inheritance from AbstractFactory DP
+ */
 public class AnimalFactory extends AbstractSeaFactory {
 
     public AddAnimalDialog gui;

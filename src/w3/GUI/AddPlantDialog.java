@@ -6,6 +6,11 @@ import w3.Creatures.FishTank;
 import javax.swing.*;
 import java.awt.*;
 
+
+/**
+ * Adding a Plant instance to the FishTank through a Dialog Box
+ */
+
 public class AddPlantDialog extends JDialog {
     public JSlider xPos;
     public JSlider size;

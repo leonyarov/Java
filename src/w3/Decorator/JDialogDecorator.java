@@ -8,6 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 
+
+/**
+ * Decorator DP implementation using JDialog.
+   Change given instance of animals color.
+ */
 public class JDialogDecorator extends JDialog {
     JColorChooser color;
 
