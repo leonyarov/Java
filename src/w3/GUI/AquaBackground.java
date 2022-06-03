@@ -1,6 +1,8 @@
 package w3.GUI;
 
 import w3.Creatures.FishTank;
+import w3.Creatures.Food;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -75,8 +77,8 @@ public class AquaBackground extends JPanel implements Runnable {
         //Draw sea cratures
         for (var fish : FishTank.getInstance().seaCreatures)
             fish.drawCreature(g);
-        if (!FishTank.getInstance().food.isEaten)
-            FishTank.getInstance().food.draw(g);
+        if (!Food.getInstance().isEaten)
+            Food.getInstance().draw(g);
 
     }
 

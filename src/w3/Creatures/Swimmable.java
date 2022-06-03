@@ -1,10 +1,11 @@
 package w3.Creatures;
 
-import w3.ListenerObserver.Hunger;
+import w3.State.Hunger;
 import w3.ListenerObserver.HungrySubject;
 import w3.Memento.Memento;
 import w3.Memento.Originator;
 import w3.GUI.AquaPanel;
+import w3.State.Hungry;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     protected int verticalSpeed;
     CyclicBarrier barrier;
     public boolean isSuspended = false;
-    protected Image image;
+    protected Image image, paintedImage;
     protected int xFront;
     protected int yFront;
     protected int pixelSize;
@@ -28,7 +29,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
         super.run();
             while (true) {
                 moveAnimal();
-                getHungerStatus();
+                checkHungerStatus();
                 try {
                     if (isSuspended)
                         synchronized (this) {
@@ -56,10 +57,11 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
         horizontalSpeed = h;
         verticalSpeed = v;
         pixelSize = size;
-        color = c;
+        setColor(c);
         this.image = animalImage;
         xFront = 100;
         yFront = 100;
+        paintedImage = image;
         start();
     }
 
@@ -74,57 +76,59 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     /**
      * Move animal position function
      */
-    protected synchronized void moveAnimal() {
+    protected void moveAnimal() {
 
         //Copy food reference
-        var f = FishTank.getInstance().food;
+        var f = Food.getInstance();
 
         //Temporary
         var xSpeed = horizontalSpeed;
         var ySpeed = verticalSpeed;
 
-        //If food is not eaten chase it
-        if (!f.isEaten) {
 
+        if (hunger.hungerState instanceof Hungry) {
+            if (!f.isEaten) {
 
-            //Cyclic barrier implementation
-            try {
-                barrier.await();
-            } catch (Exception e) {
-                return;
-            }
+                if (getCenterPointX() > f.xFront && horizontalSpeed > 0) {
+                    flipImage();
+                    horizontalSpeed = -horizontalSpeed;
+                }
+                if (getCenterPointX() < f.xFront && horizontalSpeed < 0) {
+                    flipImage();
+                    horizontalSpeed = -horizontalSpeed;
+                }
 
-            //Flip horizontally to chase food
-            if (getCenterPointX() > f.xFront && horizontalSpeed > 0) {
-                flipImage();
-                horizontalSpeed = -horizontalSpeed;
-            }
-            if (getCenterPointX() < f.xFront && horizontalSpeed < 0) {
-                flipImage();
-                horizontalSpeed = -horizontalSpeed;
-            }
+                //Flip vertical axis to chase food
+                if (getCenterPointY() > f.yFront && verticalSpeed > 0) verticalSpeed = -verticalSpeed;
+                if (getCenterPointY() < f.yFront && verticalSpeed < 0) verticalSpeed = -verticalSpeed;
 
-            //Flip vertical axis to chase food
-            if (getCenterPointY() > f.yFront && verticalSpeed > 0) verticalSpeed = -verticalSpeed;
-            if (getCenterPointY() < f.yFront && verticalSpeed < 0) verticalSpeed = -verticalSpeed;
+                //Copy speed reference for straight movement
+                xSpeed = horizontalSpeed;
+                ySpeed = verticalSpeed;
 
-            //Copy speed reference for straight movement
-            xSpeed = horizontalSpeed;
-            ySpeed = verticalSpeed;
+                //Move fish in straight line
+                if (Math.abs(getCenterPointX() - f.xFront) < 5) horizontalSpeed = 0;
+                if (Math.abs(getCenterPointY() - f.yFront) < 5) verticalSpeed = 0;
 
-            //Move fish in straight line
-            if (Math.abs(getCenterPointX() - f.xFront) < 5) horizontalSpeed = 0;
-            if (Math.abs(getCenterPointY() - f.yFront) < 5) verticalSpeed = 0;
+                try {
+                    barrier.await();
+                } catch (Exception e) {
+                    return;
+                }
 
-            //Check if animal is near food and eat it
-            if (FishTank.getInstance().food.isNear(this) && !FishTank.getInstance().food.isEaten) {
-                FishTank.getInstance().food.isEaten = true;
-                eatInc();
-                AquaPanel.eatInc(); //callback
-                setFed();
+                if (f.isNear(this)) {
+                    synchronized (f) {
+                        f.isEaten = true;
+                        eatInc();
+                        AquaPanel.eatInc(); //callback
+                        setFed();
+                    }
+                }
+
+            } else{
+                //TODO: NOTIFY IS HUNGRY
             }
         }
-
         //Move fish with given speed
         xFront += horizontalSpeed;
         yFront += verticalSpeed;
@@ -185,19 +189,6 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
         setImage(b);
     }
 
-    /**
-     * Change all parameters of the swimming creature
-     * @param h Horizontal Speed
-     * @param v Vertical Speed
-     * @param size Size in pixels
-     * @param c Color
-     */
-    public void ChangeAll(int h, int v, int size, Color c){
-        this.setHorSpeed(h);
-        this.setVerSpeed(v);
-        this.pixelSize = size;
-        this.setColor(c);
-    }
 
     /**
      * Set fish image to new image
@@ -211,9 +202,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
      * Set fish color to new color
      * @param c @{@link Color} object
      */
-    public void setColor(Color c) {
-        color = c;
-    }
+    public abstract void setColor(Color c);
 
     /**
      * Draw AquaticAnimal on @{@link Graphics} object

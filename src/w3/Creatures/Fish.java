@@ -2,6 +2,8 @@ package w3.Creatures;
 import w3.Decorator.MarineAnimal;
 import w3.Decorator.MarineAnimalDecorator;
 import w3.ListenerObserver.HungerObserver;
+import w3.State.Hungry;
+import w3.State.Satiated;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
-public class Fish extends Swimmable implements MarineAnimal, Cloneable {
+public class Fish extends Swimmable  implements MarineAnimal, Cloneable {
 
     List<HungerObserver> observers;
     //Fish eat count
@@ -31,6 +33,12 @@ public class Fish extends Swimmable implements MarineAnimal, Cloneable {
     @Override
     public String getAnimalName() {
         return "Fish";
+    }
+
+    @Override
+    public void setColor(Color c) {
+        paintedImage = PaintAnimal(image, c);
+        this.color = c;
     }
 
     @Override
@@ -89,24 +97,25 @@ public class Fish extends Swimmable implements MarineAnimal, Cloneable {
 
 
     @Override
-    public boolean getHungerStatus() {
-        var status = hunger.isHungry();
-        if (status && !hunger.isNotified) {
-            hunger.isNotified = true;
+    public void checkHungerStatus() {
+        if (hunger.isHungry()){
+            var hungerState = new Hungry();
+            hungerState.changeHungerState(hunger);
+        }
+        if (hunger.hungerState instanceof Hungry) {
             notifyAllObservers();
         }
-        return status;
-
     }
 
     @Override
     public boolean isHungry() {
-        return hunger.isHungry();
+        return hunger.hungerState instanceof Hungry;
     }
 
     @Override
     public void setFed() {
-        hunger.feed();
+        var hungerState = new Satiated();
+        hungerState.changeHungerState(hunger);
         notifyAllObservers();
     }
 
@@ -117,7 +126,6 @@ public class Fish extends Swimmable implements MarineAnimal, Cloneable {
 
     @Override
     public void notifyAllObservers() {
-        System.out.println("Fish is hungry");
         observers.forEach(o -> o.update(this));
     }
 

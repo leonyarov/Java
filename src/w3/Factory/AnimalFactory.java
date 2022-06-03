@@ -20,5 +20,6 @@ public class AnimalFactory extends AbstractSeaFactory {
         else if (type.equals("JellyFish"))
             return new JellyFish(-gui.hspeed.getValue(), gui.vspeed.getValue(), gui.size.getValue(), gui.color, gui.hunger.getValue());
         return null;
+
     }
 }

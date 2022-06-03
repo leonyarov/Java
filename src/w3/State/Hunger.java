@@ -1,4 +1,4 @@
-package w3.ListenerObserver;
+package w3.State;
 
 import java.time.LocalTime;
 
@@ -10,10 +10,14 @@ public class Hunger  {
     public LocalTime birth;
     public int hungerTime;
     public boolean isNotified = false;
+    public HungerState hungerState;
+
 
     public Hunger(int hungerTime) {
         birth  = LocalTime.now();
         this.hungerTime = hungerTime;
+        hungerState = new Satiated();
+
     }
     public boolean isHungry() {
         return LocalTime.now().isAfter(birth.plusSeconds(hungerTime));
@@ -23,4 +27,10 @@ public class Hunger  {
         isNotified = false;
         birth = LocalTime.now();
     }
+
+
+    public void setState(HungerState state){
+        hungerState = state;
+    }
+
 }

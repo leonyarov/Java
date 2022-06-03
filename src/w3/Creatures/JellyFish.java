@@ -3,6 +3,8 @@ package w3.Creatures;
 import w3.Decorator.MarineAnimal;
 import w3.Decorator.MarineAnimalDecorator;
 import w3.ListenerObserver.HungerObserver;
+import w3.State.Hungry;
+import w3.State.Satiated;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
@@ -28,6 +30,13 @@ public class JellyFish extends Swimmable implements MarineAnimal, Cloneable {
         super(h, v, size, color, FishUtils.getRandomImage(FishUtils.jellyfishLibrary), hungerTime);
         observers = new ArrayList<HungerObserver>();
         eatCount = 0;
+    }
+
+
+    @Override
+    public void setColor(Color c) {
+        paintedImage = PaintAnimal(image, c);
+        this.color = c;
     }
 
     @Override
@@ -93,19 +102,20 @@ public class JellyFish extends Swimmable implements MarineAnimal, Cloneable {
     }
 
     @Override
-    public boolean getHungerStatus() {
-        var status = hunger.isHungry();
-        if (status && !hunger.isNotified) {
-            notifyAllObservers();
-            hunger.isNotified = true;
+    public void checkHungerStatus() {
+        if (hunger.isHungry()){
+            var hungerState = new Hungry();
+            hungerState.changeHungerState(hunger);
         }
-        return status;
-
+        if (hunger.hungerState instanceof Hungry) {
+            notifyAllObservers();
+        }
     }
 
     @Override
     public void setFed() {
-        hunger.feed();
+        var hungerState = new Satiated();
+        hungerState.changeHungerState(hunger);
         notifyAllObservers();
     }
 
@@ -120,12 +130,11 @@ public class JellyFish extends Swimmable implements MarineAnimal, Cloneable {
     }
     @Override
     public boolean isHungry() {
-        return hunger.isHungry();
+        return hunger.hungerState instanceof Hungry;
     }
 
     public Object clone() {
         Object clone = null;
-
         try{
             clone = super.clone();
         }catch (CloneNotSupportedException e){

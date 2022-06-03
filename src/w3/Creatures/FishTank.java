@@ -5,6 +5,7 @@ import w3.GUI.AquaFrame;
 import w3.ListenerObserver.HungerObserver;
 import w3.ListenerObserver.HungrySubject;
 import w3.Memento.CareTaker;
+import w3.State.Hungry;
 
 import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
@@ -16,7 +17,6 @@ import java.util.concurrent.CyclicBarrier;
 public class FishTank implements HungerObserver {
 
     public HashSet<SeaCreature> seaCreatures;
-    public Food food = Food.getInstance();
     private static FishTank instance;
     public CyclicBarrier foodBarrier;
     public int totalEatCount = 0;
@@ -68,9 +68,10 @@ public class FishTank implements HungerObserver {
      * Feed AquaticAnimal within proximity of food
      */
     public void feed(){
-        if(seaCreatures.size() == 0) return;        //If no fishes present don't place food
-        food.placeFood(400, 300);         //Place in the center of the aquarium
-        foodBarrier = new CyclicBarrier(seaCreatures.size()); //init new barrier
+        var c = (int)seaCreatures.stream().filter(e -> e instanceof Swimmable && ((Swimmable) e).hunger.hungerState instanceof Hungry).count();
+        if(c == 0) return;        //If no fishes present don't place food
+        Food.getInstance().placeFood(400, 300);         //Place in the center of the aquarium
+        foodBarrier = new CyclicBarrier(c); //init new barrier
         for(var fish : seaCreatures) ((Swimmable)fish).setBarrier(foodBarrier); //set the barrier to the fishes
     }
 
