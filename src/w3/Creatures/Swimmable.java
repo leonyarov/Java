@@ -25,6 +25,12 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     public Hunger hunger;
 
     @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Object clone = null;
+        return clone;
+    }
+
+    @Override
      public void run() {
         super.run();
             while (true) {
@@ -270,4 +276,5 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     public String toString() {
         return "Swimmable Creature: " + getAnimalName() + " Color: " + getColor() + " Size: " + getSize();
     }
+
 }

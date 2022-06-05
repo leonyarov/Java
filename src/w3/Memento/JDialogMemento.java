@@ -86,7 +86,7 @@ public class JDialogMemento  extends JDialog {
     }
 
     /**
-     * Preview of last saved instance
+     * Preview of last saved instance`
      */
     private void saveObjectState() {
         var selected = (Originator)creatureList.getSelectedValue();

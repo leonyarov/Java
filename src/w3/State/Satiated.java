@@ -1,5 +1,9 @@
 package w3.State;
 
+/**
+ *
+ */
+
 public class Satiated implements HungerState {
 
     @Override

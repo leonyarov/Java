@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
-public class Fish extends Swimmable  implements MarineAnimal, Cloneable {
+public class Fish extends Swimmable  implements MarineAnimal {
 
     List<HungerObserver> observers;
     //Fish eat count
@@ -29,6 +29,7 @@ public class Fish extends Swimmable  implements MarineAnimal, Cloneable {
         observers = new ArrayList<HungerObserver>();
         eatCount = 0;
     }
+
 
     @Override
     public String getAnimalName() {
@@ -129,14 +130,4 @@ public class Fish extends Swimmable  implements MarineAnimal, Cloneable {
         observers.forEach(o -> o.update(this));
     }
 
-    public Object clone() {
-        Object clone = null;
-
-        try{
-            clone = super.clone();
-        }catch (CloneNotSupportedException e){
-            e.printStackTrace();
-        }
-        return clone;
-    }
 }

@@ -28,7 +28,9 @@ public class Hunger  {
         birth = LocalTime.now();
     }
 
-
+    public int gethungerTime(){
+        return this.hungerTime;
+    }
     public void setState(HungerState state){
         hungerState = state;
     }
