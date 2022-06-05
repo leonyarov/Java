@@ -1,5 +1,6 @@
 package w3.GUI;
 
+import w3.Creatures.Swimmable;
 import w3.Decorator.JDialogDecorator;
 import w3.Creatures.FishTank;
 import w3.Memento.JDialogMemento;
@@ -64,7 +65,7 @@ public class AquaPanel extends JPanel implements ActionListener {
     }
 
     private void showDuplicator(){
-        var duplicator = new DuplicateAnimal(FishTank.getInstance().seaCreatures);
+        var duplicator = new DuplicateAnimal();
     }
 
     private void showMemento() {

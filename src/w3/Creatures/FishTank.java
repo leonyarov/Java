@@ -1,12 +1,12 @@
 package w3.Creatures;
 
 import w3.GUI.AquaBackground;
-import w3.GUI.AquaFrame;
 import w3.ListenerObserver.HungerObserver;
 import w3.ListenerObserver.HungrySubject;
 import w3.Memento.CareTaker;
 import w3.State.Hungry;
 
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
 
@@ -21,6 +21,7 @@ public class FishTank implements HungerObserver {
     public CyclicBarrier foodBarrier;
     public int totalEatCount = 0;
     public CareTaker careTaker;
+    public boolean isSleeping = false;
 
     /**
      * FishTank Instance
@@ -47,6 +48,7 @@ public class FishTank implements HungerObserver {
      */
     public  void sleepAll() {
         seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setSuspend());
+        isSleeping = true;
     }
 
     /**
@@ -54,6 +56,7 @@ public class FishTank implements HungerObserver {
      */
     public void wakeAll() {
         seaCreatures.stream().filter(fish -> fish instanceof Swimmable).forEach(fish -> ((Swimmable) fish).setResume());
+        isSleeping = false;
     }
 
     /**
@@ -76,12 +79,31 @@ public class FishTank implements HungerObserver {
     }
 
     public void addCreature(SeaCreature creature){
-        if (creature instanceof Swimmable && seaCreatures.stream().filter(x -> x instanceof Swimmable).count() >= 5) return;
-        if (creature instanceof Immobile && seaCreatures.stream().filter(x -> x instanceof Immobile).count() >= 5) return;
+        if (isSwimmableFull() && creature instanceof Swimmable) {
+            JOptionPane.showMessageDialog(null, "The fish tank is full.");
+            return;
+        }
+        if (isImmobileFull() && creature instanceof Immobile) {
+            JOptionPane.showMessageDialog(null, "The fish tank is full.");
+            return;
+        }
+
         if (creature instanceof  Swimmable) ((Swimmable)creature).attach(this);
+        if (isSleeping && creature instanceof Swimmable) ((Swimmable)creature).setSuspend();
         seaCreatures.add(creature);
     }
 
+    public boolean isSwimmableFull(){
+        return seaCreatures.stream().filter(x -> x instanceof Swimmable).count() >= 5;
+    }
+
+    public boolean isImmobileFull(){
+        return seaCreatures.stream().filter(x -> x instanceof Immobile).count() >= 5;
+    }
+
+    public boolean isFull() {
+        return isSwimmableFull() && isImmobileFull();
+    }
 
     @Override
     public void update(HungrySubject subject) {

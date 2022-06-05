@@ -42,19 +42,27 @@ public class AddAnimalDialog extends JDialog {
         //slider choose size of animal clamp - 20, 320
         JLabel sizeLabel = new JLabel("Size:");
         size = new JSlider(20, 320, 50);
-        size.setMajorTickSpacing(1);
+        size.setMajorTickSpacing(320/10);
 
         //slider choose vertical speed of animal clamp - 1, 10
 
         JLabel speedLabel = new JLabel("Vertical speed:");
         vspeed = new JSlider(1, 10, 2);
-
+        vspeed.setMajorTickSpacing(1);
+        vspeed.setPaintTicks(true);
+        vspeed.setPaintLabels(true);
         //slider choose horizontal speed of animal clamp - 1, 10
         JLabel hspeedLabel = new JLabel("Horizontal speed:");
         hspeed = new JSlider(1, 10, 2);
+        hspeed.setMajorTickSpacing(1);
+        hspeed.setPaintTicks(true);
+        hspeed.setPaintLabels(true);
 
         JLabel hungerLabel = new JLabel("Seconds until hungry:");
         hunger = new JSlider(5, 60, 30);
+        hunger.setMajorTickSpacing(60/10);
+        hunger.setPaintTicks(true);
+        hunger.setPaintLabels(true);
 
         //Color picker
         JLabel colorLabel = new JLabel("Color:");

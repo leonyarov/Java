@@ -52,7 +52,7 @@ public class FishTable extends JDialog {
             var fish = ((Swimmable)creature);
             var a = new Object[] {
                     fish.getAnimalName(),
-                    fish.getColor(),
+                    fish.getColorString(),
                     fish.getSize(),
                     Math.abs(fish.getHorSpeed()),
                     Math.abs(fish.getVerSpeed()),

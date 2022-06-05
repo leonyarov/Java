@@ -1,5 +1,7 @@
 package w3.Memento;
 
+import w3.Creatures.SeaCreature;
+
 import java.awt.*;
 import java.time.LocalTime;
 

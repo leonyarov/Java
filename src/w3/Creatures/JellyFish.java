@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
+
 public class JellyFish extends Swimmable implements MarineAnimal {
 
     List<HungerObserver> observers;
@@ -32,6 +33,18 @@ public class JellyFish extends Swimmable implements MarineAnimal {
         eatCount = 0;
     }
 
+    public JellyFish(int x, int y, int h, int v, int size, Color c, int hungerTime, Image img) {
+        this(h, v, size, c, hungerTime);
+        this.xFront = x;
+        this.yFront = y;
+        this.setImage(img);
+    }
+
+
+    @Override
+    public Swimmable clone() {
+        return new JellyFish(xFront,yFront,horizontalSpeed, verticalSpeed, pixelSize, color, hunger.gethungerTime(),image);
+    }
 
     @Override
     public void setColor(Color c) {
@@ -47,9 +60,10 @@ public class JellyFish extends Swimmable implements MarineAnimal {
         }
         if (isOnYBorder(g)) setVerSpeed(-getVerSpeed());
 
-        g.drawImage(PaintAnimal(image,color), xFront, yFront, pixelSize, pixelSize, null);
+        g.drawImage(paintedImage, xFront, yFront, pixelSize, pixelSize, null);
 
     }
+
 
     @Override
     public String getAnimalName() {
@@ -91,7 +105,7 @@ public class JellyFish extends Swimmable implements MarineAnimal {
     }
 
     @Override
-    public String getColor() {
+    public String getColorString() {
         return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
 
     }

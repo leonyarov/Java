@@ -24,11 +24,8 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     protected Color color;
     public Hunger hunger;
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        Object clone = null;
-        return clone;
-    }
+
+
 
     @Override
      public void run() {
@@ -76,7 +73,6 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     public int getVerSpeed() { return verticalSpeed; }
     public void setHorSpeed(int hor) { horizontalSpeed = hor; }
     public void setVerSpeed(int ver) { verticalSpeed = ver; }
-    public Image getAnimalImage() { return image; }
 
 
     /**
@@ -151,6 +147,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     //Get YFront pixel coordinate
     public int getYFront() { return yFront; }
 
+    public abstract Swimmable clone();
 
     /**
      * Check if fish is on the edge of the aquarium
@@ -190,18 +187,24 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
      * Flip fish image horizontally
      */
     public void flipImage() {
-        var i = FishUtils.imageToBufferedImage(image);
+        var i = FishUtils.imageToBufferedImage(paintedImage);
         var b = FishUtils.flipHorizontal(i);
-        setImage(b);
+        setPaintedImage(b);
     }
 
 
+    public void dupChangeValues(int size, int hSpeed, int vSpeed, Color color) {
+        pixelSize = size;
+        horizontalSpeed = hSpeed;
+        verticalSpeed = vSpeed;
+        setColor(color);
+    }
     /**
      * Set fish image to new image
      * @param image @{@link Image} object
      */
-    public void setImage(Image image) {
-        this.image = image;
+    public void setPaintedImage(Image image) {
+        this.paintedImage = image;
     }
 
     /**
@@ -259,7 +262,8 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
      * Color representation by string for current instance of AquaticAnimal
      * @return color
      */
-    abstract public String getColor();
+    abstract public String getColorString();
+    public Color getColor() { return color; }
 
     public Memento saveState() {
         return new Memento(xFront,yFront,pixelSize,color);
@@ -274,7 +278,11 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
 
     @Override
     public String toString() {
-        return "Swimmable Creature: " + getAnimalName() + " Color: " + getColor() + " Size: " + getSize();
+        return "Swimmable Creature: " + getAnimalName() + " Color: " + getColorString() + " Size: " + getSize();
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+        this.setColor(color);
+    }
 }

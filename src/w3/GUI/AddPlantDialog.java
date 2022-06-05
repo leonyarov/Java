@@ -31,11 +31,15 @@ public class AddPlantDialog extends JDialog {
 
         JLabel sizeLabel = new JLabel("Size:");
         size = new JSlider(20, 320, 50);
-        size.setMajorTickSpacing(1);
+        size.setMajorTickSpacing(320/10);
+        size.setPaintTicks(true);
+        size.setPaintLabels(true);
 
         JLabel xPosLabel = new JLabel("X-Position: ");
         xPos = new JSlider(1, 800, 2);
-
+        xPos.setMajorTickSpacing(800/10);
+        xPos.setPaintTicks(true);
+        xPos.setPaintLabels(true);
 
         JPanel buttonPanel = new JPanel();
         JButton createNew = new JButton("Create New");

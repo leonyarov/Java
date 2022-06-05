@@ -30,10 +30,22 @@ public class Fish extends Swimmable  implements MarineAnimal {
         eatCount = 0;
     }
 
+    public Fish(int x, int y, int h, int v, int size, Color c, int hungerTime, Image img) {
+        this(h, v, size, c, hungerTime);
+        this.xFront = x;
+        this.yFront = y;
+        this.setImage(img);
+    }
+
 
     @Override
     public String getAnimalName() {
         return "Fish";
+    }
+
+    @Override
+    public Swimmable clone() {
+        return new Fish(xFront,yFront,horizontalSpeed, verticalSpeed, pixelSize, color, hunger.gethungerTime(), image);
     }
 
     @Override
@@ -49,7 +61,7 @@ public class Fish extends Swimmable  implements MarineAnimal {
             flipImage();                            //flip image
         }
         if (isOnYBorder(g)) setVerSpeed(-getVerSpeed()); //change Y direction
-        g.drawImage(PaintAnimal(image,color), xFront, yFront, pixelSize, pixelSize, null); //draw fish
+        g.drawImage(paintedImage, xFront, yFront, pixelSize, pixelSize, null); //draw fish
     }
 
     @Override
@@ -87,7 +99,7 @@ public class Fish extends Swimmable  implements MarineAnimal {
     }
 
     @Override
-    public String getColor() {
+    public String getColorString() {
         return "Blue: " +  color.getBlue() + " Red: " + color.getRed() + " Green: " + color.getGreen();
     }
 

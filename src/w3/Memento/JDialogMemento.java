@@ -1,5 +1,6 @@
 package w3.Memento;
 
+import w3.Creatures.Immobile;
 import w3.Creatures.SeaCreature;
 
 import javax.swing.*;
@@ -18,12 +19,12 @@ public class JDialogMemento  extends JDialog {
     CareTaker careTaker;
     JLabel dateLabel;
 
-    JList creatureList;
+    JList creatureList, mementoList;
     public JDialogMemento(HashSet<SeaCreature> seaCreatures, CareTaker careTaker) {
         this.careTaker = careTaker;
         this.seaCreatures = seaCreatures;
         var panel = new JPanel();
-        var buttons = new JPanel();
+        var buttonsSave = new JPanel();
         var datePanel = new JPanel();
 
         var restoreState = new JButton("Restore State");
@@ -32,6 +33,7 @@ public class JDialogMemento  extends JDialog {
         creatureList = new JList(seaCreatures.toArray());
         var stateLabel = new JLabel("Last Saved:");
         dateLabel = new JLabel("");
+        mementoList = new JList(careTaker.mementoList.toArray());
 
         //Button actions
         saveStateBtn.addActionListener(e -> saveObjectState());
@@ -45,15 +47,17 @@ public class JDialogMemento  extends JDialog {
         //State panel
         panel.add(creatureList);
         panel.add(datePanel);
-        panel.setLayout(new GridLayout(0,2,10,10));
+        panel.add(mementoList);
+        panel.setLayout(new GridLayout(0,3,10,10));
         //Buttons Panel
-        buttons.add(saveStateBtn);
-        buttons.add(restoreState);
-        buttons.setLayout(new GridLayout(1, 0,10,10));
-        buttons.setBorder(new EmptyBorder(10,10,10,10));
+        buttonsSave.add(saveStateBtn);
+        buttonsSave.add(restoreState);
+        buttonsSave.setLayout(new GridLayout(1, 0,10,10));
+        buttonsSave.setBorder(new EmptyBorder(10,10,10,10));
+
         //Add to dialog
         add(panel);
-        add(buttons, BorderLayout.SOUTH);
+        add(buttonsSave, BorderLayout.SOUTH);
 
         pack();
     }
@@ -63,7 +67,6 @@ public class JDialogMemento  extends JDialog {
      */
     private void getLastSavedDate() {
         var selected = creatureList.getSelectedIndex();
-        if (selected == -1) return;
 
         if (selected >= careTaker.mementoList.size()){
             dateLabel.setText("No state saved!");
@@ -77,10 +80,9 @@ public class JDialogMemento  extends JDialog {
      * Implement last Saved Instance
      */
     private void restoreObjectState() {
-        var selected = (Originator)creatureList.getSelectedValue();
+        var selected = (Originator)mementoList.getSelectedValue();
         if (selected == null) return;
-        var index = creatureList.getSelectedIndex();
-        if (index >= careTaker.mementoList.size()) return;
+        var index = mementoList.getSelectedIndex();
         var memento = careTaker.get(index);
         selected.loadState(memento);
     }
@@ -93,6 +95,8 @@ public class JDialogMemento  extends JDialog {
         if (selected == null) return;
         var memento = selected.saveState();
         careTaker.add(memento, creatureList.getSelectedIndex());
+        mementoList = new JList(careTaker.mementoList.toArray());
+        mementoList.updateUI();
         getLastSavedDate();
     }
 }

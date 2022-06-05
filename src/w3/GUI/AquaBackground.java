@@ -11,9 +11,6 @@ public class AquaBackground extends JPanel implements Runnable {
     private static boolean shouldNotifyHunger = false;
     private Image image;
     private FishTank fishTank;
-
-
-
     Thread t;
 
     /**
@@ -28,6 +25,7 @@ public class AquaBackground extends JPanel implements Runnable {
         image = null;
         setLayout(null); //make fish move freely
         fishTank = new FishTank();
+        setDoubleBuffered(true);
     }
 
     public static boolean isShouldNotifyHunger() {
