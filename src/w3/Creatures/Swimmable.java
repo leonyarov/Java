@@ -9,6 +9,9 @@ import w3.State.Hungry;
 import w3.Utils.FishUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread implements SeaCreature, Originator, HungrySubject {
@@ -23,6 +26,7 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
     protected int pixelSize;
     protected Color color;
     public Hunger hunger;
+    public Stack<Memento> mementoList;
 
 
 
@@ -65,6 +69,8 @@ public abstract class Swimmable extends Thread implements SeaCreature, Originato
         xFront = 100;
         yFront = 100;
         paintedImage = image;
+        mementoList = new Stack<>();
+
         start();
     }
 

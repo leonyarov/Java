@@ -6,6 +6,7 @@ import w3.Creatures.SeaCreature;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
 /**
@@ -19,7 +20,8 @@ public class JDialogMemento  extends JDialog {
     CareTaker careTaker;
     JLabel dateLabel;
 
-    JList creatureList, mementoList;
+    JList creatureList;
+
     public JDialogMemento(HashSet<SeaCreature> seaCreatures, CareTaker careTaker) {
         this.careTaker = careTaker;
         this.seaCreatures = seaCreatures;
@@ -31,24 +33,21 @@ public class JDialogMemento  extends JDialog {
         var saveStateBtn = new JButton("Save State");
 
         creatureList = new JList(seaCreatures.toArray());
+
         var stateLabel = new JLabel("Last Saved:");
         dateLabel = new JLabel("");
-        mementoList = new JList(careTaker.mementoList.toArray());
-
+        datePanel.add(stateLabel);
+        datePanel.add(dateLabel);
+        datePanel.setLayout(new GridLayout(2,1,10,10));
         //Button actions
         saveStateBtn.addActionListener(e -> saveObjectState());
         restoreState.addActionListener(e -> restoreObjectState());
         creatureList.addListSelectionListener(e ->  getLastSavedDate());
 
-        //Date panel
-        datePanel.add(stateLabel);
-        datePanel.add(dateLabel);
-        datePanel.setLayout(new GridLayout(0,1, 5,5));
         //State panel
         panel.add(creatureList);
         panel.add(datePanel);
-        panel.add(mementoList);
-        panel.setLayout(new GridLayout(0,3,10,10));
+        panel.setLayout(new GridLayout(0,2,10,10));
         //Buttons Panel
         buttonsSave.add(saveStateBtn);
         buttonsSave.add(restoreState);
@@ -62,29 +61,22 @@ public class JDialogMemento  extends JDialog {
         pack();
     }
 
-    /**
-     * Retrieve last Saved Instance
-     */
     private void getLastSavedDate() {
-        var selected = creatureList.getSelectedIndex();
-
-        if (selected >= careTaker.mementoList.size()){
-            dateLabel.setText("No state saved!");
-            return;
-        }
-        var text = careTaker.get(selected).time;
-        dateLabel.setText(text.toString());
+        var selected = (Originator)creatureList.getSelectedValue();
+        if (selected == null) return;
+        dateLabel.setText(careTaker.getLastTime(selected));
     }
 
     /**
      * Implement last Saved Instance
      */
     private void restoreObjectState() {
-        var selected = (Originator)mementoList.getSelectedValue();
+        var selected = (Originator)creatureList.getSelectedValue();
         if (selected == null) return;
-        var index = mementoList.getSelectedIndex();
-        var memento = careTaker.get(index);
+        var memento = careTaker.get(selected);
+        if (memento == null) return;
         selected.loadState(memento);
+        getLastSavedDate();
     }
 
     /**
@@ -94,9 +86,7 @@ public class JDialogMemento  extends JDialog {
         var selected = (Originator)creatureList.getSelectedValue();
         if (selected == null) return;
         var memento = selected.saveState();
-        careTaker.add(memento, creatureList.getSelectedIndex());
-        mementoList = new JList(careTaker.mementoList.toArray());
-        mementoList.updateUI();
+        careTaker.add(selected,memento);
         getLastSavedDate();
     }
 }
